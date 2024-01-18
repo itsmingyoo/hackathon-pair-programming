@@ -58,6 +58,7 @@ def inject_csrf_token(response):
         samesite='Strict' if os.environ.get(
             'FLASK_ENV') == 'production' else None,
         httponly=True)
+    print("🤬🤬🤬🤬🤬🤬🤬🤬🤬 Inside inject", response.data)
     return response
 
 
