@@ -22,27 +22,29 @@ function Navigation({ isLoaded }: NavigationProps) {
     }
 
     return (
-        <>
-            <ul>
-                <li>
-                    <NavLink to="/">Home</NavLink>
-                </li>
-                {isLoaded && userLoggedIn && sessionUser ? (
-                    <li>
-                        <ProfileButton user={sessionUser} />
-                    </li>
-                ) : (
-                    <>
-                    <li>
-                        <NavLink to='/login'>Login</NavLink>
-                        </li>
-                        <li>
-                        <NavLink to='/signup'>Sign Up</NavLink>
-                    </li>
-                    </>
-                )}
-            </ul>
-        </>
+      <div className="nav-container">
+        <div className="nav-links">
+          <div className="nav-links-home">
+            <NavLink to="/">Home</NavLink>
+          </div>
+          <div className="nav-links-other">
+            {isLoaded && userLoggedIn && sessionUser ? (
+              <div className="nav-links-profile-button">
+                <ProfileButton user={sessionUser} />
+              </div>
+            ) : (
+              <div className="nav-links-login-and-signout">
+                <div>
+                  <NavLink to="/login">Login</NavLink>
+                </div>
+                <div>
+                  <NavLink to="/signup">Sign Up</NavLink>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     );
 }
 
