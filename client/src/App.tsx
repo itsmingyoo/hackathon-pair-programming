@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import { authenticate } from './store/session';
 import { useAppDispatch } from './hooks';
 import LandingPage from './components/LandingPage';
+import VideoTest from './components/VideoTest';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ const App: React.FC = () => {
                         <Route path="/" element={<LandingPage />} />
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
+                        <Route path="/video-test" element={<VideoTest />} />
                     </Routes>
                 </Router>
             )}
