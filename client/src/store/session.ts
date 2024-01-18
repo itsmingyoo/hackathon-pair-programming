@@ -6,7 +6,7 @@ export const authenticate = createAsyncThunk<User | null, void, { rejectValue: s
     'session/authenticate',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/auth/');
+            const response = await fetch('/api/auth/');
             if (response.ok) {
                 const data = await response.json();
                 return data;
