@@ -1,3 +1,5 @@
+from gevent import monkey
+monkey.patch_all()
 import os
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
@@ -9,6 +11,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .seeds import seed_commands
 from .config import Config
+from .socket import socketio
 
 app = Flask(__name__, static_folder='../client/build', static_url_path='/')
 
@@ -30,6 +33,9 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 db.init_app(app)
 Migrate(app, db)
+
+# initialize the app with the socket instance
+socketio.init_app(app, async_mode='gevent')
 
 # Application Security
 CORS(app)
