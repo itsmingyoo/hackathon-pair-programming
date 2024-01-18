@@ -1,0 +1,14 @@
+
+.signup-container {
+    width: 20rem;
+    height: 100%;
+}
+
+.signup-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    row-gap: 1rem;
+}
