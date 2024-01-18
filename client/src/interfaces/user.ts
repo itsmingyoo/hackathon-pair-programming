@@ -3,4 +3,5 @@ export interface User {
     username: string;
     email: string;
     // Add other user fields here
+    errors: string[];
 }

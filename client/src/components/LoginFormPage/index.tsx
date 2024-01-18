@@ -13,7 +13,12 @@ function LoginFormPage() {
     const [password, setPassword] = useState<string>('');
     const [errors, setErrors] = useState<string[]>([]);
 
-    if (sessionUser) return <Navigate to="/" replace />;
+    let userLoggedIn: boolean = false;
+    if(sessionUser && !sessionUser.errors) {
+        userLoggedIn = true;
+    }
+
+    if (userLoggedIn) return <Navigate to="/" replace />;
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

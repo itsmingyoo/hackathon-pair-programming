@@ -15,7 +15,12 @@ function SignupFormPage() {
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [errors, setErrors] = useState<string[]>([]); // Assuming errors are an array of strings
 
-    if (sessionUser) return <Navigate to="/" replace />; // user cannot go back with the back button after signing up
+    let userLoggedIn: boolean = false;
+    if(sessionUser && !sessionUser.errors) {
+        userLoggedIn = true;
+    }
+
+    if (userLoggedIn) return <Navigate to="/" replace />; // user cannot go back with the back button after signing up
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
