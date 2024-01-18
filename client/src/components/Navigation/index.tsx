@@ -14,8 +14,7 @@ function Navigation({ isLoaded }: NavigationProps) {
 
 
     //sessionUser is returning true even if there is no user logged in because it is returning the user object { errors: [] }
-    console.log(sessionUser)
-
+    //so we need to check if there is a user object and if there are no errors in the user object
     //will change nav display from profile button to login/signup buttons depending on if user is signed in or not
     let userLoggedIn: boolean = false;
     if(sessionUser && !sessionUser.errors) {
