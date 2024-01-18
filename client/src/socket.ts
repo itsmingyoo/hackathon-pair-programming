@@ -1,13 +1,14 @@
-import { io, Socket } from "socket.io-client";
+import { io, Socket } from 'socket.io-client';
 
 interface ServerToClientEvents {
-  noArg: () => void;
-  basicEmit: (a: number, b: string, c: Buffer) => void;
-  withAck: (d: string, callback: (e: number) => void) => void;
+    noArg: () => void;
+    basicEmit: (a: number, b: string, c: Buffer) => void;
+    withAck: (d: string, callback: (e: number) => void) => void;
+    response_back: (image: string) => void;
 }
 
 interface ClientToServerEvents {
-  hello: () => void;
+    image: (data: string) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import io from 'socket.io-client';
+import socket from '../../socket';
 
 // Define types for your props and state if needed
 // interface Props {}
@@ -21,12 +21,10 @@ const VideoTest: React.FC = () => {
         return canvas;
     }
 
-    const socket = io('http://localhost:5000');
-    socket.on('connect', function () {
-        console.log('Connection has been successfully established with socket.', socket.connected);
-    });
-
     useEffect(() => {
+        socket.on('connect', function () {
+            console.log('Connection has been successfully established with socket.', socket.connected);
+        });
         const video = document.querySelector('#videoElement') as HTMLVideoElement;
         video.width = 500;
         video.height = 375;
@@ -44,6 +42,7 @@ const VideoTest: React.FC = () => {
                 });
         }
 
+        // call the function we made to capture the frames
         const FPS = 22;
         const interval = setInterval(() => {
             const type = 'image/jpg';
@@ -53,14 +52,17 @@ const VideoTest: React.FC = () => {
             socket.emit('image', data);
         }, 10000 / FPS);
 
+        // cleanup function
         return () => clearInterval(interval);
     }, []);
 
-    socket.on('response_back', function (image: string) {
-        const imageElement = document.getElementById('image') as HTMLImageElement;
-        console.log(image);
-        imageElement.src = image;
-    });
+    useEffect(() => {
+        socket.on('response_back', function (image) {
+            const imageElement = document.getElementById('image') as HTMLImageElement;
+            console.log(image);
+            imageElement.src = image;
+        });
+    }, []);
 
     return (
         <>
