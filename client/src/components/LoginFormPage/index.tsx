@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { RootState } from '../../store';
-// import './LoginForm.css';
+import "./LoginForm.css";
 
 function LoginFormPage() {
     const dispatch = useAppDispatch();
@@ -32,25 +32,37 @@ function LoginFormPage() {
     };
 
     return (
-        <>
+      <>
+        <div className="login-container">
+          <form onSubmit={handleSubmit}>
             <h1>Log In</h1>
-            <form onSubmit={handleSubmit}>
-                <ul>
-                    {errors.map((error, idx) => (
-                        <li key={idx}>{error}</li>
-                    ))}
-                </ul>
-                <label>
-                    Email
-                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </label>
-                <label>
-                    Password
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </label>
-                <button type="submit">Log In</button>
-            </form>
-        </>
+            <ul>
+              {errors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))}
+            </ul>
+            <label className="form-labels">
+              <input
+                placeholder="Email"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+            <label className="form-labels">
+              <input
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+            <button type="submit">Log In</button>
+          </form>
+        </div>
+      </>
     );
 }
 
