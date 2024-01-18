@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { logout } from '../../store/session';
 import { useAppDispatch } from '../../hooks';
-import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import OpenModalButton from '../OpenModalButton/index';
+import LoginFormModal from '../LoginFormModal/index';
+import SignupFormModal from '../SignupFormModal/index';
 import { User } from '../../interfaces/user';
 
 interface ProfileButtonProps {

@@ -8,9 +8,6 @@ interface NavigationProps {
     isLoaded: boolean;
 }
 
-// If you have a specific type for your user, you can import and use it here
-// import { User } from '../path-to-user-type';
-
 function Navigation({ isLoaded }: NavigationProps) {
     // Assuming `state.session.user` is of type User | null
     const sessionUser = useSelector((state: RootState) => state.session.user);

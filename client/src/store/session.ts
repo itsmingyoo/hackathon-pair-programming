@@ -64,7 +64,7 @@ export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
 
 export const signUp = createAsyncThunk<
     User | null,
-    { username: string; email: string; password: string; first_name: string; last_name: string },
+    { username: string; email: string; password: string; first_name?: string; last_name?: string },
     { rejectValue: string }
 >('session/signUp', async (signupData, { rejectWithValue }) => {
     try {

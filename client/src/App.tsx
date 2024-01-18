@@ -24,9 +24,9 @@ const App: React.FC = () => {
     // https://reactrouter.com/en/main/route/route - this is v6 of browserrouter
     return (
         <>
-            <Navigation isLoaded={isLoaded} />
             {isLoaded && (
                 <Router>
+                    <Navigation isLoaded={isLoaded} />
                     <Routes>
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
