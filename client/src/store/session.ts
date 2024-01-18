@@ -6,14 +6,15 @@ export const authenticate = createAsyncThunk<User | null, void, { rejectValue: s
     'session/authenticate',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await fetch('/api/auth/');
+            const response = await fetch('http://127.0.0.1:5000/api/auth/');
             if (response.ok) {
                 const data = await response.json();
-                return data || null; // Assuming data is of type User
+                return data;
             } else {
                 return null;
             }
         } catch (error) {
+            console.log('Error authenticating: ', error);
             return rejectWithValue('Failed to authenticate');
         }
     }

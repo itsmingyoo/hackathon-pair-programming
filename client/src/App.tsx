@@ -14,13 +14,16 @@ const App: React.FC = () => {
             .then((result) => {
                 if (authenticate.fulfilled.match(result)) {
                     setIsLoaded(true);
+                    console.log('is it loaded', isLoaded);
+                } else {
+                    console.log('authentication result doesnt match', result);
                 }
             })
             .catch((error: Error) => {
                 console.error({ Error: error, Message: 'Error authenticating!' });
             });
     }, [dispatch]);
-
+    console.log('is it loaded', isLoaded);
     // https://reactrouter.com/en/main/route/route - this is v6 of browserrouter
     return (
         <>
