@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { capture } from '../../utility/capture';
 import socket from '../../socket';
 
 // Define types for your props and state if needed
@@ -8,20 +9,6 @@ import socket from '../../socket';
 
 const VideoTest: React.FC = () => {
     let mediaStream: MediaStream | null = null;
-
-    function capture(video: HTMLVideoElement, scaleFactor: number = 1) {
-        const w = video.videoWidth * scaleFactor;
-        const h = video.videoHeight * scaleFactor;
-        const canvas = document.createElement('canvas');
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-            throw new Error('Could not get canvas context');
-        }
-        ctx.drawImage(video, 0, 0, w, h);
-        return canvas;
-    }
 
     useEffect(() => {
         socket.on('connect', function () {
@@ -47,7 +34,7 @@ const VideoTest: React.FC = () => {
         }
 
         // call the function we made to capture the frames
-        const FPS = 22;
+        const FPS = 60;
         const interval = setInterval(() => {
             const type = 'image/jpg';
             const frame = capture(video, 1);
@@ -72,15 +59,6 @@ const VideoTest: React.FC = () => {
             // console.log(image);
             imageElement.src = image;
         });
-        // socket.on('response_back', function (videoData) {
-        //     const videoElement = document.getElementById('video') as HTMLVideoElement;
-
-        //     videoElement.src = 'data:image/jpeg;base64,' + videoData;
-
-        //     if (videoElement.paused) {
-        //         videoElement.play();
-        //     }
-        // });
     }, []);
 
     return (

@@ -1,4 +1,4 @@
-# $${\color{blue}hackathon-pair-programming}$$
+# $${\color{blue}Winter \space Hackathon-Dev-Pair}$$
 <!-- FORMAT FOR THIS STYLING: $${\color{red}Welcome \space \color{lightblue}To \space \color{orange}Stackoverflow}$$ -->
 $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, \space \color{lightblue}John, \space \color{lightblue}Saad}$$
 
@@ -23,6 +23,7 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
 5. TypeScript
 6. [flask-socketio](https://flask-socketio.readthedocs.io/en/latest/)
 7. OpenCV
+8. Agora-RTC
 
 # Getting Started
 
