@@ -14,7 +14,7 @@ from .seeds import seed_commands
 from .config import Config
 from .socket import socketio
 
-app = Flask(__name__, static_folder='../client/build', static_url_path='/')
+app = Flask(__name__, static_folder='../client/dist', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
