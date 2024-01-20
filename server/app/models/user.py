@@ -2,6 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+from .following import following
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -16,6 +17,8 @@ class User(db.Model, UserMixin):
 
     call = db.relationship("ChatRoom", back_populates='users')
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
+
+    follows = db.relationship('User', secondary=following)
 
     @property
     def password(self):
