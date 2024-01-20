@@ -11,11 +11,13 @@ import {
     useClientEvent,
     IMicrophoneAudioTrack,
     ICameraVideoTrack,
+    AgoraRTCProvider
 } from 'agora-rtc-react';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 // import { IMicrophoneAudioTrack, ICameraVideoTrack } from 'agora-rtc-sdk-ng';
 import { configType } from './config';
+
 
 // Define the shape of the Agora context
 interface AgoraContextType {
@@ -25,7 +27,7 @@ interface AgoraContextType {
 }
 
 // Create the Agora context
-const AgoraContext = createContext<AgoraContextType | null>(null);
+export const AgoraContext = createContext<AgoraContextType | null>(null);
 
 // AgoraProvider component to provide the Agora context to its children
 export const AgoraProvider: React.FC<AgoraContextType> = ({ children, localCameraTrack, localMicrophoneTrack }) => (
@@ -34,12 +36,6 @@ export const AgoraProvider: React.FC<AgoraContextType> = ({ children, localCamer
     </AgoraContext.Provider>
 );
 
-// Custom hook to access the Agora context
-export const useAgoraContext = () => {
-    const context = useContext(AgoraContext);
-    if (!context) throw new Error('useAgoraContext must be used within an AgoraProvider');
-    return context;
-};
 
 // AgoraManager component responsible for handling Agora-related logic and rendering UI
 export const AgoraManager = ({ config, children }: { config: configType; children: React.ReactNode }) => {
@@ -70,6 +66,7 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
     });
 
     // mediaType replaced with _
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     useClientEvent(agoraEngine, 'user-published', (user, _) => {
         console.log('The user', user.uid, ' has published media in the channel');
     });
@@ -106,11 +103,11 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
             localCameraTrack?.close();
             localMicrophoneTrack?.close();
         };
-    }, []);
+    }, [localCameraTrack, localMicrophoneTrack]);
 
     // Check if devices are still loading
     const deviceLoading = isLoadingMic || isLoadingCam;
-    if (deviceLoading) return <div>Loading devices...</div>;
+    if (deviceLoading) return (<div>Loading devices...</div>);
 
     // Render the AgoraProvider and associated UI components
     return (

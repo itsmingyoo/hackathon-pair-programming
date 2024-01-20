@@ -2,11 +2,11 @@ import { EncryptionMode, UID, SDK_MODE } from 'agora-rtc-sdk-ng';
 
 const config: configType = {
     uid: 0,
-    appId: '',
+    appId: '3529bafa11364f7bb72d422621709303',
     channelName: 'test',
-    rtcToken: '',
+    rtcToken: '806d0b1df0d947a8a9e938f583a1eb16',
     serverUrl: '',
-    proxyUrl: 'http://localhost:8080/',
+    proxyUrl: '',
     tokenExpiryTime: 600,
     token: '',
     encryptionMode: 'aes-128-gcm2',

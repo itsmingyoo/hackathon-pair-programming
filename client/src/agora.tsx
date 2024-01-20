@@ -9,7 +9,7 @@ interface ClientProps {
     children?: React.ReactNode;
 }
 
-const Client: React.FC<ClientProps> = ({ children }) => {
+export const Client: React.FC<ClientProps> = ({ children }) => {
     const client: IAgoraRTCClientSDK = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
     return <AgoraRTCProvider client={client as unknown as IAgoraRTCClientReact}>{children}</AgoraRTCProvider>;
 };
