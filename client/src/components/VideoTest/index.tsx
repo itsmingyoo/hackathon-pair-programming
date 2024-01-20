@@ -7,6 +7,8 @@ import socket from '../../socket';
 // Since you're not using props or state, we don't need to define them here
 
 const VideoTest: React.FC = () => {
+    let mediaStream: MediaStream | null = null;
+
     function capture(video: HTMLVideoElement, scaleFactor: number = 1) {
         const w = video.videoWidth * scaleFactor;
         const h = video.videoHeight * scaleFactor;
@@ -36,6 +38,7 @@ const VideoTest: React.FC = () => {
                 .then(function (stream) {
                     video.srcObject = stream;
                     video.play();
+                    mediaStream = stream; // Store the media stream reference under video.play()
                 })
                 .catch(function (error: Error) {
                     console.error(error);
@@ -55,25 +58,29 @@ const VideoTest: React.FC = () => {
 
         // cleanup function
         return () => {
+            if (mediaStream) {
+                const tracks = mediaStream.getTracks();
+                tracks.forEach((track) => track.stop());
+            }
             clearInterval(interval);
         };
     }, []);
 
     useEffect(() => {
-        // socket.on('response_back', function (image) {
-        //     const imageElement = document.getElementById('image') as HTMLImageElement;
-        //     // console.log(image);
-        //     imageElement.src = image;
-        // });
-        socket.on('response_back', function (videoData) {
-            const videoElement = document.getElementById('video') as HTMLVideoElement;
-
-            videoElement.src = 'data:image/jpeg;base64,' + videoData;
-
-            if (videoElement.paused) {
-                videoElement.play();
-            }
+        socket.on('response_back', function (image) {
+            const imageElement = document.getElementById('image') as HTMLImageElement;
+            // console.log(image);
+            imageElement.src = image;
         });
+        // socket.on('response_back', function (videoData) {
+        //     const videoElement = document.getElementById('video') as HTMLVideoElement;
+
+        //     videoElement.src = 'data:image/jpeg;base64,' + videoData;
+
+        //     if (videoElement.paused) {
+        //         videoElement.play();
+        //     }
+        // });
     }, []);
 
     return (
@@ -85,7 +92,6 @@ const VideoTest: React.FC = () => {
             </div>
             <div className="video">
                 {/* PROCESSED FRAMES FROM CAMERA */}
-                <video autoPlay={true} id="video"></video>
                 <img id="image" />
             </div>
         </>
