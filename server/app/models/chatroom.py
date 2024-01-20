@@ -16,6 +16,7 @@ class ChatRoom(db.Model):
     user_2 = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("users.id")))
 
     users = db.relationship('User', back_populates='call')
+    messages = db.relationship('Message', back_populates='room', cascade="all, delete-orphan")
 
     def to_dict(self):
         data = {
