@@ -58,16 +58,26 @@ def https_redirect():
             return redirect(url, code=code)
 
 
+# @app.after_request
+# def inject_csrf_token(response):
+#     response.set_cookie(
+#         'csrf_token',
+#         generate_csrf(),
+#         secure=True if os.environ.get('FLASK_ENV') == 'production' else False,
+#         samesite='Strict' if os.environ.get(
+#             'FLASK_ENV') == 'production' else None,
+#         httponly=True)
+#     return response
+
 @app.after_request
 def inject_csrf_token(response):
-    response.set_cookie(
-        'csrf_token',
-        generate_csrf(),
-        secure=True if os.environ.get('FLASK_ENV') == 'production' else False,
-        samesite='Strict' if os.environ.get(
-            'FLASK_ENV') == 'production' else None,
-        httponly=True)
-    print("🤬🤬🤬🤬🤬🤬🤬🤬🤬 Inside inject", response.data)
+    if isinstance(response, Response):
+        response.set_cookie(
+            'csrf_token',
+            generate_csrf(),
+            secure=True if os.environ.get('FLASK_ENV') == 'production' else False,
+            samesite='Strict' if os.environ.get('FLASK_ENV') == 'production' else None,
+            httponly=True)
     return response
 
 
