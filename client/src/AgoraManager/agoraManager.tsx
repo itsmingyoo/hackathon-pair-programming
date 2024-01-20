@@ -9,10 +9,12 @@ import {
     useRTCClient,
     useRemoteUsers,
     useClientEvent,
+    IMicrophoneAudioTrack,
+    ICameraVideoTrack,
 } from 'agora-rtc-react';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { IMicrophoneAudioTrack, ICameraVideoTrack } from 'agora-rtc-sdk-ng';
+// import { IMicrophoneAudioTrack, ICameraVideoTrack } from 'agora-rtc-sdk-ng';
 import { configType } from './config';
 
 // Define the shape of the Agora context
@@ -67,7 +69,8 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
         console.log('The user', user.uid, ' has left the channel');
     });
 
-    useClientEvent(agoraEngine, 'user-published', (user, mediaType) => {
+    // mediaType replaced with _
+    useClientEvent(agoraEngine, 'user-published', (user, _) => {
         console.log('The user', user.uid, ' has published media in the channel');
     });
 
