@@ -11,7 +11,6 @@ interface ClientToServerEvents {
     image: (data: string) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 export default socket;

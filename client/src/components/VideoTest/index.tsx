@@ -22,9 +22,10 @@ const VideoTest: React.FC = () => {
     }
 
     useEffect(() => {
-        socket.on('connect', function () {
-            console.log('Connection has been successfully established with socket.', socket.connected);
+        socket.on('connect', function(){
+            console.log("Connection has been succesfully established with socket.", socket.connected)
         });
+
         const video = document.querySelector('#videoElement') as HTMLVideoElement;
         video.width = 500;
         video.height = 375;
@@ -53,7 +54,9 @@ const VideoTest: React.FC = () => {
         }, 10000 / FPS);
 
         // cleanup function
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+        }
     }, []);
 
     useEffect(() => {
