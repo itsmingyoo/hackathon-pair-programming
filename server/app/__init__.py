@@ -1,7 +1,7 @@
 from gevent import monkey
 monkey.patch_all()
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, send_from_directory
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -14,7 +14,8 @@ from .seeds import seed_commands
 from .config import Config
 from .socket import socketio
 
-app = Flask(__name__, static_folder='../client/dist', static_url_path='/')
+# app = Flask(__name__, static_folder='../client/dist', static_url_path='/')
+app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), '../../client/dist'), static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
@@ -82,17 +83,24 @@ def api_help():
     return route_list
 
 
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def react_root(path):
+#     """
+#     This route will direct to the public directory in our
+#     react builds in the production environment for favicon
+#     or index.html requests
+#     """
+#     if path == 'favicon.ico':
+#         return app.send_from_directory('public', 'favicon.ico')
+#     return app.send_static_file('index.html')
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def react_root(path):
-    """
-    This route will direct to the public directory in our
-    react builds in the production environment for favicon
-    or index.html requests
-    """
-    if path == 'favicon.ico':
-        return app.send_from_directory('public', 'favicon.ico')
-    return app.send_static_file('index.html')
+def catch_all(path):
+    if path and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.errorhandler(404)
