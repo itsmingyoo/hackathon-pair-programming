@@ -1,7 +1,7 @@
 from gevent import monkey
 monkey.patch_all()
 import os
-from flask import Flask, render_template, request, session, redirect, send_from_directory
+from flask import Flask, render_template, request, session, redirect, send_from_directory, Response
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
