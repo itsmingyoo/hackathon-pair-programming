@@ -9,6 +9,12 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
 - **Community-Driven Initiative**: Aims to serve users struggling to find programming partners, fostering a supportive community environment.
 - **Flexible Pairing Options**: Allows users to link up with a partner or choose to connect with a different participant.
 
+# Features
+1. Client to Client Video Calling
+2. Client to Client Chatting
+3. IDE DS&A Tests
+4. User Following/Followers
+
 # Technology
 1. Python
 2. Flask
