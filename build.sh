@@ -7,7 +7,7 @@ set -e
 echo "Installing client dependencies and building the client..."
 cd client
 npm install
-npm run build
+npm run start
 cd ..
 
 # Navigate to the server directory and run pip commands
@@ -20,5 +20,3 @@ flask seed all
 cd ..
 
 echo "Build and setup completed successfully!"
-
-
