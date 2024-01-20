@@ -29,10 +29,6 @@ socketio = SocketIO(cors_allowed_origin=origins)
 # Handle image data received from client, process it using OpenCV and PIL, then send the processed image back to the client
 @socketio.on('video_capture')
 def handle_video_capture(data_image): # accept image data
-    # `sbuf` (apparently not used in the rest of the code)
-    # sbuf = io.StringIO() # create StringIO Object - provides a file-like object for reading and writing string data
-    # sbuf.write(data_image) # writes data_image string to the stringio object sbuf
-
     # Step 1: Decode data_image
     b = io.BytesIO(base64.b64decode(data_image)) # decodes data_image from base64 encoded string to bytes using `base64.b64decode` and creates a BytesIO object with the bytes
     pimg = Image.open(b) # opens the image from the previous line using PIL 'Image.open(arg)'
