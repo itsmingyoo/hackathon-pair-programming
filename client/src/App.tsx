@@ -10,6 +10,7 @@ import AgoraManager from "./AgoraManager/agoraManager";
 import config from "./AgoraManager/config";
 import { AgoraRTCProvider } from "agora-rtc-react";
 import { Client } from "./agora";
+import VideoTest from "./components/VideoTest";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,6 @@ const App: React.FC = () => {
   // https://reactrouter.com/en/main/route/route - this is v6 of browserrouter
   return (
     <>
-      <AgoraRTCProvider client={<Client />}>
         {isLoaded && (
           <Router>
             <Navigation isLoaded={isLoaded} />
@@ -43,17 +43,12 @@ const App: React.FC = () => {
               <Route
                 path="/video-test"
                 element={
-                  <Client
-                    children={
-                      <AgoraManager config={config} children={undefined} />
-                    }
-                  />
+                  <VideoTest   />
                 }
               />
             </Routes>
           </Router>
         )}
-      </AgoraRTCProvider>
     </>
   );
 };
