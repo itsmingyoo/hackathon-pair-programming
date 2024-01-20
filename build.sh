@@ -12,7 +12,6 @@ cd ..
 
 # Navigate to the server directory and run pip commands
 echo "Installing server dependencies and setting up the database..."
-cd server
 pip install -r requirements.txt
 pip install psycopg2
 flask db upgrade
