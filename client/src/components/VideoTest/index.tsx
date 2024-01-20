@@ -22,8 +22,8 @@ const VideoTest: React.FC = () => {
     }
 
     useEffect(() => {
-        socket.on('connect', function(){
-            console.log("Connection has been succesfully established with socket.", socket.connected)
+        socket.on('connect', function () {
+            console.log('Connection has been succesfully established with socket.', socket.connected);
         });
 
         const video = document.querySelector('#videoElement') as HTMLVideoElement;
@@ -56,24 +56,36 @@ const VideoTest: React.FC = () => {
         // cleanup function
         return () => {
             clearInterval(interval);
-        }
+        };
     }, []);
 
     useEffect(() => {
-        socket.on('response_back', function (image) {
-            const imageElement = document.getElementById('image') as HTMLImageElement;
-            console.log(image);
-            imageElement.src = image;
+        // socket.on('response_back', function (image) {
+        //     const imageElement = document.getElementById('image') as HTMLImageElement;
+        //     // console.log(image);
+        //     imageElement.src = image;
+        // });
+        socket.on('response_back', function (videoData) {
+            const videoElement = document.getElementById('video') as HTMLVideoElement;
+
+            videoElement.src = 'data:image/jpeg;base64,' + videoData;
+
+            if (videoElement.paused) {
+                videoElement.play();
+            }
         });
     }, []);
 
     return (
         <>
             <div id="container">
+                {/* LOCAL CAMERA */}
                 <canvas id="canvasOutput"></canvas>
                 <video autoPlay={true} id="videoElement"></video>
             </div>
             <div className="video">
+                {/* PROCESSED FRAMES FROM CAMERA */}
+                <video autoPlay={true} id="video"></video>
                 <img id="image" />
             </div>
         </>

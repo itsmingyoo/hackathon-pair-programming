@@ -12,14 +12,12 @@ socketio = SocketIO(cors_allowed_origins=[])
 def handle_video_capture(data_image):
     #separate out the mime type and valid base64 string
     header, encoded_data = data_image.split(',', 1)
-    sbuf = io.StringIO()
-    sbuf.write(data_image)
     b = io.BytesIO(base64.b64decode(encoded_data))
     pimg = Image.open(b)
 
     # DO WHATEVER IMAGE PROCESSING HERE{
     frame = cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
-    frame = cv2.flip(frame, flipCode=0)
+    frame = cv2.flip(frame, flipCode=1)
     imgencode = cv2.imencode('.jpg', frame)[1]
     #}
 
