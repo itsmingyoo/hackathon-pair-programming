@@ -47,10 +47,10 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
     const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack();
     const remoteUsers = useRemoteUsers();
     const [role, setRole] = useState('host'); // Default role is host
+    console.log("🍉🍉🍉🍉🍉🍉🍉",remoteUsers)
 
     // Publish local tracks
     usePublish([localMicrophoneTrack, localCameraTrack]);
-    // console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬", config.appId)
 
     // Join the Agora channel with the specified configuration
     useJoin({
@@ -61,16 +61,17 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
     });
 
     useClientEvent(agoraEngine, 'user-joined', (user) => {
-        console.log('The user', user.uid, ' has joined the channel');
+        console.log('🤬🤬🤬🤬🤬🤬🤬🤬🤬 The user', user.uid, ' has joined the channel');
     });
 
     useClientEvent(agoraEngine, 'user-left', (user) => {
-        console.log('The user', user.uid, ' has left the channel');
+        console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄 The user', user.uid, ' has left the channel');
     });
 
     //mediaType replaced with _ for ts
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     useClientEvent(agoraEngine, 'user-published', (user, _) => {
-        console.log('The user', user.uid, ' has published media in the channel');
+        console.log('🍉🍉🍉🍉🍉🍉🍉🍉🍉 The user', user.uid, ' has published media in the channel');
     });
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
