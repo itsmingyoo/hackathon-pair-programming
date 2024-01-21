@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 from sqlalchemy.schema import ForeignKey
 
-following = db.Table(
+follow = db.Table(
     'following',
     db.Model.metadata,
     db.Column('followed_user', db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
@@ -10,4 +10,4 @@ following = db.Table(
 )
 
 if environment == "production":
-    following.schema = SCHEMA
+    follow.schema = SCHEMA
