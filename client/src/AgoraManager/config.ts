@@ -16,8 +16,10 @@ const config: configType = {
     encryptionKey: '',
     destChannelName: '',
     destChannelToken: '',
+    destUID: 2,
     secondChannel: '',
     secondChannelToken: '',
+    secondChannelUID: 2,
     selectedProduct: 'rtc',
 };
 
@@ -33,10 +35,12 @@ export type configType = {
     encryptionMode: EncryptionMode;
     salt: '';
     encryptionKey: string;
+    destUID: number;
     destChannelName: string;
     destChannelToken: string;
     secondChannel: string;
     secondChannelToken: string;
+    secondChannelUID: number;
     selectedProduct: SDK_MODE;
 };
 

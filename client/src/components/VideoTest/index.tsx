@@ -3,11 +3,11 @@ import { AgoraRTCProvider, useRTCClient } from "agora-rtc-react";
 import AgoraRTC from "agora-rtc-react";
 import AgoraManager from "../../AgoraManager/agoraManager";
 import config from "../../AgoraManager/config";
-import socket from "../../socket";
 import { fetchRTCToken } from "../../utility/fetchRTCToken";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useSocket } from "../../hooks";
 
 const VideoTest: React.FC = () => {
+  const { socket } = useSocket();
   const user = useAppSelector((state) => state.session.user);
   const agoraEngine = useRTCClient(
     AgoraRTC.createClient({ codec: "vp8", mode: config.selectedProduct })
@@ -16,14 +16,16 @@ const VideoTest: React.FC = () => {
   const [channelName, setChannelName] = useState<string>("");
 
   useEffect(() => {
-    // Listen for the 'paired' event when successfully paired with a room
-    socket.on("joined", (data) => {
-      console.log(data);
-      if (user && data.user !== + user.id) {
-        setChannelName(data.room);
-      }
-    });
-  }, []); // Only run once on component mount
+    if (socket) {
+      // Listen for the 'joined' event when successfully paired with a room
+      socket.on("joined", (data) => {
+        console.log(data);
+        if (user && data.user === +user.id) {
+          setChannelName(data.room);
+        }
+      });
+    }
+  }, [user, socket]); // Only run once on component mount
 
   useEffect(() => {
     const fetchTokenFunction = async () => {
@@ -47,7 +49,9 @@ const VideoTest: React.FC = () => {
   }, [channelName]);
 
   const handleJoinClick = () => {
-    socket.emit("join_room");
+    if (socket) {
+      socket.emit("join_room");
+    }
   };
 
   const handleLeaveClick = () => {
