@@ -6,6 +6,11 @@
     display: none;
   }
 
+  .logo-for-nav {
+    height: 3.5rem;
+    margin-left: 1rem;
+  }
+
   .nav-container {
     width: 100%;
     height: 3.5rem;

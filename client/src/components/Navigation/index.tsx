@@ -25,7 +25,7 @@ function Navigation({ isLoaded }: NavigationProps) {
       <div className="nav-container">
         <div className="nav-links">
           <div className="nav-links-home">
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/"><img className='logo-for-nav' src='src/assets/images/logo.png' alt='dev-pair logo'/></NavLink>
           </div>
           <div className="nav-links-other">
             {isLoaded && userLoggedIn && sessionUser ? (
