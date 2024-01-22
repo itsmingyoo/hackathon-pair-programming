@@ -10,6 +10,7 @@ from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.video_routes import video_routes
+from .api.code_testing_routes import code_testing_routes
 from .seeds import seed_commands
 from .config import Config
 from .socket import socketio
@@ -34,6 +35,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(video_routes, url_prefix='/api/video')
+app.register_blueprint(code_testing_routes, url_prefix='/api/problem')
 db.init_app(app)
 Migrate(app, db)
 

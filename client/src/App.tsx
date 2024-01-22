@@ -7,6 +7,7 @@ import { authenticate } from './store/session';
 import { useAppDispatch } from './hooks';
 import LandingPage from './components/LandingPage';
 import VideoTest from './components/VideoTest';
+import AddTwoSum from './components/DSAProblems/add-two-sum';
 import VideoTest2 from './components/VideoTest/index2';
 
 const App: React.FC = () => {
@@ -38,6 +39,8 @@ const App: React.FC = () => {
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route path="/video-test" element={<VideoTest />} />
+                        <Route path="/add-two-sum" element={<AddTwoSum />} />
+                        {/* Add more problems here */}
                         <Route path="/video-test-2" element={<VideoTest2 />} />
                     </Routes>
                 </Router>
