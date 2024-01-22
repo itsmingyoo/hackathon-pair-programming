@@ -9,6 +9,7 @@ import LandingPage from './components/LandingPage';
 import VideoTest from './components/VideoTest';
 import AddTwoSum from './components/DSAProblems/add-two-sum';
 import VideoTest2 from './components/VideoTest/index2';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -43,6 +44,7 @@ const App: React.FC = () => {
                         {/* Add more problems here */}
                         <Route path="/video-test-2" element={<VideoTest2 />} />
                     </Routes>
+                    <Footer />
                 </Router>
             )}
         </>
