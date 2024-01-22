@@ -1,5 +1,5 @@
-from flask_socketio import SocketIO, emit, join_room, leave_room, close_room
-import random, time
+from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, disconnect
+import random, time, functools
 from flask_login import current_user
 
 origins = []
@@ -8,8 +8,22 @@ socketio = SocketIO(cors_allowed_origins=origins)
 
 socket_rooms = {}
 
+@socketio.on('connect')
+def authenticated_only(f):
+    """
+        Defines authenticated only wrapper that will check if a user is authenticated before calling the original function. If not authenticated it will disconnect the user from the socket.
+    """
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            disconnect()
+        else:
+            return f(*args, **kwargs)
+    return wrapped
+
 
 @socketio.on("join_room")
+@authenticated_only
 def handle_join_room():
     user = current_user
     rooms = list(socket_rooms.keys())
@@ -39,7 +53,7 @@ def handle_join_room():
 
         join_room(chosen_room)
 
-        socketio.emit("joined", {"user": user.to_dict(), "room": chosen_room}, to=chosen_room)
+        emit("joined", {"user": user.to_dict(), "room": chosen_room}, to=chosen_room)
 
     except Exception as e:
         # Handle exceptions (e.g., room not found, socket connection issue)
@@ -48,6 +62,7 @@ def handle_join_room():
 
 
 @socketio.on("leave_room")
+@authenticated_only
 def handle_leave_room(data):
     """
         If there is only one user in room, close room and delete from socket_rooms else leave room and update user_count in socket_rooms and let the room know a user left.
@@ -59,7 +74,7 @@ def handle_leave_room(data):
     else:
         leave_room(data["room"])
         socket_rooms[data["room"]]["user_count"] -= 1
-        socketio.emit(
+        emit(
             "user_left", f"{current_user.username} has exited the room!", to=data["room"]
         )
 

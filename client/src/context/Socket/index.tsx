@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState, ReactNode } from "react";
 import { io, Socket } from "socket.io-client";
+import { useAppSelector } from "../../hooks";
 
 // Define the context type
 interface SocketContextProps {
@@ -29,22 +30,29 @@ interface ClientToServerEvents {
 
 // Create the provider component
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
+  const user = useAppSelector((state) => state.session.user);
+
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
     // Initialize socket connection
+    if (user && user.id && !socket) {
+      const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
+    
+      // Set up any event listeners or other configurations here
+      
+      setSocket(newSocket);
+    }
   
-    const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
-    // Set up any event listeners or other configurations here
-
-    setSocket(newSocket);
 
     // Clean up the socket connection on unmount
     return () => {
-      newSocket.disconnect();
+      if (socket) {
+        socket.disconnect();
+      }
     };
-  }, []);
+  }, [user, socket]);
 
   return (
     <SocketContext.Provider value={{ socket }}>
