@@ -1,46 +1,51 @@
-import { useState, useCallback, MouseEventHandler } from 'react';
+import { useState, useCallback, MouseEventHandler, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { dracula } from '@uiw/codemirror-theme-dracula';
-import { ViewUpdate } from '@codemirror/view';
+import { FetchRoutes, fetchTestResults } from '../../utility/fetchTestResults';
+import './index.css';
+// import { ViewUpdate } from '@codemirror/view';
 
-function IDE() {
+interface TestResult {
+    passOrFail: boolean;
+}
+
+interface Props {
+    problemId: keyof FetchRoutes;
+    problemTitle?: string;
+    route?: string;
+}
+
+function IDE(props: Props) {
+    const { problemId, problemTitle } = props;
     const [value, setValue] = useState<string>('# Your Python Code Here');
+    const [userResults, setUserResults] = useState<boolean[]>([]);
 
-    const onChange = useCallback((val: string, viewUpdate: ViewUpdate) => {
-        // viewUpdate replaced with _ and type unknown might need to be changed.
-        console.log('viewUpdate:', viewUpdate);
+    const onChange = useCallback((val: string) => {
         console.log('val:', val);
         setValue(val);
     }, []);
 
-    const fetchResults = async (value: string) => {
-        const response = await fetch('/api/test-code/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ code: value }),
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            return data;
-        } else {
-            console.log('Error fetching to the backend');
-            return { error: 'Fetch failed', statusCode: response.status };
-        }
-    };
-
     const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
-        const result = await fetchResults(value);
-        console.log('Finished Fetching...', result);
+        const results = await fetchTestResults(value, problemId);
+        console.log('Finished Fetching...', results);
+        if (results && results.results) {
+            setUserResults(results.results.map((result: TestResult) => result.passOrFail));
+        }
     };
+    useEffect(() => {
+        console.log('😁😁😁 users results', userResults);
+    });
 
     return (
         <>
-            <h1>Welcome to the code editor</h1>
+            <h1>Problem: {problemId === undefined ? 'Please enter a problem name for props' : `${problemTitle}`}</h1>
+            <div id="user-results">
+                {userResults && userResults[0] === true ? <div>✔ Test Case 1</div> : <div>❌ Test Case 1</div>}
+                {userResults && userResults[1] === true ? <div>✔ Test Case 2</div> : <div>❌ Test Case 2</div>}
+                {userResults && userResults[2] === true ? <div>✔ Test Case 3</div> : <div>❌ Test Case 3</div>}
+            </div>
             <CodeMirror
                 value={value}
                 height="400px"

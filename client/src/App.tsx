@@ -7,7 +7,7 @@ import { authenticate } from './store/session';
 import { useAppDispatch } from './hooks';
 import LandingPage from './components/LandingPage';
 import VideoTest from './components/VideoTest';
-import IDE from './components/CodeMirror';
+import AddTwoSum from './components/DSAProblems/add-two-sum';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -38,7 +38,8 @@ const App: React.FC = () => {
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route path="/video-test" element={<VideoTest />} />
-                        <Route path="/ide" element={<IDE />} />
+                        <Route path="/add-two-sum" element={<AddTwoSum />} />
+                        {/* Add more problems here */}
                     </Routes>
                 </Router>
             )}
