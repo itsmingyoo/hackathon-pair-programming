@@ -43,6 +43,12 @@ simple-websocket = "==1.0.0"
 urllib3 = "==1.26.18"
 wsproto = "==1.2.0"
 zipp = "==3.17.0"
+gevent = "==23.9.1"
+numpy = "==1.26.3"
+opencv-python = "==4.9.0.80"
+pillow = "==10.2.0"
+"zope.event" = "==5.0"
+"zope.interface" = "==6.1"
 
 [dev-packages]
 
