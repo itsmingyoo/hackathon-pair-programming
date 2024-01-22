@@ -5,6 +5,7 @@ import OpenModalButton from '../OpenModalButton/index';
 import LoginFormModal from '../LoginFormModal/index';
 import SignupFormModal from '../SignupFormModal/index';
 import { User } from '../../interfaces/user';
+import './ProfileButton.css';
 
 interface ProfileButtonProps {
     user: User;
@@ -16,6 +17,7 @@ function ProfileButton({ user }: ProfileButtonProps) {
     const ulRef = useRef<HTMLUListElement>(null); // Specify the element type for the ref
 
     const openMenu = () => {
+        console.log("Button clicked!");
         if (showMenu) return;
         setShowMenu(true);
     };
@@ -36,13 +38,18 @@ function ProfileButton({ user }: ProfileButtonProps) {
         };
     }, [showMenu]);
 
+    const ulClassName = `profile-dropdown${showMenu ? '' : ' hidden'}`;
+    console.log("showMenu:", showMenu);
+    console.log("ulClassName:", ulClassName);
+
     const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         dispatch(logout());
     };
 
-    const ulClassName = 'profile-dropdown' + (showMenu ? '' : ' hidden');
-    const closeMenu = () => setShowMenu(false);
+    const closeMenu = () => {
+        setShowMenu(false);
+    };
 
     return (
         <>
