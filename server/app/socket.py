@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, disconnect
-import random, time, functools
+import random, time, functools, datetime
 from flask_login import current_user
 
 origins = []
@@ -66,6 +66,11 @@ def handle_join_room():
 def handle_leave_room(data):
     """
         If there is only one user in room, close room and delete from socket_rooms else leave room and update user_count in socket_rooms and let the room know a user left.
+
+        Exxpected data:
+        {
+            "room": "example_room_name"
+        }
     """
 
     if socket_rooms[data["room"]]["user_count"] == 1:
@@ -77,4 +82,30 @@ def handle_leave_room(data):
         emit(
             "user_left", f"{current_user.username} has exited the room!", to=data["room"]
         )
+
+
+@socketio.on("temp_chat_message")
+@authenticated_only
+def handle_temp_chat(data):
+    """
+        Creates a response dictionary with the user who sent it, the current date and time, and the message and emits the message to the specified room.
+
+        Expected data:
+        {
+            "message": "Example message content",
+            "room": "example_room_name"
+        }
+    """
+
+    response = {
+        "from": current_user.to_dict(),
+        "message": data["message"],
+        "created_at": datetime.utcnow(),
+    }
+
+    emit("temp_message_received", response, to=data["room"])
+
+
+    
+
 
