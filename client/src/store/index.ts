@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sessionReducer from "./session";
+import pairedChatLogReducer from "./pairedChatLog";
 
 const store = configureStore({
   // configure store with the reducer here, toolkit should come with redux-thunk middlewaree by default
   reducer: {
     session: sessionReducer,
+    pairedChatLog: pairedChatLogReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware(); // Thunk middleware is included by default
