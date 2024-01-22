@@ -44,17 +44,19 @@ if __name__ == "__main__":
             try:
                 args = ["python", userTestFilePath] + case
                 completed_process = subprocess.run(args, capture_output=True, text=True)
+                print('🙄🙄🙄🙄🙄🙄', completed_process)
 
                 if completed_process.returncode == 0:
                     # Process the output if needed
                     output = completed_process.stdout.strip()
                     # test_results.append({'case': case, 'result': output.strip(), 'success': True})
-                    test_results.append({'passOrFail': True})
+                    test_results.append({'passOrFail': False if output.strip() == 'False' else True}) # bool() turns False into True, so we have to use a ternary
                 else:
                     # Handle the error
                     error_message = completed_process.stderr
-                    # test_results.append({'case': case, 'error': error_message, 'success': False})
-                    test_results.append({'passOrFail': False})
+                    test_results.append({'case': case, 'error': error_message, 'success': False})
+                    # test_results.append({'passOrFail': False if output.strip() == 'False' else True})
+
 
             except Exception as e:
                 test_results.append({'case': case, 'error': str(e), 'success': False})
