@@ -9,13 +9,13 @@ const fetchRoutes: FetchRoutes = {
 };
 
 // problemId must be a key to get the correct fetch route that will test the problem
-export const fetchTestResults = async (value: string, problemId: keyof FetchRoutes) => {
+export const fetchTestResults = async (value: string, problemId: keyof FetchRoutes, language: string) => {
     const response = await fetch(fetchRoutes[problemId], {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code: value }),
+        body: JSON.stringify({ code: value, language: language }),
     });
 
     if (response.ok) {
