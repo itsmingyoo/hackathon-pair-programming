@@ -4,10 +4,11 @@ import { javascript } from '@codemirror/lang-javascript';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import { FetchRoutes, fetchTestResults } from '../../utility/fetchTestResults';
 import './index.css';
-// import { ViewUpdate } from '@codemirror/view';
 
 interface TestResult {
-    passOrFail: boolean;
+    passOrFail?: boolean;
+    success?: boolean;
+    error?: string;
 }
 
 interface Props {
@@ -30,12 +31,25 @@ function IDE(props: Props) {
         e.preventDefault();
         const results = await fetchTestResults(value, problemId);
         console.log('Finished Fetching...', results);
-        if (results && results.results) {
+
+        // Handles All Edge Cases if there are errors, then return the state as false for correct rendering of elements
+        if (results && results.results[0].error) {
+            setUserResults(
+                results.results.map((result: TestResult) => {
+                    if (result.error) return false;
+                })
+            );
+        }
+
+        // Main Test Case
+        if (results && results.results && !results.results[0].error) {
+            console.log('😁😁😁 results', results.results);
             setUserResults(results.results.map((result: TestResult) => result.passOrFail));
         }
     };
+
     useEffect(() => {
-        console.log('😁😁😁 users results', userResults);
+        console.log('😁😁😁 state', userResults);
     });
 
     return (
