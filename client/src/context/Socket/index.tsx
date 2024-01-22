@@ -50,6 +50,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     return () => {
       if (socket) {
         socket.disconnect();
+        setSocket(null);
       }
     };
   }, [user, socket]);
