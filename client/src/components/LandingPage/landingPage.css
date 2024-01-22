@@ -1,5 +1,16 @@
 
 .landing-page-content {
+    height: 80vh;
     display: flex;
-    padding: 0 10%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.landing-page-description {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
