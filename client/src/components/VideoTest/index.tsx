@@ -5,6 +5,7 @@ import AgoraManager from "../../AgoraManager/agoraManager";
 import config from "../../AgoraManager/config";
 import { fetchRTCToken } from "../../utility/fetchRTCToken";
 import { useAppSelector, useSocket } from "../../hooks";
+import PairedChat from "../PairedChat";
 
 const VideoTest: React.FC = () => {
   const { socket } = useSocket();
@@ -19,14 +20,14 @@ const VideoTest: React.FC = () => {
     if (socket) {
       // Listen for the 'joined' event when successfully paired with a room
       socket.on("joined", (data) => {
-        if (user && data.user.id === +user.id) {
+        if (user && +data.user.id === +user.id) {
           setChannelName(data.room);
         }
       });
 
       socket.on("user_left", (data) => {
-        console.log(data)
-      })
+        console.log(data);
+      });
     }
   }, [user, socket]); // Only run once on component mount
 
@@ -59,8 +60,8 @@ const VideoTest: React.FC = () => {
 
   const handleLeaveClick = () => {
     if (socket) {
-        socket.emit("leave_room", {"room":channelName})
-        setJoined(false)
+      socket.emit("leave_room", { room: channelName });
+      setJoined(false);
     }
   };
 
@@ -77,9 +78,12 @@ const VideoTest: React.FC = () => {
       <h1>Get Started with Video Calling</h1>
       {renderActionButton()}
       {joined && (
-        <AgoraRTCProvider client={agoraEngine}>
-          <AgoraManager config={config} children={undefined}></AgoraManager>
-        </AgoraRTCProvider>
+        <>
+          <AgoraRTCProvider client={agoraEngine}>
+            <AgoraManager config={config} children={undefined}></AgoraManager>
+          </AgoraRTCProvider>
+          <PairedChat channelName={channelName}/>
+        </>
       )}
     </div>
   );
