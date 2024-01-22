@@ -3,7 +3,7 @@ import { io, Socket } from "socket.io-client";
 
 // Define the context type
 interface SocketContextProps {
-  socket: Socket | null;
+  socket: Socket<ServerToClientEvents, ClientToServerEvents> | null;
 }
 
 // Create the context
@@ -16,12 +16,15 @@ interface SocketProviderProps {
 
 // Type for information received from the server
 interface ServerToClientEvents {
-    joined: (data: { user: number; room: string}) => void
+    joined: (data: { user: {id: number, username: string, email: string}; room: string}) => void;
+    user_left: (data: string) => void;
+
 }
 
 // Type for information sent to the server
 interface ClientToServerEvents {
     join_room: () => void;
+    leave_room: (data: {room: string}) => void;
 }
 
 // Create the provider component

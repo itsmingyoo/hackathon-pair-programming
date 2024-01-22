@@ -19,11 +19,14 @@ const VideoTest: React.FC = () => {
     if (socket) {
       // Listen for the 'joined' event when successfully paired with a room
       socket.on("joined", (data) => {
-        console.log(data);
-        if (user && data.user === +user.id) {
+        if (user && data.user.id === +user.id) {
           setChannelName(data.room);
         }
       });
+
+      socket.on("user_left", (data) => {
+        console.log(data)
+      })
     }
   }, [user, socket]); // Only run once on component mount
 
@@ -55,7 +58,10 @@ const VideoTest: React.FC = () => {
   };
 
   const handleLeaveClick = () => {
-    setJoined(false);
+    if (socket) {
+        socket.emit("leave_room", {"room":channelName})
+        setJoined(false)
+    }
   };
 
   const renderActionButton = () => {
