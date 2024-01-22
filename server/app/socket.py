@@ -100,7 +100,7 @@ def handle_temp_chat(data):
     response = {
         "from": current_user.to_dict(),
         "message": data["message"],
-        "created_at": datetime.utcnow(),
+        "created_at": datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S"),
     }
 
     emit("temp_message_received", response, to=data["room"])
