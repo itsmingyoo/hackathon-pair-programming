@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState, ReactNode } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppSelector } from "../../hooks";
+import { ServerToClientEvents, ClientToServerEvents } from "../../interfaces/socket";
 
 // Define the context type
 interface SocketContextProps {
@@ -13,19 +14,6 @@ export const SocketContext = createContext<SocketContextProps | undefined>(undef
 // Define socket provider props type 
 interface SocketProviderProps {
     children: ReactNode;
-}
-
-// Type for information received from the server
-interface ServerToClientEvents {
-    joined: (data: { user: {id: number, username: string, email: string}; room: string}) => void;
-    user_left: (data: string) => void;
-
-}
-
-// Type for information sent to the server
-interface ClientToServerEvents {
-    join_room: () => void;
-    leave_room: (data: {room: string}) => void;
 }
 
 // Create the provider component
