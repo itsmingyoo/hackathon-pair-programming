@@ -1,17 +1,26 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
+import { logout } from '../../store/session';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import { useAppDispatch } from '../../hooks';
 
 interface NavigationProps {
     isLoaded: boolean;
 }
 
-function Navigation({ isLoaded }: NavigationProps) {
-    // Assuming `state.session.user` is of type User | null
-    const sessionUser = useSelector((state: RootState) => state.session.user);
 
+function Navigation({ isLoaded }: NavigationProps) {
+  // Assuming `state.session.user` is of type User | null
+  const sessionUser = useSelector((state: RootState) => state.session.user);
+
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+
+  };
 
     //sessionUser is returning true even if there is no user logged in because it is returning the user object { errors: [] }
     //so we need to check if there is a user object and if there are no errors in the user object
@@ -28,6 +37,7 @@ function Navigation({ isLoaded }: NavigationProps) {
             <NavLink to="/"><img className='logo-for-nav' src='src/assets/images/logo.png' alt='dev-pair logo'/></NavLink>
           </div>
           <div className="nav-links-other">
+            <button onClick={handleLogout}>Logout</button>
             {isLoaded && userLoggedIn && sessionUser ? (
               <div className="nav-links-profile-button">
                 <ProfileButton user={sessionUser} />

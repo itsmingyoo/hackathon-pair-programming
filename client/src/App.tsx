@@ -10,6 +10,7 @@ import VideoTest from './components/VideoTest';
 import AddTwoSum from './components/DSAProblems/add-two-sum';
 import VideoTest2 from './components/VideoTest/index2';
 import Footer from './components/Footer';
+import HomePage from './components/HomePage';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ const App: React.FC = () => {
                     <Navigation isLoaded={isLoaded} />
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
+                        <Route path='/home' element={<HomePage />} />
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route path="/video-test" element={<VideoTest />} />
