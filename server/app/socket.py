@@ -1,10 +1,17 @@
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, disconnect
 import random, time, functools, datetime
 from flask_login import current_user
+import logging
 
 origins = []
 
-socketio = SocketIO(cors_allowed_origins=origins)
+# socketio = SocketIO(cors_allowed_origins=origins)
+# For development, allowing all origins (use cautiously)
+socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins='*')
+
+# For production, specify allowed origins
+socketio = SocketIO(cors_allowed_origins=['http://localhost:5173'])
+
 
 socket_rooms = {}
 
@@ -52,7 +59,7 @@ def handle_join_room():
         socket_rooms[chosen_room]["user_history"].append(user.id)
 
         join_room(chosen_room)
-
+        print({"joined_room": '😀😁😂🤣😃😄😅',"user": user.to_dict(), 'room': chosen_room})
         emit("joined", {"user": user.to_dict(), "room": chosen_room}, to=chosen_room)
 
     except Exception as e:
@@ -105,7 +112,17 @@ def handle_temp_chat(data):
 
     emit("temp_message_received", response, to=data["room"])
 
+# @socketio.on('user_leaving')
+# @authenticated_only
+# def handle_user_leaving(data):
+#     response = {
+#         "user": data['userId'],
+#         "reason": 'Refreshed, Reloaded, or Closed Tab'
+#     }
+#     print('🤡🤡🤡🤡🤡🤡🤡🤡', response)
+    # disconnect()
 
-    
-
-
+# @socketio.on_error()  # Handles the default namespace
+# def error_handler(e):
+#     logging.basicConfig(level=logging.ERROR)
+#     logging.error(f"🤬🤬🤬🤬🤬🤬🤬SocketIO Error🤬🤬🤬🤬🤬🤬🤬: {e}")
