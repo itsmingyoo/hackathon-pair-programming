@@ -24,42 +24,40 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
     useEffect(() => {
         if (user && user.id && !socket) {
-            const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
-
+            const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
+                transports: ['websocket', 'polling'],
+                reconnection: true,
+                reconnectionAttempts: 5,
+                autoConnect: true,
+            });
             setSocket(newSocket);
-
-            // Handle browser tab close or refresh
-            // const handleBeforeUnload = () => {
-            //     if (newSocket && newSocket.connected) {
-            //         // newSocket.emit('user_leaving', { userId: user.id });
-            //         newSocket.disconnect();
-            //         setSocket(null);
-            //     }
-            // };
-
-            // window.addEventListener('beforeunload', handleBeforeUnload);
-
-            // Clean up on component unmount or user change
-            return () => {
-                // window.removeEventListener('beforeunload', handleBeforeUnload);
-
-                if (newSocket.connected) {
-                    console.log('Disconnecting new socket...');
-                    newSocket.disconnect();
-                }
-                setSocket(null);
-            };
         }
+        const handleBeforeUnload = () => {
+            if (user && socket && socket.connected) {
+                socket.emit('user_leaving', { userId: user.id });
+                socket.disconnect();
+                setSocket(null);
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            if (socket) {
+                console.log('Disconnecting new socket...');
+                socket.disconnect();
+                setSocket(null);
+            }
+        };
     }, [user]);
 
-    // useEffect(() => {
-    //     // Disconnect the socket if the user logs out or their session ends
-    //     if (!user && socket && socket.connected) {
-    //         console.log('User logged out, disconnecting socket...');
-    //         socket.disconnect();
-    //         setSocket(null);
-    //     }
-    // }, [user, socket]);
+    useEffect(() => {
+        // Disconnect the socket if the user logs out or their session ends
+        if (!user && socket && socket.connected) {
+            console.log('User logged out, disconnecting socket...');
+            socket.disconnect();
+            setSocket(null);
+        }
+    }, [user, socket]);
 
     return <SocketContext.Provider value={{ socket }}>{children}</SocketContext.Provider>;
 };

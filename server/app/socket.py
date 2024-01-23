@@ -7,10 +7,10 @@ origins = []
 
 # socketio = SocketIO(cors_allowed_origins=origins)
 # For development, allowing all origins (use cautiously)
-socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins='*')
+socketio = SocketIO(logger=True, cors_allowed_origins='*')
 
 # For production, specify allowed origins
-socketio = SocketIO(cors_allowed_origins=['http://localhost:5173'])
+# socketio = SocketIO(cors_allowed_origins=['http://localhost:5173'])
 
 
 socket_rooms = {}
@@ -112,17 +112,17 @@ def handle_temp_chat(data):
 
     emit("temp_message_received", response, to=data["room"])
 
-# @socketio.on('user_leaving')
-# @authenticated_only
-# def handle_user_leaving(data):
-#     response = {
-#         "user": data['userId'],
-#         "reason": 'Refreshed, Reloaded, or Closed Tab'
-#     }
-#     print('🤡🤡🤡🤡🤡🤡🤡🤡', response)
-    # disconnect()
+@socketio.on('user_leaving')
+@authenticated_only
+def handle_user_leaving(data):
+    response = {
+        "user": data['userId'],
+        "reason": 'Refreshed, Reloaded, or Closed Tab'
+    }
+    print('🤡🤡🤡🤡🤡🤡🤡🤡', response)
+    disconnect()
 
-# @socketio.on_error()  # Handles the default namespace
-# def error_handler(e):
-#     logging.basicConfig(level=logging.ERROR)
-#     logging.error(f"🤬🤬🤬🤬🤬🤬🤬SocketIO Error🤬🤬🤬🤬🤬🤬🤬: {e}")
+@socketio.on_error()  # Handles the default namespace
+def error_handler(e):
+    logging.basicConfig(level=logging.ERROR)
+    logging.error(f"🤬🤬🤬🤬🤬🤬🤬SocketIO Error🤬🤬🤬🤬🤬🤬🤬: {e}")
