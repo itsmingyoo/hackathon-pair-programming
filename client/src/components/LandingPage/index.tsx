@@ -1,8 +1,23 @@
-
+import { useNavigate } from "react-router-dom";
 import "./landingPage.css"
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 
 function LandingPage() {
+
+  const nav = useNavigate()
+  const sessionUser = useSelector((state: RootState) => state.session.user);
+
+  let userLoggedIn: boolean = false;
+  if(sessionUser && !sessionUser.errors) {
+      userLoggedIn = true;
+  }
+
+
+  if(userLoggedIn) {
+    nav("/home")
+  }
   return (
     <>
       <div className="landing-page">
