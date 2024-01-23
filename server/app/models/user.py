@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 from .following import follow
+from .chatroom_join import chat_room_join
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -15,7 +16,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    call = db.relationship("ChatRoom", back_populates='users')
+    call = db.relationship("ChatRoom", secondary=chat_room_join, back_populates='users')
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
 
     follows = db.relationship('User', secondary=follow)

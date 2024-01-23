@@ -2,6 +2,8 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 from sqlalchemy.schema import ForeignKey
 
+from .chatroom_join import chat_room_join
+
 class ChatRoom(db.Model):
     __tablename__ = "chat_rooms"
 
@@ -12,10 +14,7 @@ class ChatRoom(db.Model):
 
     created_at = db.Column(db.Integer, nullable=False)
 
-    user_1 = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("users.id")))
-    user_2 = db.Column(db.Integer, ForeignKey(add_prefix_for_prod("users.id")))
-
-    users = db.relationship('User', back_populates='call')
+    users = db.relationship('User', secondary=chat_room_join, back_populates='call')
     messages = db.relationship('Message', back_populates='room', cascade="all, delete-orphan")
 
     def to_dict(self):
