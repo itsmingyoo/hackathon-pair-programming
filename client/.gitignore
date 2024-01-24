@@ -166,3 +166,6 @@ dist-ssr
 
 # Pretter Settings
 .prettierrc
+
+# Assets
+./src/assets
