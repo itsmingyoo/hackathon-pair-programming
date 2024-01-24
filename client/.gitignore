@@ -134,7 +134,6 @@ dist
 .env.local
 db/schema.prisma
 prisma/*.db
-.env*
 
 
 # Logs

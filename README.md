@@ -40,6 +40,9 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
     - `cd into server`
     - `pipenv shell`
     - `flask run`
+- Final Step:
+    - create a `.env` file
+    - according to the `.env.example` in the `client folder` fill out your appId for the key `VITE_APP_ID=<your appId>`
 
 ## Method 2: Manual
 

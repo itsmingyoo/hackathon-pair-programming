@@ -1,14 +1,17 @@
+from flask import request
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, disconnect
-import random, time, functools, datetime
 from flask_login import current_user
+import random, time, functools, datetime, logging
 
 origins = []
 
-socketio = SocketIO(cors_allowed_origins=origins)
+socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins=origins)
 
 socket_rooms = {}
 
-@socketio.on('connect')
+logging.basicConfig(level=logging.ERROR)
+
+# @socketio.on('connect') # must take this out in order to have authenticated_only as a decorator
 def authenticated_only(f):
     """
         Defines authenticated only wrapper that will check if a user is authenticated before calling the original function. If not authenticated it will disconnect the user from the socket.
@@ -52,7 +55,7 @@ def handle_join_room():
         socket_rooms[chosen_room]["user_history"].append(user.id)
 
         join_room(chosen_room)
-
+        print({"user_successfully_joined": '😀😁😂🤣😃😄😅',"user": user.to_dict(), 'room': chosen_room})
         emit("joined", {"user": user.to_dict(), "room": chosen_room}, to=chosen_room)
 
     except Exception as e:
@@ -72,7 +75,7 @@ def handle_leave_room(data):
             "room": "example_room_name"
         }
     """
-
+    print('🚪🚪🚪🚪🚪🚪 User Navigated Elsewhere, closing down room.')
     if socket_rooms[data["room"]]["user_count"] == 1:
         del socket_rooms[data["room"]]
         close_room(data["room"])
@@ -100,12 +103,31 @@ def handle_temp_chat(data):
     response = {
         "from": current_user.to_dict(),
         "message": data["message"],
-        "created_at": datetime.utcnow(),
+        "created_at": datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S"),
     }
 
     emit("temp_message_received", response, to=data["room"])
 
+@socketio.on('user_leaving')
+@authenticated_only
+def handle_user_leaving(data):
+    response = {
+        "user": data['userId'],
+        "reason": 'Refreshed, Reloaded, or Closed Tab'
+    }
+    print('🤡🤡🤡🤡USER LEFT!!!🤡🤡🤡🤡', response)
+    disconnect()
 
-    
+@socketio.on_error()
+def error_handler(e):
+    logging.error(f"🤬🤬🤬🤬🤬🤬🤬SocketIO Error🤬🤬🤬🤬🤬🤬🤬: {e}")
 
+@socketio.on("my error event")
+def on_my_event(data):
+    raise RuntimeError()
 
+@socketio.on_error_default
+def default_error_handler(e):
+    print('🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶 on_error_default: ', e)
+    print('Error in event:', request.event["message"])  # The event name, e.g., "join_room"
+    print('With args:', request.event["args"])  # The event arguments
