@@ -35,14 +35,13 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
         - This script will create a `.env` with necessary variables and values for you to initialize the project and install all dependencies on the client and server.
 - Terminal 1:
     - `cd into client`
+    - create a `.env` file
+    - according to the `.env.example` in the `client folder` fill out your appId for the key `VITE_APP_ID=<your appId>`
     - `npm run dev`
 - Terminal 2:
     - `cd into server`
     - `pipenv shell`
     - `flask run`
-- Final Step:
-    - create a `.env` file
-    - according to the `.env.example` in the `client folder` fill out your appId for the key `VITE_APP_ID=<your appId>`
 
 ## Method 2: Manual
 
