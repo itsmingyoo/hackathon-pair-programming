@@ -49,8 +49,11 @@ const VideoTest: React.FC = () => {
     }, [channelName]);
 
     const handleJoinClick = () => {
+        console.log('You are pressing the join button.', socket);
         if (socket) {
+            console.log('There is a socket', socket);
             socket.emit('join_room');
+            setJoined(true);
         }
     };
 

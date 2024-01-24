@@ -1,13 +1,13 @@
+from flask import request
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, disconnect
-import random, time, functools, datetime
 from flask_login import current_user
-import logging
+import random, time, functools, datetime, logging
 
 origins = []
 
 # socketio = SocketIO(cors_allowed_origins=origins)
 # For development, allowing all origins (use cautiously)
-socketio = SocketIO(logger=True, cors_allowed_origins='*')
+socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins='http://127.0.0.1:5173')
 
 # For production, specify allowed origins
 # socketio = SocketIO(cors_allowed_origins=['http://localhost:5173'])
@@ -126,3 +126,12 @@ def handle_user_leaving(data):
 def error_handler(e):
     logging.basicConfig(level=logging.ERROR)
     logging.error(f"🤬🤬🤬🤬🤬🤬🤬SocketIO Error🤬🤬🤬🤬🤬🤬🤬: {e}")
+
+@socketio.on("my error event")
+def on_my_event(data):
+    raise RuntimeError()
+
+@socketio.on_error_default
+def default_error_handler(e):
+    print(request.event["message"]) # "my error event"
+    print(request.event["args"])    # (data,)
