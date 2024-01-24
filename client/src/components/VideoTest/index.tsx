@@ -11,8 +11,23 @@ const VideoTest: React.FC = () => {
     const { socket } = useSocket();
     const user = useAppSelector((state) => state.session.user);
     const agoraEngine = useRTCClient(AgoraRTC.createClient({ codec: 'vp8', mode: config.selectedProduct }));
-    const [joined, setJoined] = useState(false);
+    const [joined, setJoined] = useState<boolean>(false);
     const [channelName, setChannelName] = useState<string>('');
+
+    useEffect(() => {
+        // Function to handle leaving the room
+        const handleLeaveRoom = () => {
+            if (joined && socket) {
+                socket.emit('leave_room', { room: channelName });
+                setJoined(false);
+            }
+        };
+
+        // Cleanup function for unmounting
+        return () => {
+            handleLeaveRoom();
+        };
+    }, [joined, socket, channelName]); // Include navigate in dependency array
 
     useEffect(() => {
         if (socket) {
@@ -21,6 +36,7 @@ const VideoTest: React.FC = () => {
                 if (user && +data.user.id === +user.id) {
                     setChannelName(data.room);
                 }
+                console.log('socket "joined" activated -- user joined room: ', data.room);
             });
 
             socket.on('user_left', (data) => {
@@ -46,14 +62,16 @@ const VideoTest: React.FC = () => {
         };
 
         fetchTokenFunction();
+
+        console.log('😎channelName😎😎😎isJoined😎: ', channelName ? channelName : 'No Channel Name', joined);
     }, [channelName]);
 
     const handleJoinClick = () => {
         console.log('You are pressing the join button.', socket);
         if (socket) {
-            console.log('There is a socket', socket);
+            console.log('Emitting join_room and setting joined to true', socket);
             socket.emit('join_room');
-            setJoined(true);
+            // setJoined(true); //!! dont change state here, it breaks the webcam
         }
     };
 

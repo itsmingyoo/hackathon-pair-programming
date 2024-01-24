@@ -22,23 +22,27 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
     const [socket, setSocket] = useState<Socket | null>(null);
 
+    const handleBeforeUnload = () => {
+        if (user && socket && socket.connected) {
+            socket.emit('user_leaving', { userId: user.id });
+            socket.disconnect();
+            setSocket(null);
+        }
+    };
+
     useEffect(() => {
         if (user && user.id && !socket) {
             const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
                 transports: ['websocket', 'polling'],
                 reconnection: true,
                 reconnectionAttempts: 5,
+                reconnectionDelay: 2000,
+                reconnectionDelayMax: 5000,
                 autoConnect: true,
             });
             setSocket(newSocket);
         }
-        const handleBeforeUnload = () => {
-            if (user && socket && socket.connected) {
-                socket.emit('user_leaving', { userId: user.id });
-                socket.disconnect();
-                setSocket(null);
-            }
-        };
+
         window.addEventListener('beforeunload', handleBeforeUnload);
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
@@ -48,7 +52,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
                 setSocket(null);
             }
         };
-    }, [user]);
+    }, [user, socket]);
 
     useEffect(() => {
         // Disconnect the socket if the user logs out or their session ends

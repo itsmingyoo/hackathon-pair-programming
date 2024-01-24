@@ -1,7 +1,12 @@
-interface UserDict {
+export interface UserDict {
     id: string;
     username: string;
     email: string;
+}
+
+export interface JoinedEventData {
+    user: UserDict;
+    room: string;
 }
 
 export interface PairedChatMessage {
@@ -12,7 +17,7 @@ export interface PairedChatMessage {
 
 // Type for information received from the server
 export interface ServerToClientEvents {
-    joined: (data: { user: UserDict; room: string }) => void;
+    joined: (data: JoinedEventData) => void;
     user_left: (data: string) => void;
     temp_message_received: (data: PairedChatMessage) => void;
 }

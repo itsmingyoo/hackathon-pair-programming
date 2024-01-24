@@ -5,17 +5,13 @@ import random, time, functools, datetime, logging
 
 origins = []
 
-# socketio = SocketIO(cors_allowed_origins=origins)
-# For development, allowing all origins (use cautiously)
-socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins='http://127.0.0.1:5173')
-
-# For production, specify allowed origins
-# socketio = SocketIO(cors_allowed_origins=['http://localhost:5173'])
-
+socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins=origins)
 
 socket_rooms = {}
 
-@socketio.on('connect')
+logging.basicConfig(level=logging.ERROR)
+
+# @socketio.on('connect') # must take this out in order to have authenticated_only as a decorator
 def authenticated_only(f):
     """
         Defines authenticated only wrapper that will check if a user is authenticated before calling the original function. If not authenticated it will disconnect the user from the socket.
@@ -59,7 +55,7 @@ def handle_join_room():
         socket_rooms[chosen_room]["user_history"].append(user.id)
 
         join_room(chosen_room)
-        print({"joined_room": '😀😁😂🤣😃😄😅',"user": user.to_dict(), 'room': chosen_room})
+        print({"user_successfully_joined": '😀😁😂🤣😃😄😅',"user": user.to_dict(), 'room': chosen_room})
         emit("joined", {"user": user.to_dict(), "room": chosen_room}, to=chosen_room)
 
     except Exception as e:
@@ -119,12 +115,11 @@ def handle_user_leaving(data):
         "user": data['userId'],
         "reason": 'Refreshed, Reloaded, or Closed Tab'
     }
-    print('🤡🤡🤡🤡🤡🤡🤡🤡', response)
+    print('🤡🤡🤡🤡USER LEFT!!!🤡🤡🤡🤡', response)
     disconnect()
 
-@socketio.on_error()  # Handles the default namespace
+@socketio.on_error()
 def error_handler(e):
-    logging.basicConfig(level=logging.ERROR)
     logging.error(f"🤬🤬🤬🤬🤬🤬🤬SocketIO Error🤬🤬🤬🤬🤬🤬🤬: {e}")
 
 @socketio.on("my error event")
@@ -133,5 +128,6 @@ def on_my_event(data):
 
 @socketio.on_error_default
 def default_error_handler(e):
-    print(request.event["message"]) # "my error event"
-    print(request.event["args"])    # (data,)
+    print('🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶 on_error_default: ', e)
+    print('Error in event:', request.event["message"])  # The event name, e.g., "join_room"
+    print('With args:', request.event["args"])  # The event arguments
