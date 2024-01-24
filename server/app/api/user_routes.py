@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User, follow, db
+from app.models import User, db
 
 from sqlalchemy import select
 
@@ -27,29 +27,29 @@ def user(id):
     return user.to_dict()
 
 
-@user_routes.route('<int:follow_id>/follow/<int:user_id>', methods=['POST'])
-@login_required
-def follow_user(follow_id, user_id):
+# @user_routes.route('<int:follow_id>/follow/<int:user_id>', methods=['POST'])
+# @login_required
+# def follow_user(follow_id, user_id):
 
-    user = User.query.get(user_id)
-    following_user = User.query.get(follow_id)
+#     user = User.query.get(user_id)
+#     following_user = User.query.get(follow_id)
 
-    if not following_user or not user:
-        return {'error': 'User not found'}
+#     if not following_user or not user:
+#         return {'error': 'User not found'}
     
-    query = select([follow]).where(
-        (follow.c.followed_user == follow_id) & (follow.c.follower == user_id)
-    )
+#     query = select([follow]).where(
+#         (follow.c.followed_user == follow_id) & (follow.c.follower == user_id)
+#     )
 
-    res = db.session.execute(query)
+#     res = db.session.execute(query)
 
-    in_follows = res.fetchone() is not None
+#     in_follows = res.fetchone() is not None
 
-    if in_follows:
-        user.follows.remove(following_user)
-        db.session.commit()
-        return following_user.to_dict()
-    else:
-        user.follows.append(following_user)
-        db.session.commit()
-        return following_user.to_dict()
+#     if in_follows:
+#         user.follows.remove(following_user)
+#         db.session.commit()
+#         return following_user.to_dict()
+#     else:
+#         user.follows.append(following_user)
+#         db.session.commit()
+#         return following_user.to_dict()

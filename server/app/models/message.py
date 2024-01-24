@@ -13,7 +13,7 @@ class Message(db.Model):
     created_at = db.Column(db.String, nullable=False)
 
     sender_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
-    room_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('chat_rooms.id')))
+    room_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('chatrooms.id')))
 
     user = db.relationship('User', back_populates='messages')
     room = db.relationship('ChatRoom', back_populates='messages')

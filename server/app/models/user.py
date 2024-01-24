@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-from .following import follow
+#from .following import follow
 from .chatroom_join import chat_room_join
 
 class User(db.Model, UserMixin):
@@ -15,11 +15,11 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-
-    call = db.relationship("ChatRoom", secondary=chat_room_join, back_populates='users')
+    
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
 
-    follows = db.relationship('User', secondary=follow)
+    #call = db.relationship("ChatRoom", secondary=chat_room_join, back_populates='users')
+    #follows = db.relationship('User', secondary=follow, cascade="all, delete-orphan")
 
     @property
     def password(self):
@@ -39,8 +39,8 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
     
-    def to_followers(self):
-        return [{'followed_user': self.id, 'follower': user.id} for user in self.follows]
+    # def to_followers(self):
+    #     return [{'followed_user': self.id, 'follower': user.id} for user in self.follows]
     
-    def to_follows(self):
-        return [{'followed_user': user.id, 'follower': self.id} for user in self.follows]
+    # def to_follows(self):
+    #     return [{'followed_user': user.id, 'follower': self.id} for user in self.follows]
