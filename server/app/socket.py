@@ -75,7 +75,7 @@ def handle_leave_room(data):
             "room": "example_room_name"
         }
     """
-
+    print('🚪🚪🚪🚪🚪🚪 User Navigated Elsewhere, closing down room.')
     if socket_rooms[data["room"]]["user_count"] == 1:
         del socket_rooms[data["room"]]
         close_room(data["room"])
