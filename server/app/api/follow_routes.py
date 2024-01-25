@@ -32,3 +32,14 @@ def follow_user(id):
 
     return new_follow.to_dict()
 
+
+@follow_routes.route('/delete/<int:id>', methods=['DELETE'])
+@login_required
+def unfollow_user(id):
+    follow = Follow.query.get(id)
+    if follow.follower_id == current_user.id:
+        db.session.delete(follow)
+        db.session.commit()
+        return "Unfollow Successful"
+    else:
+        return "You do not follow this user"
