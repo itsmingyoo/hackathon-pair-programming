@@ -53,6 +53,8 @@ export const useAgoraContext = () => {
 export const AgoraManager = ({ config, children }: { config: configType; children: React.ReactNode }) => {
     // Retrieve local camera and microphone tracks and remote users
     const agoraEngine = useRTCClient();
+    const info = agoraEngine.getLocalVideoStats();
+    console.log('AYOOOOOOOOOOOOO', info);
     const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
     const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack();
     const remoteUsers = useRemoteUsers();

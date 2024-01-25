@@ -39,7 +39,7 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
     if (isLoading) {
         return <p>Sharing screen...</p>;
     }
-
+    return null;
     return (
         <div id="videos">
             <AgoraRTCScreenShareProvider client={screenShareClient.current}>
