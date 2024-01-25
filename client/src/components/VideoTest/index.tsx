@@ -7,6 +7,7 @@ import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import { useNavigation } from '../../context/Navigation';
 import PairedChat from '../PairedChat';
 import IDE from '../CodeMirror';
+import './index.css';
 
 const VideoTest: React.FC = () => {
     const { socket } = useSocket();
@@ -95,7 +96,7 @@ const VideoTest: React.FC = () => {
     };
 
     return (
-        <div>
+        <div id="video-main-container">
             <h1>Get Started with Video Calling</h1>
             {renderActionButton()}
             {joined && (

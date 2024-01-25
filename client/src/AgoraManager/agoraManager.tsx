@@ -24,6 +24,8 @@ import {
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { configType } from './config';
+import RemoteAndLocalVolumeComponent from './volumeControl';
+import './agoraManager.css';
 
 // Define the shape of the Agora context
 interface AgoraContextType {
@@ -53,8 +55,11 @@ export const useAgoraContext = () => {
 export const AgoraManager = ({ config, children }: { config: configType; children: React.ReactNode }) => {
     // Retrieve local camera and microphone tracks and remote users
     const agoraEngine = useRTCClient();
-    const info = agoraEngine.getLocalVideoStats();
-    console.log('AYOOOOOOOOOOOOO', info);
+
+    const localVS = agoraEngine.getLocalVideoStats();
+    const remoteVS = agoraEngine.getRemoteVideoStats();
+    console.log('AYOOOOOOOOOOOOO', localVS, '\n', remoteVS);
+
     const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
     const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack();
     const remoteUsers = useRemoteUsers();
@@ -148,14 +153,16 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
                 )}
             </>
             <div id="videos">
-                {/* Render the local video track */}
+                {/* Render CURRENT user */}
                 <div className="vid" style={{ height: 300, width: 600 }}>
                     <LocalVideoTrack track={localCameraTrack} play={true} />
+                    <RemoteAndLocalVolumeComponent />
                 </div>
-                {/* Render remote users' video and audio tracks */}
+                {/* Render OTHER users and screen shares etc. */}
                 {remoteUsers.map((remoteUser) => (
                     <div className="vid" style={{ height: 300, width: 600 }} key={remoteUser.uid}>
                         <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
+                        <RemoteAndLocalVolumeComponent />
                     </div>
                 ))}
             </div>
