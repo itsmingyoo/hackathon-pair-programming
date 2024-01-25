@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { AgoraRTCProvider, useRTCClient } from 'agora-rtc-react';
-import AgoraRTC from 'agora-rtc-react';
+import AgoraRTC, { AgoraRTCProvider, useRTCClient } from 'agora-rtc-react';
 import AgoraManager from '../../AgoraManager/agoraManager';
 import config from '../../AgoraManager/config';
 import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import { useAppSelector, useSocket } from '../../hooks';
 import PairedChat from '../PairedChat';
 import { useNavigation } from '../../context/Navigation';
+import IDE from '../CodeMirror';
+import ShareScreenComponent from '../../AgoraManager/screenShare';
 
 const VideoTest: React.FC = () => {
     const { socket } = useSocket();
@@ -14,23 +15,24 @@ const VideoTest: React.FC = () => {
     const agoraEngine = useRTCClient(AgoraRTC.createClient({ codec: 'vp8', mode: config.selectedProduct }));
     const [joined, setJoined] = useState<boolean>(false);
     const [channelName, setChannelName] = useState<string>('');
-    /* Handles user navigating elsewhere - Not sure if we need this as the component unmounts when a user clicks on home or closes tab -- meaning the one user left in the room won't be able to see the other user.
+    const [screenSharing, setScreenSharing] = useState<boolean>(false);
+    // Handles user navigating elsewhere - Not sure if we need this as the component unmounts when a user clicks on home or closes tab -- meaning the one user left in the room won't be able to see the other user.
     const { navigationState } = useNavigation();
-    // const handleLeaveRoom = () => {
-    //     if (joined && socket) {
-    //         socket.emit('leave_room', { room: channelName });
-    //         setJoined(false);
-    //     }
-    // };
+    const handleLeaveRoom = () => {
+        if (joined && socket) {
+            socket.emit('leave_room', { room: channelName });
+            setJoined(false);
+        }
+    };
 
     // Handle when a user navigates to a different page
-    // useEffect(() => {
-    //     if (navigationState.currentPath !== '/video-test') {
-    //         console.log('User Navigated Elsewhere.');
-    //         handleLeaveRoom();
-    //     }
-    // }, [navigationState]); // Include navigate in dependency array
-    */
+    useEffect(() => {
+        if (navigationState.currentPath !== '/video-test') {
+            console.log('User Navigated Elsewhere.');
+            handleLeaveRoom();
+        }
+    }, [navigationState]); // Include navigate in dependency array
+
     useEffect(() => {
         if (socket) {
             // Listen for the 'joined' event when successfully paired with a room
@@ -102,6 +104,11 @@ const VideoTest: React.FC = () => {
                         <AgoraManager config={config} children={undefined}></AgoraManager>
                     </AgoraRTCProvider>
                     <PairedChat channelName={channelName} />
+                    <ShareScreenComponent setScreenSharing={setScreenSharing} />
+
+                    {/* Conditionally render if user presses share screen button -- not working*/}
+                    {/* {screenSharing && <ShareScreenComponent setScreenSharing={setScreenSharing} />} */}
+                    {/* <button onClick={() => setScreenSharing(!screenSharing)}>toggle screen share</button> */}
                 </>
             )}
         </div>
