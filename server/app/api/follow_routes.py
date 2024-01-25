@@ -31,3 +31,4 @@ def follow_user(id):
     db.session.commit()
 
     return new_follow.to_dict()
+
