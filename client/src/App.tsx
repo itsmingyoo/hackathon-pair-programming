@@ -8,7 +8,7 @@ import { useAppDispatch } from './hooks';
 import LandingPage from './components/LandingPage';
 import VideoTest from './components/VideoTest';
 import AddTwoSum from './components/DSAProblems/add-two-sum';
-import VideoTest2 from './components/VideoTest/index2';
+import VideoTest2 from './components/VideoTest/AuthenticationWorkflowManagerTest';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 

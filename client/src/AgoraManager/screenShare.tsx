@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { useJoin, usePublish, useLocalScreenTrack, useTrackEvent } from 'agora-rtc-react';
-import AgoraRTC from 'agora-rtc-react';
+import AgoraRTC, { useJoin, usePublish, useLocalScreenTrack, useTrackEvent, LocalVideoTrack } from 'agora-rtc-react';
 import config from './config';
+import { AgoraRTCScreenShareProvider } from '../context/Screenshare';
 
 const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.SetStateAction<boolean>> }> = ({
     setScreenSharing,
@@ -40,8 +40,13 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
         return <p>Sharing screen...</p>;
     }
 
-    // Render nothing if not loading, you can add your own UI elements here if needed
-    return null;
+    return (
+        <div id="videos">
+            <AgoraRTCScreenShareProvider client={screenShareClient.current}>
+                <LocalVideoTrack play style={{ width: '1920px', height: '1080px' }} track={screenTrack} />
+            </AgoraRTCScreenShareProvider>
+        </div>
+    );
 };
 
 export default ShareScreenComponent;

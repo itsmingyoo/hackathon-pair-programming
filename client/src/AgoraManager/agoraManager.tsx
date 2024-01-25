@@ -1,3 +1,13 @@
+// AgoraManager Renders Video Calling.
+// Requirements: Wrap this component in AgoraRTCProvider
+/* Example:
+import AgoraRTC, { AgoraRTCProvider, useRTCClient } from 'agora-rtc-react';
+const agoraEngine = useRTCClient(AgoraRTC.createClient({ codec: 'vp8', mode: config.selectedProduct }));
+<AgoraRTCProvider client={agoraEngine}>
+    <AgoraManager config={config} children={undefined}></AgoraManager>
+</AgoraRTCProvider>;
+*/
+
 import {
     LocalVideoTrack,
     RemoteUser,
@@ -47,7 +57,7 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
     const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack();
     const remoteUsers = useRemoteUsers();
     const [role, setRole] = useState('host'); // Default role is host
-    console.log("🍉🍉🍉🍉🍉🍉🍉",remoteUsers)
+    console.log('🍉🍉🍉🍉🍉🍉🍉', remoteUsers);
 
     // Publish local tracks
     usePublish([localMicrophoneTrack, localCameraTrack]);

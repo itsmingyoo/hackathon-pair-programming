@@ -1,11 +1,13 @@
-import { useState, useCallback, MouseEventHandler, useEffect, useRef } from 'react';
+import { useState, useCallback, MouseEventHandler, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { dracula } from '@uiw/codemirror-theme-dracula';
-import { FetchRoutes, fetchTestResults } from '../../utility/fetchTestResults';
-import { AgoraRTCScreenShareProvider, useRTCScreenShareClient } from '../../context/Screenshare';
 import { IAgoraRTCClient } from 'agora-rtc-react';
+import ShareScreenComponent from '../../AgoraManager/screenShare';
+import config from '../../AgoraManager/config';
+import { FetchRoutes, fetchTestResults } from '../../utility/fetchTestResults';
+import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import './index.css';
 
 interface TestResult {
@@ -19,60 +21,46 @@ interface Props {
     problemTitle?: string;
     route?: string;
     client?: IAgoraRTCClient;
+    channelName: string;
 }
 
 function IDE(props: Props) {
-    const { problemId, problemTitle } = props;
+    const { problemId, problemTitle, channelName } = props;
     const [value, setValue] = useState<string>('# Your Python Code Here');
     const [userResults, setUserResults] = useState<boolean[]>([]);
     const [language, setLanguage] = useState<string>('python');
+    const [screenSharing, setScreenSharing] = useState<boolean>(false);
 
-    // Use the screen share context
-    const { startScreenShare, stopScreenShare, screenTrack } = useRTCScreenShareClient();
-    const [isScreenSharing, setIsScreenSharing] = useState(false);
-    const screenShareRef = useRef(null);
-
-    const toggleScreenShare = async () => {
-        if (!isScreenSharing) {
-            await startScreenShare();
-        } else {
-            await stopScreenShare();
-        }
-        setIsScreenSharing(!isScreenSharing);
+    const toggleScreenShare = () => {
+        setScreenSharing(!screenSharing);
     };
-
     useEffect(() => {
-        // Whenever screenTrack changes and is not null, attach it to the screen share container
-        if (screenTrack && screenShareRef.current) {
-            screenTrack.play(screenShareRef.current);
-        }
-
-        // Cleanup function to stop screen sharing when the component unmounts or screenTrack changes
-        return () => {
-            if (screenTrack) {
-                screenTrack.stop();
+        const fetchTokenFunction = async () => {
+            if (config.serverUrl !== '' && channelName !== '') {
+                try {
+                    const token = (await fetchRTCToken(channelName)) as string;
+                    config.rtcToken = token;
+                    config.channelName = channelName;
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                console.log('Please make sure you specified the token server URL in the configuration file');
             }
         };
-    }, [screenTrack, screenShareRef]);
+
+        fetchTokenFunction();
+
+        console.log('😎screenSharing😎: ', screenSharing ? screenSharing : screenSharing);
+    }, [screenSharing]);
 
     // Conditional rendering based on screen sharing state
     const renderContent = () => {
-        if (isScreenSharing && screenTrack) {
+        if (screenSharing === true) {
             return (
                 <>
-                    {/* <AgoraRTCScreenShareProvider client={props.client}> */}
                     <h1>Screen Sharing</h1>
-                    <div
-                        ref={screenShareRef}
-                        className="screen-share-container"
-                        style={{
-                            width: '500px', // Set the width explicitly
-                            height: '500px', // Set the height explicitly
-                            position: 'relative', // Add position style
-                            zIndex: 1, // Ensure it's above other content
-                        }}
-                    ></div>
-                    {/* </AgoraRTCScreenShareProvider> */}
+                    <ShareScreenComponent setScreenSharing={setScreenSharing} />
                 </>
             );
         } else {
@@ -156,14 +144,13 @@ function IDE(props: Props) {
     useEffect(() => {
         console.log('😁😁😁 state', userResults);
         console.log('😁😁😁 state', language);
-        console.log('😁😁😁 state', isScreenSharing);
-        console.log('😁😁😁 state', screenTrack);
+        console.log('😁😁😁 state', screenSharing);
     });
 
     return (
         <>
             <div>
-                <button onClick={toggleScreenShare}>{isScreenSharing ? 'Stop Sharing' : 'Start Sharing'}</button>
+                <button onClick={toggleScreenShare}>{screenSharing ? 'Stop Sharing' : 'Start Sharing'}</button>
                 {renderContent()}
             </div>
         </>

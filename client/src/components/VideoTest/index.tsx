@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import AgoraRTC, { AgoraRTCProvider, useRTCClient } from 'agora-rtc-react';
 import AgoraManager from '../../AgoraManager/agoraManager';
 import config from '../../AgoraManager/config';
-import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import { useAppSelector, useSocket } from '../../hooks';
-import PairedChat from '../PairedChat';
+import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import { useNavigation } from '../../context/Navigation';
+import PairedChat from '../PairedChat';
 import IDE from '../CodeMirror';
-import ShareScreenComponent from '../../AgoraManager/screenShare';
 
 const VideoTest: React.FC = () => {
     const { socket } = useSocket();
@@ -15,9 +14,8 @@ const VideoTest: React.FC = () => {
     const agoraEngine = useRTCClient(AgoraRTC.createClient({ codec: 'vp8', mode: config.selectedProduct }));
     const [joined, setJoined] = useState<boolean>(false);
     const [channelName, setChannelName] = useState<string>('');
-    const [screenSharing, setScreenSharing] = useState<boolean>(false);
-    // Handles user navigating elsewhere - Not sure if we need this as the component unmounts when a user clicks on home or closes tab -- meaning the one user left in the room won't be able to see the other user.
     const { navigationState } = useNavigation();
+
     const handleLeaveRoom = () => {
         if (joined && socket) {
             socket.emit('leave_room', { room: channelName });
@@ -31,7 +29,7 @@ const VideoTest: React.FC = () => {
             console.log('User Navigated Elsewhere.');
             handleLeaveRoom();
         }
-    }, [navigationState]); // Include navigate in dependency array
+    }, [navigationState]);
 
     useEffect(() => {
         if (socket) {
@@ -47,7 +45,7 @@ const VideoTest: React.FC = () => {
                 console.log(data);
             });
         }
-    }, [user, socket]); // Only run once on component mount
+    }, [user, socket]);
 
     useEffect(() => {
         const fetchTokenFunction = async () => {
@@ -73,7 +71,7 @@ const VideoTest: React.FC = () => {
     const handleJoinClick = () => {
         console.log('You are pressing the join button.', socket);
         if (socket) {
-            console.log('Emitting join_room and setting joined to true', socket);
+            console.log('You are now joining a room', socket);
             socket.emit('join_room');
             // setJoined(true); //!! dont change state here, it breaks the webcam
         }
@@ -88,7 +86,9 @@ const VideoTest: React.FC = () => {
 
     const renderActionButton = () => {
         return joined ? (
-            <button onClick={handleLeaveClick}>Leave</button>
+            <>
+                <button onClick={handleLeaveClick}>Leave</button>
+            </>
         ) : (
             <button onClick={handleJoinClick}>Join</button>
         );
@@ -104,11 +104,7 @@ const VideoTest: React.FC = () => {
                         <AgoraManager config={config} children={undefined}></AgoraManager>
                     </AgoraRTCProvider>
                     <PairedChat channelName={channelName} />
-                    <ShareScreenComponent setScreenSharing={setScreenSharing} />
-
-                    {/* Conditionally render if user presses share screen button -- not working*/}
-                    {/* {screenSharing && <ShareScreenComponent setScreenSharing={setScreenSharing} />} */}
-                    {/* <button onClick={() => setScreenSharing(!screenSharing)}>toggle screen share</button> */}
+                    <IDE problemId="1" problemTitle="Testing IDE & Screen Sharing" channelName={channelName} />
                 </>
             )}
         </div>
