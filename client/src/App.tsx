@@ -38,13 +38,12 @@ const App: React.FC = () => {
                     <Navigation isLoaded={isLoaded} />
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
-                        <Route path='/home' element={<HomePage />} />
+                        <Route path="/home" element={<HomePage />} />
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route path="/video-test" element={<VideoTest />} />
                         <Route path="/video-test-2" element={<VideoTest2 />} />
                         <Route path="/add-two-sum" element={<AddTwoSum />} />
-                        {/* Add more problems here */}
                     </Routes>
                     <Footer />
                 </Router>

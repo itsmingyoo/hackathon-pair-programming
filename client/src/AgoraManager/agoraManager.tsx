@@ -154,15 +154,21 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
             </>
             <div id="videos">
                 {/* Render CURRENT user */}
-                <div className="vid" style={{ height: 300, width: 600 }}>
+                <div className="vid" style={{ height: 300, width: 350 }}>
                     <LocalVideoTrack track={localCameraTrack} play={true} />
-                    <RemoteAndLocalVolumeComponent />
+                    <button id="follow-user">Follow</button>
+                    <div id="volume-control">
+                        <RemoteAndLocalVolumeComponent />
+                    </div>
                 </div>
                 {/* Render OTHER users and screen shares etc. */}
                 {remoteUsers.map((remoteUser) => (
-                    <div className="vid" style={{ height: 300, width: 600 }} key={remoteUser.uid}>
+                    <div className="vid" style={{ height: 300, width: 350 }} key={remoteUser.uid}>
                         <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
-                        <RemoteAndLocalVolumeComponent />
+                        <button id="follow-user">Follow</button>
+                        <div id="volume-control">
+                            <RemoteAndLocalVolumeComponent />
+                        </div>
                     </div>
                 ))}
             </div>

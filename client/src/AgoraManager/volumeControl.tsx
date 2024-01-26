@@ -26,11 +26,11 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
     return (
         <>
             <div>
-                <label>Local Audio Level:</label>
+                <label id="volume-label">Local Audio Level:</label>
                 <input type="range" min="0" max="100" step="1" onChange={handleLocalAudioVolumeChange} />
             </div>
             <div>
-                <label>Remote Audio Level:</label>
+                <label id="volume-label">Remote Audio Level:</label>
                 <input type="range" min="0" max="100" step="1" onChange={handleRemoteAudioVolumeChange} />
             </div>
         </>
