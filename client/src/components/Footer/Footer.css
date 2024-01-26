@@ -12,17 +12,19 @@
 }
 
 .all-developers > div {
-    text-align: center;
     border-top: #1b1b1b solid 1px;
     border-bottom: #1b1b1b solid 1px;
     color: #373F51;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: .5em;
 }
 
 .all-developers {
     display: flex;
     flex-direction: row;
-    gap: 7rem;
+    gap: 6rem;
     margin-left: 7rem;
 }
 

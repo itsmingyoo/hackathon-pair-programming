@@ -21,11 +21,11 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
   &::before, &::after {
-    opacity: 20%;
+    opacity: 25%;
     position: fixed;
     inset: 0;
     z-index: -1;
-    --gradone: radial-gradient( at 20%, #D8DBE2, transparent 80%), radial-gradient(at 30% 90%, #373F51, transparent 80%);
+    --gradone: radial-gradient(at 20%, #D8DBE2, transparent 80%), radial-gradient(at 70% 40%, #373F51, transparent 80%);
     --mask: var(--gradone);
     -webkit-mask: var(--mask);
     -webkit-mask-composite: intersect;

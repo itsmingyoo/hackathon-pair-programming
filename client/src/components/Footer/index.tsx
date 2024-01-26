@@ -1,5 +1,6 @@
 import './Footer.css';
-
+import GitHubIcon from "../../assets/icons/github.png";
+import LinkedInIcon from "../../assets/icons/linkedin.png";
 //should change github and linkedin names to icons
 
 function Footer() {
@@ -15,7 +16,11 @@ function Footer() {
                   href="https://github.com/itsmingyoo"
                   target="_blank"
                 >
-                  GitHub
+                  <img
+                    src={GitHubIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
               <div className="developer-linkedin">
@@ -24,7 +29,11 @@ function Footer() {
                   href="https://www.linkedin.com/in/minh-tran-36501a251"
                   target="_blank"
                 >
-                  LinkedIn
+                  <img
+                    src={LinkedInIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
             </div>
@@ -38,7 +47,11 @@ function Footer() {
                   href="https://github.com/jwoff1991"
                   target="_blank"
                 >
-                  GitHub
+                  <img
+                    src={GitHubIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
               <div className="developer-linkedin">
@@ -47,7 +60,11 @@ function Footer() {
                   href="https://www.linkedin.com/in/jonathanbwofford/"
                   target="_blank"
                 >
-                  LinkedIn
+                  <img
+                    src={LinkedInIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
             </div>
@@ -57,12 +74,20 @@ function Footer() {
             <div className="developer-links-container">
               <div className="developer-github">
                 <a className="github" href="#" target="_blank">
-                  GitHub
+                  <img
+                    src={GitHubIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
               <div className="developer-linkedin">
                 <a className="linkedin" href="#" target="_blank">
-                  LinkedIn
+                  <img
+                    src={LinkedInIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
             </div>
@@ -72,22 +97,30 @@ function Footer() {
             <div className="developer-links-container">
               <div className="developer-github">
                 <a className="github" href="#" target="_blank">
-                  GitHub
+                  <img
+                    src={GitHubIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
               <div className="developer-linkedin">
                 <a className="linkedin" href="#" target="_blank">
-                  LinkedIn
+                  <img
+                    src={LinkedInIcon}
+                    alt="GitHub Icon"
+                    style={{ width: "16px", height: "16px" }}
+                  />
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <div className='copywrite'>
-            Developed for App Academy Winter Hackathon 2024
-            <div>
-                "Providing accessable websites to ensure access for everyone"
-            </div>
+        <div className="copywrite">
+          Developed for App Academy Winter Hackathon 2024
+          <div>
+            "Providing accessable websites to ensure access for everyone"
+          </div>
         </div>
       </div>
     );
