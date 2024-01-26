@@ -165,10 +165,10 @@ export const AgoraManager = ({ config, children }: { config: configType; childre
                 {remoteUsers.map((remoteUser) => (
                     <div className="vid" style={{ height: 300, width: 350 }} key={remoteUser.uid}>
                         <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
+                        <button id="follow-user">Follow</button>
                         <div id="volume-control">
                             <RemoteAndLocalVolumeComponent />
                         </div>
-                        <button id="follow-user">Follow</button>
                     </div>
                 ))}
             </div>
