@@ -5,82 +5,75 @@ import OpenModalButton from '../OpenModalButton/index';
 import LoginFormModal from '../LoginFormModal/index';
 import SignupFormModal from '../SignupFormModal/index';
 import { User } from '../../interfaces/user';
+import optionsIcon from '../../assets/devpair-logos/svg/options-icon.svg';
 import './ProfileButton.css';
 
-interface ProfileButtonProps {
-    user: User;
-}
-
-function ProfileButton({ user }: ProfileButtonProps) {
+function ProfileButton({ user }: { user: User }) {
     const dispatch = useAppDispatch();
     const [showMenu, setShowMenu] = useState(false);
-    const ulRef = useRef<HTMLUListElement>(null); // Specify the element type for the ref
-
-    const openMenu = () => {
-        console.log("Button clicked!");
-        if (showMenu) return;
-        setShowMenu(true);
-    };
+    const ulRef = useRef<HTMLDivElement>(null); // Specify the element type for the ref
 
     useEffect(() => {
-        if (!showMenu) return;
+        if (showMenu === false) return;
 
-        const closeMenu = (e: Event) => {
-            if (ulRef.current && !ulRef.current.contains(e.target as Node)) {
+        const closeMenuOnClickOutside = (e: MouseEvent) => {
+            // add a null check since we're getting an error here with our new modified code to implement signup - login modal buttons separate from the profile button
+            if (!ulRef.current || !ulRef.current.contains(e.target as Node)) {
                 setShowMenu(false);
             }
         };
 
-        document.addEventListener('click', closeMenu);
+        document.addEventListener('click', closeMenuOnClickOutside);
 
-        return () => {
-            document.removeEventListener('click', closeMenu);
-        };
+        return () => document.removeEventListener('click', closeMenuOnClickOutside);
     }, [showMenu]);
-
-    const ulClassName = `profile-dropdown${showMenu ? '' : ' hidden'}`;
-    console.log("showMenu:", showMenu);
-    console.log("ulClassName:", ulClassName);
 
     const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         dispatch(logout());
     };
 
-    const closeMenu = () => {
-        setShowMenu(false);
+    const ulClassName = showMenu ? 'dropdown-container' : ' hidden';
+    const closeMenu = () => setShowMenu(false);
+    const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation(); // Prevent click event from bubbling up to the document
+        setShowMenu(!showMenu); // toggle menu
     };
 
     return (
         <>
-            <button onClick={openMenu}>
-                <i className="fas fa-user-circle" />User
-            </button>
-            <ul className={ulClassName} ref={ulRef}>
-                {user ? (
-                    <>
-                        <li>{user.username}</li>
-                        <li>{user.email}</li>
-                        <li>
-                            <button onClick={handleLogout}>Log Out</button>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <OpenModalButton
-                            buttonText="Log In"
-                            onItemClick={closeMenu}
-                            modalComponent={<LoginFormModal />}
-                        />
+            <div className="profile-dropdown">
+                <button onClick={(e) => openMenu(e)} id="options-button">
+                    <img src={optionsIcon} alt="options-icon" id="options-icon" />
+                </button>
+                <div className={ulClassName} ref={ulRef}>
+                    <div className="dropdown-list">
+                        {user ? (
+                            <>
+                                <div>Welcome, {user.username}!</div>
+                                <div>{user.email}</div>
+                                <div>
+                                    <button onClick={handleLogout}>Log Out</button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <OpenModalButton
+                                    buttonText="Log In"
+                                    onItemClick={closeMenu}
+                                    modalComponent={<LoginFormModal />}
+                                />
 
-                        <OpenModalButton
-                            buttonText="Sign Up"
-                            onItemClick={closeMenu}
-                            modalComponent={<SignupFormModal />}
-                        />
-                    </>
-                )}
-            </ul>
+                                <OpenModalButton
+                                    buttonText="Sign Up"
+                                    onItemClick={closeMenu}
+                                    modalComponent={<SignupFormModal />}
+                                />
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

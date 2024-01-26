@@ -1,5 +1,6 @@
 .profile-dropdown {
-    position: absolute;
+    display: flex;
+    flex-direction: column;
   }
 
   .hidden {
@@ -15,17 +16,21 @@
     width: 100%;
     height: 3.5rem;
     padding: 1rem 0;
-    background-color: #fff;
   }
 
   .nav-links {
     display: flex;
     justify-content: space-between;
+    padding: 1.5rem;
   }
 
   .nav-links-login-and-signout {
     display: flex;
     justify-content: space-between;
+  }
+
+  .nav-links-login-and-signout > div > a {
+    color: #3cebca
   }
 
   .nav-links-login-and-signout {
