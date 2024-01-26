@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { login } from '../../store/session';
 import { useModal } from '../../context/Modal/Modal';
 import { useAppDispatch } from '../../hooks';
+import { Navigate } from 'react-router-dom';
 // import './LoginForm.css';
 
 function LoginFormModal() {
@@ -19,6 +20,17 @@ function LoginFormModal() {
             setErrors(data);
         } else {
             closeModal();
+        }
+    };
+
+    const handleDemoSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = await dispatch(login({ email: 'demo@aa.io', password: 'password' }));
+        if (data && Array.isArray(data)) {
+            setErrors(data);
+        } else {
+            closeModal();
+            return <Navigate to="/home" replace />;
         }
     };
 
@@ -40,6 +52,11 @@ function LoginFormModal() {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </label>
                 <button type="submit">Log In</button>
+            </form>
+            <form onSubmit={handleDemoSubmit}>
+                <button id="demo-user" type="submit">
+                    DemoUser
+                </button>
             </form>
         </>
     );

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { RootState } from '../../store';
-import "./LoginForm.css";
+import './LoginForm.css';
 
 function LoginFormPage() {
     const dispatch = useAppDispatch();
@@ -13,12 +13,12 @@ function LoginFormPage() {
     const [password, setPassword] = useState<string>('');
     const [errors, setErrors] = useState<string[]>([]);
 
-    console.log("errors ", errors);
+    console.log('errors ', errors);
 
     //sessionUser is returning true even if there is no user logged in because it is returning the user object { errors: [] }
     //so we need to check if there is a user object and if there are no errors in the user object
     let userLoggedIn: boolean = false;
-    if(sessionUser && !sessionUser.errors) {
+    if (sessionUser && !sessionUser.errors) {
         userLoggedIn = true;
     }
 
@@ -28,8 +28,18 @@ function LoginFormPage() {
         e.preventDefault();
         const data = await dispatch(login({ email, password }));
         if (data && Array.isArray(data)) {
-          console.log("data ", data);
-          setErrors(data);
+            console.log('data ', data);
+            setErrors(data);
+        }
+    };
+
+    const handleDemoSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = await dispatch(login({ email: 'demo@aa.io', password: 'password' }));
+        if (data && Array.isArray(data)) {
+            setErrors(data);
+        } else {
+            return <Navigate to="/home" replace />;
         }
     };
 
