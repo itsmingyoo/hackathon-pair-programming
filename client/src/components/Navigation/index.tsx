@@ -40,7 +40,7 @@ function Navigation({ isLoaded }: NavigationProps) {
                                 <NavLink to="/login">Login</NavLink>
                             </div>
                             <div>
-                                <NavLink to="/signup">Sign Up</NavLink>
+                                <NavLink to="/signup">Create Account</NavLink>
                             </div>
                         </div>
                     )}

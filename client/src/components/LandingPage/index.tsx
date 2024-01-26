@@ -28,8 +28,8 @@ function LandingPage() {
                     </div>
                     <div>
                         <div className="landing-page-description">
-                            <div className='landing-text-one'>Connect with other developers anywhere to work on DS&A</div>
-                            <div className='landing-text-two'>Simply login click connect and go</div>
+                            <div className='landing-text-one'>Connect with other developers from anywhere</div>
+                            <div className='landing-text-two'>Work on DS&A questions to enhance your skills</div>
                             <div className='landing-text-three'>Become a better developer</div>
                             <button className="landing-page-get-started">Get Started</button>
                         </div>
