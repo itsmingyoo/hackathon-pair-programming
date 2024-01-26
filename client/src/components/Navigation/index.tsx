@@ -34,7 +34,7 @@ function Navigation({ isLoaded }: NavigationProps) {
       <div className="nav-container">
         <div className="nav-links">
           <div className="nav-links-home">
-            <NavLink to="/"><img className='logo-for-nav' src='src/assets/images/logo.png' alt='dev-pair logo'/></NavLink>
+            <NavLink to="/home"><img className='logo-for-nav' src='src/assets/images/logo.png' alt='dev-pair logo'/></NavLink>
           </div>
           <div className="nav-links-other">
             <button onClick={handleLogout}>Logout</button>
