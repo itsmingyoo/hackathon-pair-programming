@@ -7,6 +7,9 @@
 .signup-container {
     width: 20rem;
     height: 100%;
+    border: rgba(128, 128, 128, 0.377) solid 1px;
+    background-color: whitesmoke;
+    border-radius: 5px;
 }
 
 .signup-container form {
@@ -30,4 +33,11 @@
     background-color: #3cebca;
     color: #373F51;
     height: 30px;
+    margin-bottom: 35px;
+    margin-top: 20px;
+}
+
+.signup-page-input-text {
+    font-size: x-small;
+    padding-bottom: 4px;
 }

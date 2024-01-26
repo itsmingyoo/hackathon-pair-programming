@@ -7,6 +7,10 @@
 .login-container {
     width: 20rem;
     height: 100%;
+    border: rgba(128, 128, 128, 0.377) solid 1px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+
 }
 
 .login-container form {
@@ -22,12 +26,19 @@
     width: 250px;
     border: none;
     border-radius: 5px;
-    /* box-shadow: 2px 2px 2px #3cebca; */
     background-color: #3cebca;
     color: #373F51;
     height: 30px;
+    margin-bottom: 35px;
+    margin-top: 20px;
 }
 
 .login-form-input {
     width: 242px;
+    height: 25px;
+}
+
+.login-page-input-text {
+    font-size: x-small;
+    padding-bottom: 4px;
 }

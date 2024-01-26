@@ -38,12 +38,15 @@ function LoginFormPage() {
         <div className="login-container">
           <form onSubmit={handleSubmit}>
             <h1>Log In</h1>
-            <ul>
+            {/* <ul>
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
-            </ul>
+            </ul> */}
             <label className="form-labels">
+              <div className='login-page-input-text'>
+                Email address
+              </div>
               <input
                 className="login-form-input"
                 placeholder="Email"
@@ -54,6 +57,9 @@ function LoginFormPage() {
               />
             </label>
             <label className="form-labels">
+            <div className='login-page-input-text'>
+                Password
+              </div>
               <input
                 className="login-form-input"
                 placeholder="Password"

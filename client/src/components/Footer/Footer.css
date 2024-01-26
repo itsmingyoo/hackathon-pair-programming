@@ -24,7 +24,7 @@
 .all-developers {
     display: flex;
     flex-direction: row;
-    gap: 6rem;
+    gap: 5rem;
     margin-left: 7rem;
 }
 
