@@ -167,4 +167,4 @@ dist-ssr
 .prettierrc
 
 # Assets
-/src/assets
+# /src/assets

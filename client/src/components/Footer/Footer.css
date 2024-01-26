@@ -3,16 +3,16 @@
     position: fixed;
     bottom: 1rem;
     width: 100vw;
-    background-color: black;
+    background-color: #58A4B0;
     padding: 1rem 0;
 
 }
 
 .footer-container > div {
     text-align: center;
-    border-top: black solid 1px;
-    border-bottom: black solid 1px;
-    color: whitesmoke
+    border-top: #1b1b1b solid 1px;
+    border-bottom: #1b1b1b solid 1px;
+    color: #373F51
 }
 
 .footer-container {
@@ -30,6 +30,13 @@
 }
 
 @media only screen and (max-width: 900px) {
+    .footer-container {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-height: 600px) {
     .footer-container {
         display: none;
     }

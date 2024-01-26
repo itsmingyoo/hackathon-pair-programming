@@ -1,6 +1,34 @@
+/* Dropdown Button */
 .profile-dropdown {
-    border: red solid 1px;
-    position: absolute;
-    top: 20px;
+    position: relative;
+    top: 10px;
     right: 20px;
+}
+
+#options-button {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    border: none;
+    background: none;
+}
+
+/* Dropdown Content */
+.dropdown-container {
+    position: relative;
+    top: 70px;
+    right: 20px;
+    border: 1px solid black;
+    padding: 5px;
+    background-color: #58A4B0;
+    box-shadow: 3px 3px 3px black;
+}
+
+.dropdown-list {
+    text-align: center;
+}
+
+.dropdown-list > div {
+    width: 10rem;
+    margin: 4px 0;
 }

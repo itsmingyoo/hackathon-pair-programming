@@ -1,3 +1,14 @@
+/** CSS STYLES TO DEFAULT TO */
+/* box-shadow: 4px 3px 3px black; */
+
+/** COLOR SCHEME
+--platinum: #D8DBE2;
+--DevPair-Green: #3cebca;
+--moonstone: #58A4B0;
+--charcoal: #373F51;
+--eerie-black: #1b1b1b;
+*/
+
 #root {
   display: flex;
   flex-direction: column;
@@ -8,4 +19,27 @@
 
 body {
   margin: 0;
+  &::before, &::after {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    content: '';
+  }
+  &::before {
+    background: #000;
+    filter: url(#f)
+  }
+
+}
+
+svg {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
 }
