@@ -29,33 +29,32 @@ def authenticated_only(f):
 @socketio.on("join_room")
 @authenticated_only
 def handle_join_room():
-    user = current_user
+    user = current_user.to_dict()  # Convert user to dict here
     rooms = list(socket_rooms.keys())
 
     try:
         eligible_rooms = [
             room
             for room in rooms
-            if socket_rooms[room]["user_count"] <= 1 and user.id not in socket_rooms[room]["user_history"]
+            if socket_rooms[room]["user_count"] <= 1 and user['id'] not in socket_rooms[room]["user_history"]
         ]
 
         if eligible_rooms:
             chosen_room = random.choice(eligible_rooms)
         else:
             while True:
-                new_room = f"room_{int(time.time())}_{user.id}"
+                new_room = f"room_{int(time.time())}_{user['id']}"  # Use user['id'] here
                 if new_room not in rooms:
                     chosen_room = new_room
                     break
-        user = current_user.to_dict()
-        
+
         while True:
-            videoUID = uuid.uuid4
-            screenUID = uuid.uuid4
+            videoUID = str(uuid.uuid4())  # Call uuid4 as a function and convert to string
+            screenUID = str(uuid.uuid4())  # Call uuid4 as a function and convert to string
             if videoUID not in uuid_set and screenUID not in uuid_set:
                 uuid_set.add(videoUID)
                 uuid_set.add(screenUID)
-                user['videoUId'] = videoUID
+                user['videoUID'] = videoUID
                 user['screenUID'] = screenUID
                 break
 
@@ -64,18 +63,16 @@ def handle_join_room():
 
         # Add the user to the chosen room
         socket_rooms[chosen_room]["user_count"] += 1
-        socket_rooms[chosen_room]["user_history"].append(user.id)
+        socket_rooms[chosen_room]["user_history"].append(user['id'])  # Use user['id'] here
 
         join_room(chosen_room)
 
-
-        print({"user_successfully_joined": '😀😁😂🤣😃😄😅',"user": user.to_dict(), 'room': chosen_room})
         emit("joined", {"user": user, "room": chosen_room}, to=chosen_room)
 
     except Exception as e:
-        # Handle exceptions (e.g., room not found, socket connection issue)
         print("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬", e)
-        socketio.emit("join_room_error", {"error": str(e)}, to=user.id)
+        socketio.emit("join_room_error", {"error": str(e)}, to=user['id'])  # Use user['id'] here
+
 
 
 @socketio.on("leave_room")
