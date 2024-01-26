@@ -29,10 +29,10 @@ function LandingPage() {
           </div>
           <div>
             <div className="landing-page-description">
-              <div>This will be a couples lines of description</div>
-              <div>This will be the second line</div>
-              <div>and possibly the last</div>
-              <button>Get Started</button>
+              <div>Connect with other developers anywhere to work on DS&A</div>
+              <div>Simply login click connect and go</div>
+              <div>Become a better developer</div>
+              <button className="landing-page-get-started">Get Started</button>
             </div>
           </div>
         </div>

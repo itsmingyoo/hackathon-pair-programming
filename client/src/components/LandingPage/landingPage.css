@@ -14,3 +14,13 @@
     align-items: center;
     gap: 1rem;
 }
+
+
+.landing-page-get-started {
+    width: 250px;
+    border: none;
+    box-shadow: 2px 2px #3cebca;
+    background-color: #3cebca;
+    color: white;
+    height: 30px;
+}
