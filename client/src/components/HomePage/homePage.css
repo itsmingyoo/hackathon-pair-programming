@@ -21,6 +21,7 @@
 
 .text-one {
     font-size: 35px;
+    font-weight: bold;
 }
 
 .text-two {
@@ -34,10 +35,12 @@
 .home-page-get-started {
     width: 250px;
     border: none;
-    border-radius: 5px;
-    /* box-shadow: 2px 2px #3cebca; */
+    border-radius: 7px;
+    box-shadow: 4px 4px 5px #3cebcb81;
     background-color: #3cebca;
-    color: white;
+    color: 373F51;
     height: 50px;
-    font-size: large;
+    font-size: 25px;
+    /* font-weight: bold; */
+    margin-top: 40px;
 }

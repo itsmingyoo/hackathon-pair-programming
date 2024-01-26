@@ -19,11 +19,14 @@
 .landing-page-get-started {
     width: 250px;
     border: none;
-    box-shadow: 2px 2px #D8DBE2;
-    background-color: #D8DBE2;
-    color: #373F51;
-    height: 30px;
-    border-radius: 3px;
+    border-radius: 7px;
+    box-shadow: 4px 4px 5px #3cebcb81;
+    background-color: #3cebca;
+    color: 373F51;
+    height: 50px;
+    font-size: 25px;
+    /* font-weight: bold; */
+    /* margin-top: 15px; */
 }
 
 #cool-image {
@@ -41,4 +44,22 @@
 
 .landing-page-description > div {
     color: #D8DBE2;
+}
+
+
+.landing-text-one, .landing-text-two, .landing-text-three {
+    color: black !important;
+}
+
+.landing-text-one {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.landing-text-two {
+    font-size: 21px;
+}
+
+.landing-text-three {
+    font-size: 17px;
 }

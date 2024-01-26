@@ -3,9 +3,8 @@
     position: fixed;
     bottom: 1rem;
     width: 100vw;
-    background-color: #58A4B0;
+    background-color: #58a4b0de;
     padding: 1rem 0;
-
 }
 
 .footer-container > div {
@@ -27,6 +26,11 @@
 .developer-links-container {
     display: flex;
     gap: .5rem;
+}
+
+.github, .linkedin {
+    text-decoration: none !important;
+    color: #373F51;
 }
 
 @media only screen and (max-width: 900px) {
