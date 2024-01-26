@@ -1,7 +1,7 @@
 .footer-container {
 
     position: fixed;
-    bottom: 1rem;
+    bottom: 0rem;
     width: 100vw;
     background-color: #58a4b0de;
     padding: 1rem 0;
@@ -11,7 +11,8 @@
     text-align: center;
     border-top: #1b1b1b solid 1px;
     border-bottom: #1b1b1b solid 1px;
-    color: #373F51
+    color: #373F51;
+    font-weight: bold;
 }
 
 .footer-container {
