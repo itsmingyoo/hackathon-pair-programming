@@ -2,10 +2,12 @@ export interface UserDict {
     id: string;
     username: string;
     email: string;
+    videoUid: string;
+    screenUid: string;
 }
 
 export interface JoinedEventData {
-    user: UserDict;
+    users: UserDict[];
     room: string;
 }
 
