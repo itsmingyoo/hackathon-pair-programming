@@ -36,6 +36,7 @@ const VideoTest: React.FC = () => {
         if (socket) {
             // Listen for the 'joined' event when successfully paired with a room
             socket.on('joined', (data) => {
+                console.log("🍍🍍🍍🍍🍍🍍🍍🍍🍍🍍🍍 user", data)
                 if (user && +data.user.id === +user.id) {
                     setChannelName(data.room);
                 }

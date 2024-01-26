@@ -1,13 +1,14 @@
 from flask import request
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, disconnect
 from flask_login import current_user
-import random, time, functools, datetime, logging
+import random, time, functools, datetime, logging, uuid
 
 origins = []
 
 socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins=origins)
 
 socket_rooms = {}
+uuid_set = set()
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -46,6 +47,17 @@ def handle_join_room():
                 if new_room not in rooms:
                     chosen_room = new_room
                     break
+        user = current_user.to_dict()
+        
+        while True:
+            videoUID = uuid.uuid4
+            screenUID = uuid.uuid4
+            if videoUID not in uuid_set and screenUID not in uuid_set:
+                uuid_set.add(videoUID)
+                uuid_set.add(screenUID)
+                user['videoUId'] = videoUID
+                user['screenUID'] = screenUID
+                break
 
         # Create the room in the dictionary if it doesn't exist
         socket_rooms.setdefault(chosen_room, {"user_count": 0, "user_history": []})
@@ -55,8 +67,10 @@ def handle_join_room():
         socket_rooms[chosen_room]["user_history"].append(user.id)
 
         join_room(chosen_room)
+
+
         print({"user_successfully_joined": '😀😁😂🤣😃😄😅',"user": user.to_dict(), 'room': chosen_room})
-        emit("joined", {"user": user.to_dict(), "room": chosen_room}, to=chosen_room)
+        emit("joined", {"user": user, "room": chosen_room}, to=chosen_room)
 
     except Exception as e:
         # Handle exceptions (e.g., room not found, socket connection issue)
