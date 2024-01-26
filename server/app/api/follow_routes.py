@@ -4,7 +4,7 @@ from ..models import User, Follow, db
 
 follow_routes = Blueprint('follows', __name__)
 
-@follow_routes.route('/<int:id>')
+@follow_routes.route('/user/<int:id>')
 def get_user_followers(id):
     user = User.query.get(id)
 
@@ -17,7 +17,7 @@ def get_user_followers(id):
     }
 
 
-@follow_routes.route('/<int:id>', methods=['POST'])
+@follow_routes.route('/user/<int:id>', methods=['POST'])
 @login_required
 def follow_user(id):
     target_user = User.query.get(id)
