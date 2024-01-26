@@ -33,7 +33,7 @@ function LoginFormPage() {
         }
     };
 
-    const handleDemoSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleDemoSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         const data = await dispatch(login({ email: 'demo@aa.io', password: 'password' }));
         if (data && Array.isArray(data)) {
@@ -82,6 +82,7 @@ function LoginFormPage() {
             <button className="login-form-button" type="submit">
               Log In
             </button>
+            <button className='login-demo-user' onClick={handleDemoSubmit}>Signin as Demo User</button>
           </form>
         </div>
       </div>

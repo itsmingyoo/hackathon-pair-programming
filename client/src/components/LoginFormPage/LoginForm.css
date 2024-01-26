@@ -29,7 +29,6 @@
     background-color: #3cebca;
     color: #373F51;
     height: 30px;
-    margin-bottom: 35px;
     margin-top: 20px;
 }
 
@@ -43,6 +42,8 @@
     padding-bottom: 4px;
 }
 
-#demo-user {
-    margin-top: 0.5rem;
+.login-demo-user {
+    margin-bottom: 25px;
+    border: none;
+    text-decoration: underline;
 }
