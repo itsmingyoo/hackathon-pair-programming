@@ -40,17 +40,13 @@ function SignupFormPage() {
         setErrors([
           "Confirm Password field must be the same as the Password field",
         ]);
+      }
         if (password === confirmPassword) {
           const data = await dispatch(signUp({ username, email, password }));
           if (data && Array.isArray(data)) {
             setErrors(data);
           }
-        } else {
-          setErrors([
-            "Confirm Password field must be the same as the Password field",
-          ]);
-        }
-      }
+        } 
     };
 
     //possible to make erros an object istead of array?
