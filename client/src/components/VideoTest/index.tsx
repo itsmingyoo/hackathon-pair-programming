@@ -96,19 +96,37 @@ const VideoTest: React.FC = () => {
     };
 
     return (
-        <div id="video-main-container">
-            <h1>Get Started with Video Calling</h1>
-            {renderActionButton()}
-            {joined && (
-                <>
-                    <AgoraRTCProvider client={agoraEngine}>
-                        <AgoraManager config={config} children={undefined}></AgoraManager>
-                    </AgoraRTCProvider>
-                    <PairedChat channelName={channelName} />
-                    <IDE problemId="1" problemTitle="Testing IDE & Screen Sharing" channelName={channelName} />
-                </>
-            )}
-        </div>
+        <>
+            <div id="video-main-wrapper">
+                <h1>Get Started with Video Calling</h1>
+                {renderActionButton()}
+                {joined && (
+                    <>
+                        <div id="main-wrapper">
+                            <div id="video-wrapper">
+                                <div id="video-container">
+                                    <AgoraRTCProvider client={agoraEngine}>
+                                        <AgoraManager config={config} children={undefined}></AgoraManager>
+                                    </AgoraRTCProvider>
+                                </div>
+                            </div>
+
+                            <div id="ide-container">
+                                <IDE
+                                    problemId="1"
+                                    problemTitle="Testing IDE & Screen Sharing"
+                                    channelName={channelName}
+                                />
+                            </div>
+
+                            <div id="paired-chat-container">
+                                <PairedChat channelName={channelName} />
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
+        </>
     );
 };
 
