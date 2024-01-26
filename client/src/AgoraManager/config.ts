@@ -2,7 +2,7 @@ import { EncryptionMode, UID, SDK_MODE } from 'agora-rtc-sdk-ng';
 
 const config: configType = {
     uid: 0,
-    appId: import.meta.env.APP_ID,
+    appId: import.meta.env.VITE_APP_ID,
     channelName: 'testing',
     rtcToken: '',
     serverUrl: 'https://agora-token-server-kicu.onrender.com',
