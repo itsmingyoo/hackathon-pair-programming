@@ -25,6 +25,7 @@
 .signup-form-button {
     width: 250px;
     border: none;
+    border-radius: 5px;
     box-shadow: 2px 2px #3cebca;
     background-color: #3cebca;
     color: white;

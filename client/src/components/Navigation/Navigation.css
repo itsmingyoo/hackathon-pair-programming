@@ -26,6 +26,7 @@
   .nav-links-login-and-signout {
     display: flex;
     justify-content: space-between;
+    padding-right: 35px;
   }
 
   .nav-links-login-and-signout {
