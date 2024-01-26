@@ -12,7 +12,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
+}
+
+.text-one, .text-two, .text-three {
+    color: black !important;
+}
+
+.text-one {
+    font-size: 35px;
+}
+
+.text-two {
+    font-size: 28px;
+}
+
+.text-three {
+    font-size: 20px;
 }
 
 .home-page-get-started {
