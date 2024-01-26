@@ -13,6 +13,7 @@ function LoginFormPage() {
     const [password, setPassword] = useState<string>('');
     const [errors, setErrors] = useState<string[]>([]);
 
+    console.log("errors ", errors);
 
     //sessionUser is returning true even if there is no user logged in because it is returning the user object { errors: [] }
     //so we need to check if there is a user object and if there are no errors in the user object
@@ -27,12 +28,13 @@ function LoginFormPage() {
         e.preventDefault();
         const data = await dispatch(login({ email, password }));
         if (data && Array.isArray(data)) {
-            setErrors(data);
+          console.log("data ", data);
+          setErrors(data);
         }
     };
 
     return (
-      <>
+      <div className="login-component">
         <div className="login-container">
           <form onSubmit={handleSubmit}>
             <h1>Log In</h1>
@@ -43,6 +45,7 @@ function LoginFormPage() {
             </ul>
             <label className="form-labels">
               <input
+                className="login-form-input"
                 placeholder="Email"
                 type="text"
                 value={email}
@@ -52,6 +55,7 @@ function LoginFormPage() {
             </label>
             <label className="form-labels">
               <input
+                className="login-form-input"
                 placeholder="Password"
                 type="password"
                 value={password}
@@ -59,10 +63,12 @@ function LoginFormPage() {
                 required
               />
             </label>
-            <button type="submit">Log In</button>
+            <button className="login-form-button" type="submit">
+              Log In
+            </button>
           </form>
         </div>
-      </>
+      </div>
     );
 }
 
