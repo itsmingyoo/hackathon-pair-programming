@@ -76,7 +76,7 @@
     bottom: 0;
     width: 0;
     height: .1rem;
-    background-color: #31F2B8; /* Color of sliding border */
+    background-color: #20CC09; /* Color of sliding border */
     transition: width 0.3s ease; /* Transition for width */
 }
 

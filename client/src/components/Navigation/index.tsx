@@ -23,7 +23,7 @@ function Navigation({ isLoaded }: NavigationProps) {
 
     return (
         <div className="nav-container">
-            <div className="nav-links">
+            <nav className="nav-links">
                 <div className="nav-links-home">
                     <NavLink to="/" className="nav-links-home">
                         <img className="logo-for-nav" src={logo} alt="dev-pair logo" />
@@ -45,7 +45,7 @@ function Navigation({ isLoaded }: NavigationProps) {
                         </div>
                     )}
                 </div>
-            </div>
+            </nav>
         </div>
     );
 }

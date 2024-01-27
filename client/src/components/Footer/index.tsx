@@ -5,7 +5,7 @@ import LinkedInIcon from "../../assets/icons/svg/linkedin.svg";
 
 function Footer() {
     return (
-      <div className="footer-container">
+      <footer className="footer-container">
         <div className="all-developers">
           <div className="developer-container">
             <div className="developer-name">Minh Tran</div>
@@ -128,7 +128,7 @@ function Footer() {
             "Empowering Collaboration, Anytime, Anywhere."
           </div>
         </div>
-      </div>
+      </footer>
     );
 }
 
