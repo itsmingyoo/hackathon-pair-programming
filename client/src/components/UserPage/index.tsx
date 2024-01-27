@@ -6,6 +6,7 @@ import { RootState } from '../../store';
 
 function UserPage() {
     const dispatch = useAppDispatch();
+    const sessionUser = useSelector((state: RootState) => state.session.user);
 
     return (
         <>
