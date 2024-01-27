@@ -35,6 +35,8 @@ export const login = createAsyncThunk<User | null, { email: string; password: st
                 const data = await response.json();
                 return data || null; // Assuming data is of type User
             } else {
+                const data = await response.json();
+                console.log('❌❌❌❌ Invalid Credentials', data);
                 return null;
             }
         } catch (error) {
