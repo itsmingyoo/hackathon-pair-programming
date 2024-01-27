@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/session';
 import { useAppDispatch } from '../../hooks';
 import OpenModalButton from '../OpenModalButton/index';
@@ -10,6 +11,7 @@ import './ProfileButton.css';
 
 function ProfileButton({ user }: { user: User }) {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef<HTMLDivElement>(null); // Specify the element type for the ref
 
@@ -28,9 +30,10 @@ function ProfileButton({ user }: { user: User }) {
         return () => document.removeEventListener('click', closeMenuOnClickOutside);
     }, [showMenu]);
 
-    const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        dispatch(logout());
+        await dispatch(logout());
+        navigate('/', { replace: true });
     };
 
     const ulClassName = showMenu ? 'dropdown-container' : ' hidden';
