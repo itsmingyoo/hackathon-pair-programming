@@ -2,7 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { DirectMessage } from '../interfaces/directMessage';
 
 
-// export const checkDMs = createAsyncThunk<>(
+export const checkDMs = createAsyncThunk('directMessage/checkDMs', async (_, DirectMessage) => {
+    
+})
 
 // )
 
