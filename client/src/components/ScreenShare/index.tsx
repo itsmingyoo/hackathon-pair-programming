@@ -10,34 +10,35 @@ function ScreenShare(props: { channelName: string }) {
   const { channelName } = props;
   const remoteUsers = useRemoteUsers();
   const pairInfo = useAppSelector((state) => state.pairedUser.user);
+  console.log(remoteUsers)
 
   const toggleScreenShare = () => {
     setScreenSharing(!screenSharing);
   };
-  useEffect(() => {
-    const fetchTokenFunction = async () => {
-      if (config.serverUrl !== "" && channelName !== "") {
-        try {
-          const token = (await fetchRTCToken(channelName)) as string;
-          config.rtcToken = token;
-          config.channelName = channelName;
-        } catch (error) {
-          console.error(error);
+    useEffect(() => {
+      const fetchTokenFunction = async () => {
+        if (config.serverUrl !== "" && channelName !== "") {
+          try {
+            const token = (await fetchRTCToken(channelName)) as string;
+            config.rtcToken = token;
+            config.channelName = channelName;
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          console.log(
+            "Please make sure you specified the token server URL in the configuration file"
+          );
         }
-      } else {
-        console.log(
-          "Please make sure you specified the token server URL in the configuration file"
-        );
-      }
-    };
+      };
 
-    fetchTokenFunction();
+      fetchTokenFunction();
 
-    console.log(
-      "😎screenSharing😎: ",
-      screenSharing ? screenSharing : screenSharing
-    );
-  }, [channelName, screenSharing]);
+      console.log(
+        "😎screenSharing😎: ",
+        screenSharing ? screenSharing : screenSharing
+      );
+    }, [channelName, screenSharing]);
 
   // Conditional rendering based on screen sharing state
   const renderContent = () => {
@@ -62,18 +63,23 @@ function ScreenShare(props: { channelName: string }) {
           {screenSharing ? "Stop Sharing" : "Start Sharing"}
         </button>
         {renderContent()}
-        {remoteUsers.map(remoteUser => {
-            if (remoteUser.uid === pairInfo?.screenUid) {
-                return (
-                    <div
-              className="vid"
-              style={{ height: 1920, width: 1080 }}
-              key={remoteUser.uid}
-            >
-              <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
-            </div>
-                )
-            }
+        {remoteUsers.map((remoteUser) => {
+          if (remoteUser.uid === pairInfo?.screenUid) {
+            return (
+              <div
+                className="vid"
+                style={{ height: '1920px', width: '1080px' }}
+                key={remoteUser.uid}
+              >
+                <RemoteUser
+                  user={remoteUser}
+                  playVideo={true}
+                />
+              </div>
+            );
+          } else {
+            return null;
+          }
         })}
       </div>
     </>

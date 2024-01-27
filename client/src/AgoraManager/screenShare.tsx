@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { useJoin, usePublish, useLocalScreenTrack, useTrackEvent, LocalVideoTrack, useRTCScreenShareClient } from 'agora-rtc-react';
+import React, { useEffect, useRef } from 'react';
+import AgoraRTC, { useJoin, usePublish, useLocalScreenTrack, useTrackEvent, LocalVideoTrack, useRTCScreenShareClient } from 'agora-rtc-react';
 import config from './config';
 import { useAppSelector } from '../hooks';
 
 const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.SetStateAction<boolean>> }> = ({
     setScreenSharing,
 }) => {
-    const screenShareClient = useRTCScreenShareClient();
-  const user = useAppSelector((state) => state.session.user);
+    const screenShareClient = useRef(AgoraRTC.createClient({ codec: "vp8", mode: "rtc" }));
+    const user = useAppSelector((state) => state.session.user);
 
 
     // Use the useLocalScreenTrack hook to get the screen sharing track
-    const { screenTrack, isLoading, error } = useLocalScreenTrack(true, {}, "disable", screenShareClient ? screenShareClient : undefined);
+    const { screenTrack, isLoading, error } = useLocalScreenTrack(true, {}, "disable", screenShareClient.current);
 
 
     // Join the channel using the screen share client
@@ -23,7 +23,7 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
             uid: user?.screenUid,
         },
         true,
-        screenShareClient
+        screenShareClient.current
     );
 
     // Handle the 'track-ended' event to stop screen sharing when the track ends
@@ -37,7 +37,7 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
     }, [error, setScreenSharing]);
 
     // Publish the screen share track
-    usePublish([screenTrack], screenTrack !== null, screenShareClient ? screenShareClient : undefined);
+    usePublish([screenTrack], screenTrack !== null, screenShareClient.current);
 
     if (isLoading) {
         return <p>Sharing screen...</p>;
