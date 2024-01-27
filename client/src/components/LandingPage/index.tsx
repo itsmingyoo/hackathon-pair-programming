@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import "./landingPage.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import coolImage from "../../assets/devpair-logos/cool-image.png";
+import coolImage from "../../assets/images/28565598_5500_9_10.svg";
+import hacker from "../../assets/images/hacker.svg"
 
 function LandingPage() {
   const nav = useNavigate();
@@ -21,7 +22,8 @@ function LandingPage() {
       <div className="landing-page">
         <div>
           <div className="landing-page-cool-image">
-            <img src={coolImage} alt="cool-image" id="cool-image" />
+            <img src={hacker} alt="Hacker cat in green sweatshirt" id="hacker"/>
+            <img src={coolImage} alt="Green coding cat" id="cool-image" />
             This image is a placeholder
           </div>
         </div>
