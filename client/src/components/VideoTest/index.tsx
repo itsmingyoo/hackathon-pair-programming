@@ -7,7 +7,7 @@ import AgoraRTC, {
 import config from "../../AgoraManager/config";
 import { useAppSelector, useSocket } from "../../hooks";
 import { fetchRTCToken } from "../../utility/fetchRTCToken";
-import { useNavigation } from "../../context/Navigation";
+// import { useNavigation } from "../../context/Navigation";
 import PairedChat from "../PairedChat";
 import PairedVideos from "../PairedVideos";
 import { useAppDispatch } from "../../hooks";
@@ -23,7 +23,7 @@ const VideoTest: React.FC = () => {
   );
   const [joined, setJoined] = useState<boolean>(false);
   const [channelName, setChannelName] = useState<string>("");
-  const { navigationState } = useNavigation();
+  // const { navigationState } = useNavigation();
   const dispatch = useAppDispatch();
 
   // Handle leave room

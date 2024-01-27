@@ -1,4 +1,9 @@
-
+.login-component {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+}
 .login-container {
     width: 20rem;
     height: 100%;
@@ -11,4 +16,17 @@
     justify-content: center;
     height: 100%;
     row-gap: 1rem;
+}
+
+.login-form-button {
+    width: 250px;
+    border: none;
+    box-shadow: 2px 2px #3cebca;
+    background-color: #3cebca;
+    color: white;
+    height: 30px;
+}
+
+.login-form-input {
+    width: 242px;
 }

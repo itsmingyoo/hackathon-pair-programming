@@ -2,7 +2,7 @@ import ShareScreenComponent from "../../AgoraManager/screenShare";
 import config from "../../AgoraManager/config";
 import { fetchRTCToken } from "../../utility/fetchRTCToken";
 import { useEffect, useState } from "react";
-import { RemoteUser, RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from "agora-rtc-react";
+import { RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from "agora-rtc-react";
 import { useAppSelector } from "../../hooks";
 
 function ScreenShare(props: { channelName: string }) {

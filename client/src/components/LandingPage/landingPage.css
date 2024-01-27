@@ -14,3 +14,31 @@
     align-items: center;
     gap: 1rem;
 }
+
+
+.landing-page-get-started {
+    width: 250px;
+    border: none;
+    box-shadow: 2px 2px #D8DBE2;
+    background-color: #D8DBE2;
+    color: #373F51;
+    height: 30px;
+    border-radius: 3px;
+}
+
+#cool-image {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.landing-page-cool-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.landing-page-description > div {
+    color: #D8DBE2;
+}

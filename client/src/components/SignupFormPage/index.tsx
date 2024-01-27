@@ -15,40 +15,64 @@ function SignupFormPage() {
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [errors, setErrors] = useState<string[]>([]); // Assuming errors are an array of strings
 
+    console.log("errors", errors);
 
     //sessionUser is returning true even if there is no user logged in because it is returning the user object { errors: [] }
     //so we need to check if there is a user object and if there are no errors in the user object
     let userLoggedIn: boolean = false;
-    if(sessionUser && !sessionUser.errors) {
-        userLoggedIn = true;
+    if (sessionUser && !sessionUser.errors) {
+      userLoggedIn = true;
     }
 
     if (userLoggedIn) return <Navigate to="/" replace />; // user cannot go back with the back button after signing up
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+      e.preventDefault();
+      const regex =
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+      //tests if email is valid
+      if (regex.test(email) === false) {
+        setErrors(["Please enter a valid email"]);
+      } else if (password.length < 8) {
+        setErrors(["Password should be at least 8 characters"]);
+      } else if (password !== confirmPassword) {
+        setErrors([
+          "Confirm Password field must be the same as the Password field",
+        ]);
         if (password === confirmPassword) {
-            const data = await dispatch(signUp({ username, email, password }));
-            if (data && Array.isArray(data)) {
-                setErrors(data);
-            }
+          const data = await dispatch(signUp({ username, email, password }));
+          if (data && Array.isArray(data)) {
+            setErrors(data);
+          }
         } else {
-            setErrors(['Confirm Password field must be the same as the Password field']);
+          setErrors([
+            "Confirm Password field must be the same as the Password field",
+          ]);
         }
+      }
     };
 
+    //possible to make erros an object istead of array?
+    // const emailErrorsClass = errors.email ? "email-login-errors" : "";
+    // const firstNameErrorsClass = errors.firstname ? "email-login-errors" : "";
+    // const lastNameErrorsClass = errors.lastname ? "email-login-errors" : "";
+    // const userNameErrorsClass = errors.username ? "email-login-errors" : "";
+    // const passwordErrorsClass = errors.password ? "email-login-errors" : "";
+
     return (
-      <>
+      <div className="signup-component">
         <div className="signup-container">
           <form onSubmit={handleSubmit}>
             <h1>Sign Up</h1>
             <ul>
               {errors.map((error, idx) => (
-                <li key={idx}>{error}</li>
+                <div key={idx}>{error}</div>
               ))}
             </ul>
             <label>
               <input
+                className="signup-form-input"
                 placeholder="Email"
                 type="text"
                 value={email}
@@ -58,6 +82,7 @@ function SignupFormPage() {
             </label>
             <label>
               <input
+                className="signup-form-input"
                 placeholder="Username"
                 type="text"
                 value={username}
@@ -67,6 +92,7 @@ function SignupFormPage() {
             </label>
             <label>
               <input
+                className="signup-form-input"
                 placeholder="Password"
                 type="password"
                 value={password}
@@ -76,6 +102,7 @@ function SignupFormPage() {
             </label>
             <label>
               <input
+                className="signup-form-input"
                 placeholder="Confirm Password"
                 type="password"
                 value={confirmPassword}
@@ -83,10 +110,12 @@ function SignupFormPage() {
                 required
               />
             </label>
-            <button type="submit">Sign Up</button>
+            <button className="signup-form-button" type="submit">
+              Sign Up
+            </button>
           </form>
         </div>
-      </>
+      </div>
     );
 }
 
