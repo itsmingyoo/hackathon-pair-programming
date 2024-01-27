@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import AgoraRTC, { useJoin, usePublish, useLocalScreenTrack, useTrackEvent, LocalVideoTrack, useRTCScreenShareClient } from 'agora-rtc-react';
+import AgoraRTC, { useJoin, usePublish, useLocalScreenTrack, useTrackEvent, LocalVideoTrack } from 'agora-rtc-react';
 import config from './config';
 import { useAppSelector } from '../hooks';
 
@@ -7,7 +7,7 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
     setScreenSharing,
 }) => {
     const screenShareClient = useRef(AgoraRTC.createClient({ codec: "vp8", mode: "rtc" }));
-    const user = useAppSelector((state) => state.session.user);
+    const user = useAppSelector(state => state.session.user);
 
 
     // Use the useLocalScreenTrack hook to get the screen sharing track
