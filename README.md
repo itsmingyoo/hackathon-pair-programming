@@ -12,10 +12,12 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
 # Features (MVPs)
 1. Video Calling
 2. Chatting
-3. IDE DS&A Tests
-4. User Direct Messaging
-5. User Follower/Following
-6. Screen Sharing
+3. User Follower/Following
+4. Screen Sharing
+
+### Features Coming Soon
+5. IDE DS&A Tests
+6. User Direct Messaging
 
 # Technology
 1. Python
