@@ -7,6 +7,10 @@ import { authenticate } from './store/session';
 import { useAppDispatch } from './hooks';
 import LandingPage from './components/LandingPage';
 import VideoTest from './components/VideoTest';
+import AddTwoSum from './components/DSAProblems/add-two-sum';
+import VideoTest2 from './components/VideoTest/AuthenticationWorkflowManagerTest';
+import Footer from './components/Footer';
+import HomePage from './components/HomePage';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -16,7 +20,7 @@ const App: React.FC = () => {
             .then((result) => {
                 if (authenticate.fulfilled.match(result)) {
                     setIsLoaded(true);
-                    console.log('is it loaded', isLoaded);
+                    // console.log('is it loaded', isLoaded);
                 } else {
                     console.log('authentication result doesnt match', result);
                 }
@@ -34,10 +38,14 @@ const App: React.FC = () => {
                     <Navigation isLoaded={isLoaded} />
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
+                        <Route path="/home" element={<HomePage />} />
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route path="/video-test" element={<VideoTest />} />
+                        <Route path="/video-test-2" element={<VideoTest2 />} />
+                        <Route path="/add-two-sum" element={<AddTwoSum />} />
                     </Routes>
+                    <Footer />
                 </Router>
             )}
         </>

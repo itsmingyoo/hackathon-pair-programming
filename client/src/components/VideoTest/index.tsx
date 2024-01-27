@@ -1,101 +1,138 @@
-import React, { useEffect } from 'react';
-import socket from '../../socket';
-
-// Define types for your props and state if needed
-// interface Props {}
-
-// Since you're not using props or state, we don't need to define them here
+import { useState, useEffect, useCallback } from "react";
+import AgoraRTC, {
+  AgoraRTCProvider,
+  useRTCClient,
+  AgoraRTCScreenShareProvider,
+} from "agora-rtc-react";
+import config from "../../AgoraManager/config";
+import { useAppSelector, useSocket } from "../../hooks";
+import { fetchRTCToken } from "../../utility/fetchRTCToken";
+import { useNavigation } from "../../context/Navigation";
+import PairedChat from "../PairedChat";
+import PairedVideos from "../PairedVideos";
+import { useAppDispatch } from "../../hooks";
+import "./index.css";
+import { receiveUser } from "../../store/pairedUser";
+import ScreenShare from "../ScreenShare";
 
 const VideoTest: React.FC = () => {
-    let mediaStream: MediaStream | null = null;
+  const { socket } = useSocket();
+  const user = useAppSelector((state) => state.session.user);
+  const agoraEngine = useRTCClient(
+    AgoraRTC.createClient({ codec: "vp8", mode: config.selectedProduct })
+  );
+  const [joined, setJoined] = useState<boolean>(false);
+  const [channelName, setChannelName] = useState<string>("");
+  const { navigationState } = useNavigation();
+  const dispatch = useAppDispatch();
 
-    function capture(video: HTMLVideoElement, scaleFactor: number = 1) {
-        const w = video.videoWidth * scaleFactor;
-        const h = video.videoHeight * scaleFactor;
-        const canvas = document.createElement('canvas');
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-            throw new Error('Could not get canvas context');
+  // Handle leave room
+  const leaveRoomHandler = useCallback(() => {
+    if (joined && socket) {
+      socket.emit("leave_room", { room: channelName });
+      setJoined(false);
+      setChannelName("");
+    }
+  }, [joined, socket, channelName]);
+
+  // Handle when a user navigates to a different page
+  // useEffect(() => {
+  //   if (navigationState.currentPath !== "/video-test") {
+  //     console.log("User Navigated Elsewhere.");
+  //     leaveRoomHandler();
+  //   }
+  // }, [navigationState, leaveRoomHandler]);
+
+  useEffect(() => {
+    if (socket) {
+      // Listen for the 'joined' event when successfully paired with a room
+      socket.on("joined", (data) => {
+        if (!channelName) {
+          setChannelName(data.room);
         }
-        ctx.drawImage(video, 0, 0, w, h);
-        return canvas;
+        if (user && data.users.length > 1) {
+          const pair = data.users.filter((duser) => duser.id !== user.id)[0];
+          dispatch(receiveUser(pair));
+        }
+      });
+
+      socket.on("user_left", (data) => {
+        console.log(data);
+      });
     }
 
-    useEffect(() => {
-        socket.on('connect', function () {
-            console.log('Connection has been succesfully established with socket.', socket.connected);
-        });
+    return () => {
+      if (socket) {
+        // Clean up all event listeners when component unmounts
+        socket.removeAllListeners("joined");
+        socket.removeAllListeners("user_left");
+      }
+    };
+  }, [user, socket, channelName, dispatch]);
 
-        const video = document.querySelector('#videoElement') as HTMLVideoElement;
-        video.width = 500;
-        video.height = 375;
-
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices
-                .getUserMedia({ video: true })
-                .then(function (stream) {
-                    video.srcObject = stream;
-                    video.play();
-                    mediaStream = stream; // Store the media stream reference under video.play()
-                })
-                .catch(function (error: Error) {
-                    console.error(error);
-                    console.log('Something went wrong!');
-                });
+  useEffect(() => {
+    const fetchTokenFunction = async () => {
+      if (config.serverUrl !== "" && channelName !== "") {
+        try {
+          const token = (await fetchRTCToken(channelName)) as string;
+          config.rtcToken = token;
+          config.channelName = channelName;
+          setJoined(true);
+        } catch (error) {
+          console.error(error);
         }
+      } else {
+        console.log(
+          "Please make sure you specified the token server URL in the configuration file"
+        );
+      }
+    };
 
-        // call the function we made to capture the frames
-        const FPS = 22;
-        const interval = setInterval(() => {
-            const type = 'image/jpg';
-            const frame = capture(video, 1);
-            let data = frame.toDataURL(type);
-            data = data.replace('data:' + type + ';base64,', '');
-            socket.emit('image', data);
-        }, 10000 / FPS);
+    fetchTokenFunction();
+  }, [channelName]);
 
-        // cleanup function
-        return () => {
-            if (mediaStream) {
-                const tracks = mediaStream.getTracks();
-                tracks.forEach((track) => track.stop());
-            }
-            clearInterval(interval);
-        };
-    }, []);
+  const handleJoinClick = () => {
+    console.log("You are pressing the join button.", socket);
+    if (socket) {
+      console.log("You are now joining a room", socket);
+      socket.emit("join_room");
+    }
+  };
 
-    useEffect(() => {
-        socket.on('response_back', function (image) {
-            const imageElement = document.getElementById('image') as HTMLImageElement;
-            // console.log(image);
-            imageElement.src = image;
-        });
-        // socket.on('response_back', function (videoData) {
-        //     const videoElement = document.getElementById('video') as HTMLVideoElement;
-
-        //     videoElement.src = 'data:image/jpeg;base64,' + videoData;
-
-        //     if (videoElement.paused) {
-        //         videoElement.play();
-        //     }
-        // });
-    }, []);
-
-    return (
-        <>
-            <div id="container">
-                {/* LOCAL CAMERA */}
-                <canvas id="canvasOutput"></canvas>
-                <video autoPlay={true} id="videoElement"></video>
-            </div>
-            <div className="video">
-                {/* PROCESSED FRAMES FROM CAMERA */}
-                <img id="image" />
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div id="video-main-wrapper">
+        <h1>Get Started with Video Calling</h1>
+        {joined ? (
+          <button onClick={leaveRoomHandler}>Leave</button>
+        ) : (
+          <button onClick={handleJoinClick}>Join</button>
+        )}
+        {joined && (
+          <>
+            <AgoraRTCProvider client={agoraEngine}>
+              <div id="main-wrapper">
+                <div id="video-wrapper">
+                  <div id="video-container">
+                    {/* <AgoraManager config={config} children={undefined}></AgoraManager> */}
+                    <PairedVideos channelName={channelName} />
+                  </div>
+                </div>
+                <div id="Screen-share-container">
+                  <AgoraRTCScreenShareProvider client={agoraEngine}>
+                    <ScreenShare channelName={channelName} />
+                  </AgoraRTCScreenShareProvider>
+                </div>
+                <div id="paired-chat-container">
+                  <PairedChat channelName={channelName} />
+                </div>
+              </div>
+            </AgoraRTCProvider>
+          </>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default VideoTest;

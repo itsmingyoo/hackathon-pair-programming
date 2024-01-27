@@ -134,7 +134,6 @@ dist
 .env.local
 db/schema.prisma
 prisma/*.db
-.env*
 
 
 # Logs
@@ -166,3 +165,6 @@ dist-ssr
 
 # Pretter Settings
 .prettierrc
+
+# Assets
+/src/assets

@@ -1,0 +1,6 @@
+.profile-dropdown {
+    border: red solid 1px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

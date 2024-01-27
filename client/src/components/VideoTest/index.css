@@ -1,0 +1,36 @@
+#main-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between
+
+}
+
+#video-main-wrapper {
+    /* min-height: calc(100dvh - 3.5rem); // this is a cheat to fix the footer */
+    /*!!! THIS SETS THE CONTENT BODY TO NOT OVERFLOW AND FIXES THE FOOTER TO BE ON THE BOTTOM  */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+#video-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: space-around;
+    align-items: stretch;
+}
+
+#video-container, #paired-chat-container, #ide-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#paired-chat-container {
+    margin: 0 0.7rem;
+}
+
+#ide-container {
+   width: 100vw;
+}

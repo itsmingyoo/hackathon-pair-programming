@@ -1,0 +1,29 @@
+#videos {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+}
+
+.vid {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem .7rem;
+}
+
+.vid > div:first-child() > video {
+    border-radius: 50%;
+}
+
+#volume-control {
+    position: relative;
+    display: flex;
+}
+
+#volume-label {
+    font-size: 1.2rem;
+    text-shadow: 4px;
+}
+
+#follow-user {
+    width: 100%
+}
