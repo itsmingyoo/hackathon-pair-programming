@@ -19,11 +19,13 @@
 .landing-page-get-started {
     width: 250px;
     border: none;
-    box-shadow: 2px 2px #D8DBE2;
-    background-color: #D8DBE2;
-    color: #373F51;
+    /* box-shadow: var(--secondary) .1rem .1rem .1rem; */
+    background-color: var(--primary);
+    color: var(--text-50);
     height: 30px;
-    border-radius: 3px;
+    border-radius: .3rem;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #cool-image {

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
 import ProfileButton from './ProfileButton';
 import logo from '../../assets/devpair-logos/svg/logo-no-background.svg';
+import logo2 from '../../assets/devpair-logos/svg/logo-no-background-black.svg';
 import './Navigation.css';
 
 interface NavigationProps {
@@ -12,6 +13,8 @@ interface NavigationProps {
 function Navigation({ isLoaded }: NavigationProps) {
     // Assuming `state.session.user` is of type User | null
     const sessionUser = useSelector((state: RootState) => state.session.user);
+
+    const prefersLightTheme = window.matchMedia('(prefers-color-scheme: light)');
 
     //sessionUser is returning true even if there is no user logged in because it is returning the user object { errors: [] }
     //so we need to check if there is a user object and if there are no errors in the user object
@@ -26,7 +29,7 @@ function Navigation({ isLoaded }: NavigationProps) {
             <div className="nav-links">
                 <div className="nav-links-home">
                     <NavLink to="/home">
-                        <img className="logo-for-nav" src={logo} alt="dev-pair logo" />
+                        <img className="logo-for-nav" src={prefersLightTheme.matches ? logo2: logo} alt="dev-pair logo" />
                     </NavLink>
                 </div>
                 <div className="nav-links-other">

@@ -1,18 +1,18 @@
 .footer-container {
 
     position: fixed;
-    bottom: 1rem;
+    bottom: 0;
     width: 100vw;
-    background-color: #58A4B0;
+    height: 3vh;
+    box-shadow: var(--text-950) .1rem .1rem .2rem;
     padding: 1rem 0;
 
 }
 
 .footer-container > div {
     text-align: center;
-    border-top: #1b1b1b solid 1px;
     border-bottom: #1b1b1b solid 1px;
-    color: #373F51
+    color: var(--text);
 }
 
 .footer-container {
@@ -22,6 +22,10 @@
     flex-wrap: wrap;
     gap: 10rem;
     font-size: small;
+}
+
+.developer-container {
+    color: var(--text);
 }
 
 .developer-links-container {

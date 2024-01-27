@@ -30,7 +30,11 @@
   }
 
   .nav-links-login-and-signout > div > a {
-    color: #3cebca
+    color: var(--text);
+    /* background-color: var(--secondary); */
+    padding: .2rem .4rem .2rem;
+    border-radius: .3rem;
+
   }
 
   .nav-links-login-and-signout {
@@ -40,6 +44,6 @@
   .nav-links a {
     color: #000;
     text-decoration: none;
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    /* font-weight: 600; */
   }
