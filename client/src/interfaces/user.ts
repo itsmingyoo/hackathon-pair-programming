@@ -5,5 +5,5 @@ export interface User {
     videoUid: string;
     screenUid: string;
     // Add other user fields here
-    errors: string[];
+    errors: string;
 }
