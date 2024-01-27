@@ -1,65 +1,67 @@
-
-.landing-page-content {
-    height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+.landing-page {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .landing-page-description {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: .5rem 
 }
 
-
 .landing-page-get-started {
-    width: 250px;
-    border: none;
-    border-radius: 7px;
-    box-shadow: 4px 4px 5px #3cebcb81;
-    background-color: #3cebca;
-    color: #373F51;
-    height: 50px;
-    font-size: 25px;
-    /* font-weight: bold; */
-    /* margin-top: 15px; */
+  width: fit-content;
+  border: none;
+  padding: 0.4rem 0.8rem 0.4rem;
+  border-radius: 7px;
+  /* box-shadow: 4px 4px 5px #3cebcb81; */
+  background-color: var(--primary);
+  color: var(--dark-text);
+  height: 50px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  /* margin-top: 15px; */
+  transition: all 0.3s ease;
+}
+
+.landing-page-get-started:hover {
+    transform: scale(1.1); /* Increase size on hover */
 }
 
 #cool-image {
-    max-width: 500px;
-    max-height: 500px;
+  max-width: 500px;
+  max-height: 500px;
 }
 
 .landing-page-cool-image {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-.landing-page-description > div {
-    color: #D8DBE2;
-}
-
-
-.landing-text-one, .landing-text-two, .landing-text-three {
-    color: black !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .landing-text-one {
-    font-size: 25px;
-    font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.accent {
+  color: var(--primary);
+
 }
 
 .landing-text-two {
-    font-size: 21px;
+  font-size: 1.3rem;
 }
 
 .landing-text-three {
-    font-size: 17px;
+  font-size: 1rem;
 }
