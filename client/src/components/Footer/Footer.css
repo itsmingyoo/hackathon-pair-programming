@@ -8,7 +8,6 @@
     justify-content: space-between;
     flex-wrap: wrap;
     font-size: small;
-    /* box-shadow: var(--primary) 0 0 .1rem; */
 }
 
 .all-developers > div {
@@ -61,4 +60,16 @@
         display: none;
     }
 
+}
+
+@media only screen and (max-width: 1250px) {
+    .copywrite {
+        display: none;
+    }
+    .footer-container {
+        justify-content: center;
+    }
+    .all-developers {
+        margin: 0;
+    }
 }
