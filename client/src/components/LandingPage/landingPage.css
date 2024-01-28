@@ -8,12 +8,12 @@
 
 .landing-page-description {
   max-width: 65vw;
-  /* display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  border-radius: 0.5rem; */
+  border-radius: 0.5rem;
 
 }
 
@@ -22,27 +22,16 @@
   border: none;
   padding: 0.4rem 0.8rem 0.4rem;
   border-radius: 7px;
-
   background-color: var(--primary);
   color: var(--dark-text);
   height: 50px;
   font-size: 1.4rem;
   font-weight: 500;
-  /* margin-top: 15px; */
   transition: all 0.3s ease;
 }
 
 .landing-page-get-started:hover {
   transform: scale(1.1); /* Increase size on hover */
-}
-
-#cool-image {
-    position: absolute;
-    top: 15%;
-    left: 25%;
-    width: 40%;
-    
-
 }
 
 .landing-page-cool-image {
@@ -54,16 +43,8 @@
 
 }
 
-#hacker {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40%
-}
-
 .landing-text-one {
   font-size: 1.8rem;
-  font-weight: bold;
 }
 
 .accent {
@@ -71,9 +52,9 @@
 }
 
 .landing-text-two {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 .landing-text-three {
-  font-size: 1rem;
+  font-size: 1.3rem;
 }

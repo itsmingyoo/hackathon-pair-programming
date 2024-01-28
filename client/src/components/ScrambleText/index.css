@@ -1,15 +1,10 @@
-/* .on {
-  width: 100%;
-  transition: width 0.5s 1s;
-} */
 #welcome-message {
   font-size: 5rem;
   text-transform: uppercase;
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  margin-right: 0.5rem;
 }
 
-.span-par {
-    color: var(--primary);
+.on {
+  width: 100%;
+  transition: width 0.5s 1s;
 }

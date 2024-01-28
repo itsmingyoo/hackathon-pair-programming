@@ -22,22 +22,18 @@ function LandingPage() {
   return (
     <>
       <div className="landing-page">
-        <div>
-          <div className="landing-page-cool-image">
-            {/* <img src={hacker} alt="Hacker cat in green sweatshirt" id="hacker" />
-                        <img src={coolImage} alt="Green coding cat" id="cool-image" /> */}
-            <img
-              src={catsCoding}
-              alt="Cats working on DS&A"
-              className="landing-page-cool-pic"
-            />
-          </div>
+        <div className="landing-page-cool-image">
+          <img
+            src={catsCoding}
+            alt="Cats working on DS&A"
+            className="landing-page-cool-pic"
+          />
         </div>
-        <div>
-          <div className="landing-page-description">
-            <PageHeader title={" DevPair!"} />
+        <div className="landing-page-description">
+          <PageHeader title="DevPair!" />
+          <>
             <div className="landing-text-one">
-              <span className="accent">Connect</span> and Collaborate with
+              <span className="accent">Connect</span> and collaborate with
               developers worldwide.
             </div>
             <div className="landing-text-two">
@@ -47,8 +43,8 @@ function LandingPage() {
             <div className="landing-text-three">
               <span className="accent">Unleash</span> Your Developer Potential!
             </div>
-            <button className="landing-page-get-started">Get Started</button>
-          </div>
+          </>
+          <button className="landing-page-get-started">Get Started</button>
         </div>
       </div>
     </>

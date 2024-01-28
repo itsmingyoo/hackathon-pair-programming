@@ -9,7 +9,7 @@ type PageHeaderProps = {
     title: string;
 };
 
-const PageHeader: React.FC<PageHeaderProps> = (props) => {
+const PageHeader: React.FC<PageHeaderProps> = React.memo((props) => {
     const titleParent = useRef<HTMLDivElement>(null);
     // const titleString = 'TestString';
 
@@ -59,7 +59,7 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
 
     return (
         <>
-            <div ref={titleParent} id="welcome-message" style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <div ref={titleParent} id="welcome-message" >
                 Welcome To 
                 {props.title.split('').map((el, i) => (
                     <span key={i} className="span-par">
@@ -76,6 +76,6 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
             </div>
         </>
     );
-};
+});
 
 export default PageHeader;
