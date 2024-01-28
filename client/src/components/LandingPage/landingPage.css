@@ -2,18 +2,19 @@
   height: 80vh;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+
 }
 
 .landing-page-description {
-  width: 100%;
+  max-width: 65vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
   border-radius: 0.5rem;
+
 }
 
 .landing-page-get-started {
@@ -21,13 +22,11 @@
   border: none;
   padding: 0.4rem 0.8rem 0.4rem;
   border-radius: 7px;
-
   background-color: var(--primary);
   color: var(--dark-text);
   height: 50px;
   font-size: 1.4rem;
   font-weight: 500;
-  /* margin-top: 15px; */
   transition: all 0.3s ease;
 }
 
@@ -35,26 +34,17 @@
   transform: scale(1.1); /* Increase size on hover */
 }
 
-#cool-image {
-    position: absolute;
-    top: 0;
-    right: 0;
-
-}
-
 .landing-page-cool-image {
+  display: flex;
+  width: 35vw;
+  height: 60%;
   position: relative;
-}
+  color: white;
 
-#hacker {
-    position: absolute;
-    bottom: 0;
-    left: 0;
 }
 
 .landing-text-one {
   font-size: 1.8rem;
-  font-weight: bold;
 }
 
 .accent {
@@ -62,9 +52,9 @@
 }
 
 .landing-text-two {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 .landing-text-three {
-  font-size: 1rem;
+  font-size: 1.3rem;
 }

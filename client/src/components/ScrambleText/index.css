@@ -1,4 +1,10 @@
+#welcome-message {
+  font-size: 5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 .on {
-    width: 100%;
-    transition: width .5s 1s;
+  width: 100%;
+  transition: width 0.5s 1s;
 }

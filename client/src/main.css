@@ -20,9 +20,9 @@
 :root {
   --text: #f3f7f6;
   --background: #080c0b;
-  --primary:#20cc09;
+  --primary:rgb(32, 204, 9);
   --dark-text: #0a0f0e;
-  --primary-opacity: rgb(0, 219, 183, .3);
+  --primary-opacity: rgb(32, 204, 9, .3);
 }
 
 #root {
@@ -35,7 +35,7 @@
 
 body {
   background-color: var(--background);
-  background: linear-gradient(to top left,hsl(162,63%,13%) 0%, #080c0b 30%);
+  background: linear-gradient(to top left,hsl(162,63%,12%) 0%, #080c0b 30%);
   
   margin: 0;
   /* &::before,
