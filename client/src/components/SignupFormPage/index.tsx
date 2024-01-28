@@ -6,6 +6,12 @@ import { useAppDispatch } from '../../hooks';
 import { RootState } from '../../store';
 import './SignupForm.css';
 
+type ErrorState = {
+    email: string | null;
+    password: string | null;
+    confirmPassword: string | null;
+  };
+
 function SignupFormPage() {
     const dispatch = useAppDispatch();
     const sessionUser = useSelector((state: RootState) => state.session.user);
@@ -13,7 +19,7 @@ function SignupFormPage() {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
-    const [errors, setErrors] = useState<string[]>([]);
+    const [errors, setErrors] = useState<ErrorState>({email: null, password: null, confirmPassword: null});
 
     console.log('errors', errors);
 
@@ -30,14 +36,23 @@ function SignupFormPage() {
             /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
         //tests if email is valid
+
+        const newErrors: ErrorState = { email: null, password: null, confirmPassword: null };
+
         if (regex.test(email) === false) {
-            setErrors(['Please enter a valid email']);
-        } else if (password.length < 8) {
-            setErrors(['Password should be at least 8 characters']);
-        } else if (password !== confirmPassword) {
-            setErrors(['Confirm Password field must be the same as the Password field']);
+            newErrors.email = 'Please enter a valid email';
         }
-        if (password === confirmPassword) {
+
+        if (password.length < 8) {
+            newErrors.password = 'Password should be at least 8 characters';
+        }
+
+        if (password !== confirmPassword) {
+            newErrors.confirmPassword = 'Confirm Password field must be the same as the Password field';
+        }
+
+        setErrors(newErrors);
+        if (password === confirmPassword && !errors.email && !errors.password && !errors.confirmPassword) {
             const data = await dispatch(signUp({ username, email, password }));
             if (data && Array.isArray(data)) {
                 setErrors(data);
@@ -46,11 +61,13 @@ function SignupFormPage() {
     };
 
     //possible to make erros an object istead of array?
-    // const emailErrorsClass = errors.email ? "email-signup-errors" : "";
-    // const firstNameErrorsClass = errors.firstname ? "email-signup-errors" : "";
-    // const lastNameErrorsClass = errors.lastname ? "email-signup-errors" : "";
-    // const userNameErrorsClass = errors.username ? "email-signup-errors" : "";
-    // const passwordErrorsClass = errors.password ? "email-signup-errors" : "";
+    const emailClass = errors.email ? "signup-form-errors signup-form-input" : "signup-form-input";
+    const passwordClass = errors.password ? "signup-form-errors signup-form-input" : "signup-form-input";
+    const confirmPasswordClass = errors.confirmPassword ? "signup-form-errors signup-form-input" : "signup-form-input"
+
+    const emailErrorDisplay = errors.email ? <div className='signup-error-text'>Please enter a valid email</div> : <></>
+    const passwordErrorDisplay = errors.password ? <div className='signup-error-text'>Password must be at least 8 characters</div> : <></>
+    const confirmPasswordErrorDisplay = errors.confirmPassword ? <div className='signup-error-text'>Passwords must match</div> : <></>
 
     return (
       <div className="signup-component">
@@ -60,13 +77,14 @@ function SignupFormPage() {
             <label>
               <div className="signup-page-input-text">Email address</div>
               <input
-                className="signup-form-input"
+                className={emailClass}
                 placeholder="Email"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {emailErrorDisplay}
             </label>
             <label>
               <div className="signup-page-input-text">Username</div>
@@ -82,24 +100,26 @@ function SignupFormPage() {
             <label>
               <div className="signup-page-input-text">Password</div>
               <input
-                className="signup-form-input"
+                className={passwordClass}
                 placeholder="Password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {passwordErrorDisplay}
             </label>
             <label>
               <div className="signup-page-input-text">Confirm password</div>
               <input
-                className="signup-form-input"
+                className={confirmPasswordClass}
                 placeholder="Confirm Password"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
+              {confirmPasswordErrorDisplay}
             </label>
             <button
               className="signup-form-button"
