@@ -1,21 +1,21 @@
 .footer-container {
-    position: fixed;
-    bottom: 0rem;
+    position: absolute;
+    bottom: 0;
     width: 100vw;
-    background-color: #58a4b0;
     padding: 1rem 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     font-size: small;
+    /* box-shadow: var(--primary) 0 0 .1rem; */
 }
 
 .all-developers > div {
-    border-top: #1b1b1b solid 1px;
-    border-bottom: #1b1b1b solid 1px;
+    border-top: var(--primary-opacity) solid .01rem;
+    border-bottom: var(--primary-opacity) solid .01rem;
     color: #373F51;
-    font-weight: bold;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: .5em;
@@ -43,7 +43,10 @@
 
 .github, .linkedin {
     text-decoration: none !important;
-    color: #373F51;
+    color: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (max-width: 900px) {

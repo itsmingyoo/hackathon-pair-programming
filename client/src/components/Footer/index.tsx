@@ -1,11 +1,11 @@
 import './Footer.css';
-import GitHubIcon from "../../assets/icons/github.png";
-import LinkedInIcon from "../../assets/icons/linkedin.png";
+import GitHubIcon from "../../assets/icons/svg/github.svg";
+import LinkedInIcon from "../../assets/icons/svg/linkedin.svg";
 //should change github and linkedin names to icons
 
 function Footer() {
     return (
-      <div className="footer-container">
+      <footer className="footer-container">
         <div className="all-developers">
           <div className="developer-container">
             <div className="developer-name">Minh Tran</div>
@@ -19,7 +19,7 @@ function Footer() {
                   <img
                     src={GitHubIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
                   />
                 </a>
               </div>
@@ -32,7 +32,7 @@ function Footer() {
                   <img
                     src={LinkedInIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
                   />
                 </a>
               </div>
@@ -50,7 +50,8 @@ function Footer() {
                   <img
                     src={GitHubIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
+
                   />
                 </a>
               </div>
@@ -63,7 +64,8 @@ function Footer() {
                   <img
                     src={LinkedInIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
+
                   />
                 </a>
               </div>
@@ -77,7 +79,8 @@ function Footer() {
                   <img
                     src={GitHubIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
+
                   />
                 </a>
               </div>
@@ -86,7 +89,8 @@ function Footer() {
                   <img
                     src={LinkedInIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
+
                   />
                 </a>
               </div>
@@ -100,7 +104,8 @@ function Footer() {
                   <img
                     src={GitHubIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
+
                   />
                 </a>
               </div>
@@ -109,7 +114,8 @@ function Footer() {
                   <img
                     src={LinkedInIcon}
                     alt="GitHub Icon"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "18px", height: "18px" }}
+
                   />
                 </a>
               </div>
@@ -117,12 +123,12 @@ function Footer() {
           </div>
         </div>
         <div className="copywrite">
-          Developed for App Academy Winter Hackathon 2024
+          App Academy Winter Hackathon 2024
           <div>
-            "Providing accessable websites to ensure access for everyone"
+            "Empowering Collaboration, Anytime, Anywhere."
           </div>
         </div>
-      </div>
+      </footer>
     );
 }
 
