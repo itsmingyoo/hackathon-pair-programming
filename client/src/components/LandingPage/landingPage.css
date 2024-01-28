@@ -2,18 +2,19 @@
   height: 80vh;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+
 }
 
 .landing-page-description {
-  width: 100%;
-  display: flex;
+  max-width: 65vw;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; */
+
 }
 
 .landing-page-get-started {
@@ -37,20 +38,27 @@
 
 #cool-image {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 15%;
+    left: 25%;
+    width: 40%;
+    
 
 }
 
 .landing-page-cool-image {
+  display: flex;
+  width: 35vw;
+  height: 60%;
   position: relative;
   color: white;
+
 }
 
 #hacker {
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
+    width: 40%
 }
 
 .landing-text-one {
