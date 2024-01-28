@@ -6,7 +6,6 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
     const agoraContext = useAgoraContext();
     const remoteUsers = useRemoteUsers();
     const [isLocalMuted, setIsLocalMuted] = useState(false);
-    const [isRemoteMuted, setIsRemoteMuted] = useState(false);
 
     const handleLocalAudioToggle = () => {
         const newVolume = isLocalMuted ? 100 : 0;
@@ -14,12 +13,11 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
         setIsLocalMuted(!isLocalMuted);
     };
 
-    const handleRemoteAudioToggle = () => {
+    const handleRemoteAudioVolumeChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const remoteUser = remoteUsers[remoteUsers.length - 1];
         if (remoteUser && remoteUser.audioTrack) {
-            const newVolume = isRemoteMuted ? 100 : 0;
-            remoteUser.audioTrack.setVolume(newVolume);
-            setIsRemoteMuted(!isRemoteMuted);
+            const volume = parseInt(evt.target.value, 10);
+            remoteUser.audioTrack.setVolume(volume);
         }
     };
 
@@ -27,13 +25,19 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
         <>
             <div>
                 <button onClick={handleLocalAudioToggle} style={{ color: 'black' }}>
-                    {isLocalMuted ? 'Unmute Local Audio' : 'Mute Local Audio'}
+                    {isLocalMuted ? 'Unmute Microphone' : 'Mute Microphone'}
                 </button>
             </div>
-            <div>\
-                <button onClick={handleRemoteAudioToggle} style={{ color: 'black' }}>
-                    {isRemoteMuted ? 'Unmute Remote Audio' : 'Mute Remote Audio'}
-                </button>
+            <div>
+                <label htmlFor="remote-audio-volume">Adjust User's Volume</label>
+                <input
+                    type="range"
+                    id="remote-audio-volume"
+                    min="0"
+                    max="100"
+                    step="1"
+                    onChange={handleRemoteAudioVolumeChange}
+                />
             </div>
         </>
     );
