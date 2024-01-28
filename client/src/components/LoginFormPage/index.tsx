@@ -26,6 +26,16 @@ function LoginFormPage() {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const regex =
+          /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+        if (regex.test(email) === false) {
+          setErrors(["Invalid"]);
+        }
+        if (password.length < 8) {
+          setErrors(["Invalid"]);
+        }
+        if ((errors.length = 0)) {
         const actionResult = await dispatch(login({ email, password }));
 
         if (login.fulfilled.match(actionResult)) {
@@ -39,54 +49,71 @@ function LoginFormPage() {
             setErrors([error]);
             console.log('Login failed:', error);
         }
+        }
     };
 
     const handleDemoSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        const data = await dispatch(login({ email: 'demo@aa.io', password: 'password' }));
-        if (data && Array.isArray(data)) {
+          const data = await dispatch(
+            login({ email: "demo@aa.io", password: "password" })
+          );
+          if (data && Array.isArray(data)) {
             setErrors(data);
-        } else {
+          } else {
             return <Navigate to="/" replace />;
-        }
+          }
+        
     };
 
+    const errorClass =
+      errors.length > 0
+        ? "login-form-error login-form-input"
+        : "login-form-input";
+
+    const errorDisplay =
+      errors.length > 0 ? (
+        <div className="login-error-text">Email and password are invalid</div>
+      ) : (
+        <></>
+      );
+
     return (
-        <div className="login-component">
-            <div className="login-container">
-                <form onSubmit={handleSubmit}>
-                    <h1>Log In</h1>
-                    <label className="form-labels">
-                        <div className="login-page-input-text">Email address</div>
-                        <input
-                            className="login-form-input"
-                            placeholder="Email"
-                            type="text"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <label className="form-labels">
-                        <div className="login-page-input-text">Password</div>
-                        <input
-                            className="login-form-input"
-                            placeholder="Password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <button className="login-form-button" type="submit">
-                        Log In
-                    </button>
-                    <button className="login-demo-user" onClick={handleDemoSubmit}>
-                        Signin as Demo User
-                    </button>
-                </form>
-            </div>
+      <div className="login-component">
+        <div className="login-container">
+          <form onSubmit={handleSubmit}>
+            <h1>Log In</h1>
+            <label className="form-labels">
+              <div className="login-page-input-text">Email address</div>
+              <input
+                className={errorClass}
+                placeholder="Email"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+            <label className="form-labels">
+              <div className="login-page-input-text">Password</div>
+              <input
+                className={errorClass}
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+            {errorDisplay}
+            <button className="login-form-button" type="submit">
+              Log In
+            </button>
+            <button className="login-demo-user" onClick={handleDemoSubmit}>
+              Signin as Demo User
+            </button>
+          </form>
         </div>
+      </div>
     );
 }
 
