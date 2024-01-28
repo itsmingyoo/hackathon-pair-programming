@@ -23,6 +23,7 @@
 
 .signup-form-input {
     width: 242px;
+    color: var(--dark-text);
 }
 
 .signup-form-button {

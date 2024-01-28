@@ -6,7 +6,7 @@
 }
 
 #options-button {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 10px;
     border: none;
@@ -18,17 +18,35 @@
     position: relative;
     top: 70px;
     right: 20px;
-    border: 1px solid black;
+    border-radius: 5px;
     padding: 5px;
-    background-color: #58A4B0;
-    box-shadow: 3px 3px 3px black;
+    background-color: #1b1b1b;
 }
 
 .dropdown-list {
     text-align: center;
 }
 
-.dropdown-list > div {
+/* .dropdown-list > div {
     width: 10rem;
     margin: 4px 0;
+} */
+
+.user-profile-dropdown-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: .8rem;
+    gap: .5rem;
+
+}
+
+.logout-button, .profile-setings-button {
+    border: none;
+    background: none;
+}
+
+.profile-dropdown-welcome {
+    border-bottom: 1px solid;
 }
