@@ -30,8 +30,8 @@ function LandingPage() {
                 </div>
                 <div>
                     <div className="landing-page-description">
+                        <PageHeader title={'Welcome to DevPair!'} />
                         <div className="landing-text-one">
-                            <PageHeader title={'Welcome to DevPair!'} />
                             <span className="accent">Connect</span> and <span className="accent">Unleash</span> Your
                             Developer Potential!
                         </div>

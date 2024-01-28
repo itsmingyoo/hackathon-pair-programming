@@ -62,10 +62,11 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
                     <span key={i} className="span-par">
                         <span
                             style={{
-                                fontSize: '3.5rem',
+                                fontSize: '3rem',
                                 textTransform: 'uppercase',
                                 fontWeight: 'bold',
                                 marginBottom: '0.5rem',
+                                marginRight: '0.5rem',
                             }}
                         >
                             {el}
