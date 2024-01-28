@@ -52,11 +52,12 @@ function SignupFormPage() {
         }
 
         setErrors(newErrors);
-        if (password === confirmPassword && !errors.email && !errors.password && !errors.confirmPassword) {
+        if (errors.email == null && errors.password == null && errors.confirmPassword == null) {
             const data = await dispatch(signUp({ username, email, password }));
-            if (data && Array.isArray(data)) {
-                setErrors(data);
-            }
+            console.log(data)
+            // if (data && Array.isArray(data)) {
+            //     setErrors(data);
+            // }
         }
     };
 
