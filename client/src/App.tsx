@@ -10,6 +10,7 @@ import VideoCall from './components/VideoCalling';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+import PageHeader from './components/ScrambleText';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
