@@ -21,7 +21,7 @@
   border: none;
   padding: 0.4rem 0.8rem 0.4rem;
   border-radius: 7px;
-  /* box-shadow: 4px 4px 5px #3cebcb81; */
+
   background-color: var(--primary);
   color: var(--dark-text);
   height: 50px;
@@ -44,7 +44,6 @@
 
 .landing-page-cool-image {
   position: relative;
-  color: white;
 }
 
 #hacker {
