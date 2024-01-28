@@ -59,7 +59,7 @@ const PageHeader: React.FC<PageHeaderProps> = React.memo((props) => {
 
     return (
         <>
-            <div ref={titleParent} id="welcome-message" >
+            <h1 ref={titleParent} id="welcome-message" >
                 Welcome To 
                 {props.title.split('').map((el, i) => (
                     <span key={i} className="span-par">
@@ -73,7 +73,7 @@ const PageHeader: React.FC<PageHeaderProps> = React.memo((props) => {
                         </span>
                     </span>
                 ))}
-            </div>
+            </h1>
         </>
     );
 });

@@ -1,13 +1,14 @@
 .landing-page {
-  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 80vh;
+  /* border: yellow solid 2px; */
 
 }
 
 .landing-page-description {
-  max-width: 65vw;
+  max-width: 60vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,7 +38,7 @@
 .landing-page-cool-image {
   display: flex;
   width: 35vw;
-  height: 60%;
+  height: auto;
   position: relative;
   color: white;
 

@@ -20,8 +20,7 @@ function LandingPage() {
     nav("/home");
   }
   return (
-    <>
-      <div className="landing-page">
+      <main className="landing-page">
         <div className="landing-page-cool-image">
           <img
             src={catsCoding}
@@ -46,8 +45,7 @@ function LandingPage() {
           </>
           <button className="landing-page-get-started">Get Started</button>
         </div>
-      </div>
-    </>
+      </main>
   );
 }
 

@@ -1,17 +1,4 @@
-.footer-container {
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    padding: 1rem 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    font-size: small;
-    /* box-shadow: var(--primary) 0 0 .1rem; */
-}
-
-.all-developers > div {
+.developer-container {
     border-top: var(--primary-opacity) solid .01rem;
     border-bottom: var(--primary-opacity) solid .01rem;
     color: #373F51;
@@ -19,13 +6,18 @@
     display: flex;
     align-items: center;
     gap: .5em;
+    padding: .5rem 0 .5rem;
 }
 
 .all-developers {
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    padding: 1rem 0;
     display: flex;
     flex-direction: row;
-    gap: 5rem;
-    margin-left: 7rem;
+    gap: 8rem;
 }
 
 .copywrite {
