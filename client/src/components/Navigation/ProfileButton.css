@@ -27,11 +27,6 @@
     text-align: center;
 }
 
-/* .dropdown-list > div {
-    width: 10rem;
-    margin: 4px 0;
-} */
-
 .user-profile-dropdown-info {
     display: flex;
     flex-direction: column;
