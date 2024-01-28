@@ -56,8 +56,9 @@ const VideoCall: React.FC = () => {
         }
 
         return () => {
-            if (socket) {
+            if (socket && joined) {
                 // Clean up all event listeners when component unmounts
+                socket.emit('leave_room', { room: channelName });
                 socket.removeAllListeners('joined');
                 socket.removeAllListeners('user_left');
             }

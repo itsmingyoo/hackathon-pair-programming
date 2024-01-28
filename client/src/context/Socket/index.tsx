@@ -32,7 +32,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
     useEffect(() => {
         if (user && user.id && !socket) {
-            const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
+            const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("http://127.0.0.1:5000", {
                 transports: ['websocket', 'polling'],
                 reconnection: true,
                 reconnectionAttempts: 5,
