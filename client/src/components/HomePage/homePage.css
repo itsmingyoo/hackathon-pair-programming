@@ -1,0 +1,46 @@
+
+.landing-page-content {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.landing-page-description {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.text-one, .text-two, .text-three {
+    color: black !important;
+}
+
+.text-one {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.text-two {
+    font-size: 28px;
+}
+
+.text-three {
+    font-size: 20px;
+}
+
+.home-page-get-started {
+    width: 250px;
+    border: none;
+    border-radius: 7px;
+    box-shadow: 4px 4px 5px #3cebcb81;
+    background-color: #3cebca;
+    color: #373F51;
+    height: 50px;
+    font-size: 25px;
+    /* font-weight: bold; */
+    margin-top: 40px;
+}

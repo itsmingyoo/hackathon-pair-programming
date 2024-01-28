@@ -4,32 +4,35 @@ import SignupFormPage from './components/SignupFormPage';
 import LoginFormPage from './components/LoginFormPage';
 import Navigation from './components/Navigation';
 import { authenticate } from './store/session';
-import { useAppDispatch } from './hooks';
+import { useAppDispatch, useAppSelector } from './hooks';
 import LandingPage from './components/LandingPage';
-import VideoTest from './components/VideoTest';
-import AddTwoSum from './components/DSAProblems/add-two-sum';
-import VideoTest2 from './components/VideoTest/AuthenticationWorkflowManagerTest';
+import VideoCall from './components/VideoCalling';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
+import PageHeader from './components/ScrambleText';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const currentUser = useAppSelector((state) => state.session.user);
+
     useEffect(() => {
         dispatch(authenticate())
             .then((result) => {
                 if (authenticate.fulfilled.match(result)) {
                     setIsLoaded(true);
-                    // console.log('is it loaded', isLoaded);
                 } else {
-                    console.log('authentication result doesnt match', result);
+                    console.log('Authentication result doesnt match', result);
                 }
             })
             .catch((error: Error) => {
                 console.error({ Error: error, Message: 'Error authenticating!' });
             });
     }, [dispatch]);
-    console.log('is it loaded', isLoaded);
+
+    const loggedIn = currentUser?.errors ? false : true;
+
     // https://reactrouter.com/en/main/route/route - this is v6 of browserrouter
     return (
         <>
@@ -37,13 +40,18 @@ const App: React.FC = () => {
                 <Router>
                     <Navigation isLoaded={isLoaded} />
                     <Routes>
-                        <Route path="/" element={<LandingPage />} />
+                        <Route path="" element={<LandingPage />} />
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
-                        <Route path="/video-test" element={<VideoTest />} />
-                        <Route path="/video-test-2" element={<VideoTest2 />} />
-                        <Route path="/add-two-sum" element={<AddTwoSum />} />
+                        <Route
+                            path="/code-collab"
+                            element={
+                                <ProtectedRoute loggedIn={loggedIn}>
+                                    <VideoCall />
+                                </ProtectedRoute>
+                            }
+                        />
                     </Routes>
                     <Footer />
                 </Router>

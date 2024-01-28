@@ -20,7 +20,7 @@ export const authenticate = createAsyncThunk<User | null, void, { rejectValue: s
     }
 );
 
-export const login = createAsyncThunk<User | null, { email: string; password: string }, { rejectValue: string }>(
+export const login = createAsyncThunk<User | null, { email: string; password: string }, { rejectValue: {} | string }>(
     'session/login',
     async (credentials, { rejectWithValue }) => {
         try {
@@ -35,10 +35,11 @@ export const login = createAsyncThunk<User | null, { email: string; password: st
                 const data = await response.json();
                 return data || null; // Assuming data is of type User
             } else {
-                return null;
+                const errorResponse = await response.json(); // Get the error message from the response
+                return rejectWithValue(errorResponse.message || 'Invalid Credentials');
             }
         } catch (error) {
-            return rejectWithValue('Failed to login');
+            return rejectWithValue(error || 'Failed to login');
         }
     }
 );
@@ -101,7 +102,7 @@ const sessionSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(login.fulfilled, (state, action) => {
-                state.user = action.payload;
+                state.user = action.payload?.errors ? null : action.payload;
             })
             .addCase(logout.fulfilled, (state) => {
                 state.user = null;

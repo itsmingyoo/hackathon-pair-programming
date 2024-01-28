@@ -40,37 +40,36 @@ function SignupFormPage() {
         setErrors([
           "Confirm Password field must be the same as the Password field",
         ]);
+      }
         if (password === confirmPassword) {
           const data = await dispatch(signUp({ username, email, password }));
           if (data && Array.isArray(data)) {
             setErrors(data);
           }
-        } else {
-          setErrors([
-            "Confirm Password field must be the same as the Password field",
-          ]);
         }
-      }
     };
 
     //possible to make erros an object istead of array?
-    // const emailErrorsClass = errors.email ? "email-login-errors" : "";
-    // const firstNameErrorsClass = errors.firstname ? "email-login-errors" : "";
-    // const lastNameErrorsClass = errors.lastname ? "email-login-errors" : "";
-    // const userNameErrorsClass = errors.username ? "email-login-errors" : "";
-    // const passwordErrorsClass = errors.password ? "email-login-errors" : "";
+    // const emailErrorsClass = errors.email ? "email-signup-errors" : "";
+    // const firstNameErrorsClass = errors.firstname ? "email-signup-errors" : "";
+    // const lastNameErrorsClass = errors.lastname ? "email-signup-errors" : "";
+    // const userNameErrorsClass = errors.username ? "email-signup-errors" : "";
+    // const passwordErrorsClass = errors.password ? "email-signup-errors" : "";
 
     return (
       <div className="signup-component">
         <div className="signup-container">
           <form onSubmit={handleSubmit}>
             <h1>Sign Up</h1>
-            <ul>
+            {/* <ul>
               {errors.map((error, idx) => (
                 <div key={idx}>{error}</div>
               ))}
-            </ul>
+            </ul> */}
             <label>
+            <div className='signup-page-input-text'>
+                Email address
+              </div>
               <input
                 className="signup-form-input"
                 placeholder="Email"
@@ -81,6 +80,9 @@ function SignupFormPage() {
               />
             </label>
             <label>
+            <div className='signup-page-input-text'>
+                Username
+              </div>
               <input
                 className="signup-form-input"
                 placeholder="Username"
@@ -91,6 +93,9 @@ function SignupFormPage() {
               />
             </label>
             <label>
+            <div className='signup-page-input-text'>
+                Password
+              </div>
               <input
                 className="signup-form-input"
                 placeholder="Password"
@@ -101,6 +106,9 @@ function SignupFormPage() {
               />
             </label>
             <label>
+            <div className='signup-page-input-text'>
+                Confirm password
+              </div>
               <input
                 className="signup-form-input"
                 placeholder="Confirm Password"
