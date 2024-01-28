@@ -41,3 +41,16 @@
     font-size: x-small;
     padding-bottom: 4px;
 }
+
+.signup-form-button-click-here {
+    background: none;
+    border: none;
+    padding-left: .5rem;
+    font-size: x-small;
+}
+
+.already-have-acct {
+    font-size: x-small;
+    padding-top: 10px;
+
+}
