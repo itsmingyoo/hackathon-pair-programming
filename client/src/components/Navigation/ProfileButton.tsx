@@ -53,7 +53,6 @@ function ProfileButton({ user }: { user: User }) {
                     <div className="dropdown-list">
                         {user ? (
                             <div className='user-profile-dropdown-info'>
-                                {/* <div className='profile-dropdown-welcome'>Welcome, {user.username}!</div> */}
                                 <button className='profile-setings-button'>Profile Settings</button>
                                 <div>
                                     <button className='logout-button' onClick={handleLogout}>Log Out</button>
