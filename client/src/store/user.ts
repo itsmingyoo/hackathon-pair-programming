@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { User } from '../interfaces/user';
 
-export const getUser = createAsyncThunk<User | null, {rejectValue: string}>(
+export const getUser = createAsyncThunk<User | null, number, { rejectValue: {} | string }>(
     'user/getUser',
     async (id, {rejectWithValue}) => {
         try {

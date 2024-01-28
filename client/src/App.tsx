@@ -10,6 +10,7 @@ import VideoCall from './components/VideoCalling';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+import UserPage from './components/UserPage';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -51,6 +52,7 @@ const App: React.FC = () => {
                                 </ProtectedRoute>
                             }
                         />
+                        <Route path='/users/:userId/' element={<UserPage />} />
                     </Routes>
                     <Footer />
                 </Router>

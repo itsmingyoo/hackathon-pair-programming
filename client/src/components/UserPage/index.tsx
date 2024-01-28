@@ -2,11 +2,25 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../hooks';
 import { Navigate } from 'react-router-dom';
 import { RootState } from '../../store';
+import { getUser } from '../../store/user';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 function UserPage() {
+    const {userId} = useParams();
+
     const dispatch = useAppDispatch();
     const sessionUser = useSelector((state: RootState) => state.session.user);
+    const targetUser = useSelector((state: RootState) => state.user.targetUser);
+
+    
+
+    useEffect(() => {
+        if (userId) dispatch(getUser(+userId));
+    }, [userId])
+
+    console.log('hi', targetUser);
 
     return (
         <>
