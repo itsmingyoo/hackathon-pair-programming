@@ -60,7 +60,16 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
             <div ref={titleParent} id="welcome-message" style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                 {props.title.split('').map((el, i) => (
                     <span key={i} className="span-par">
-                        <span>{el}</span>
+                        <span
+                            style={{
+                                fontSize: '3.5rem',
+                                textTransform: 'uppercase',
+                                fontWeight: 'bold',
+                                marginBottom: '0.5rem',
+                            }}
+                        >
+                            {el}
+                        </span>
                     </span>
                 ))}
             </div>
