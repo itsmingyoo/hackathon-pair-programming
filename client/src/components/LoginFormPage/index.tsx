@@ -26,10 +26,17 @@ function LoginFormPage() {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const data = await dispatch(login({ email, password }));
-        if (data && Array.isArray(data)) {
-            console.log('data ', data);
-            setErrors(data);
+        const actionResult = await dispatch(login({ email, password }));
+
+        if (login.fulfilled.match(actionResult)) {
+            // Handle the fulfilled case
+            console.log('Login successful:', actionResult.payload);
+        } else if (login.rejected.match(actionResult)) {
+            // Handle the rejected case
+            const error =
+                typeof actionResult.payload === 'string' ? actionResult.payload : 'An unexpected error occurred';
+            setErrors([error]);
+            console.log('Login failed:', error);
         }
     };
 
@@ -44,48 +51,46 @@ function LoginFormPage() {
     };
 
     return (
-      <div className="login-component">
-        <div className="login-container">
-          <form onSubmit={handleSubmit}>
-            <h1>Log In</h1>
-            {/* <ul>
+        <div className="login-component">
+            <div className="login-container">
+                <form onSubmit={handleSubmit}>
+                    <h1>Log In</h1>
+                    {/* <ul>
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
             </ul> */}
-            <label className="form-labels">
-              <div className='login-page-input-text'>
-                Email address
-              </div>
-              <input
-                className="login-form-input"
-                placeholder="Email"
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
-            <label className="form-labels">
-            <div className='login-page-input-text'>
-                Password
-              </div>
-              <input
-                className="login-form-input"
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-            <button className="login-form-button" type="submit">
-              Log In
-            </button>
-            <button className='login-demo-user' onClick={handleDemoSubmit}>Signin as Demo User</button>
-          </form>
+                    <label className="form-labels">
+                        <div className="login-page-input-text">Email address</div>
+                        <input
+                            className="login-form-input"
+                            placeholder="Email"
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <label className="form-labels">
+                        <div className="login-page-input-text">Password</div>
+                        <input
+                            className="login-form-input"
+                            placeholder="Password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <button className="login-form-button" type="submit">
+                        Log In
+                    </button>
+                    <button className="login-demo-user" onClick={handleDemoSubmit}>
+                        Signin as Demo User
+                    </button>
+                </form>
+            </div>
         </div>
-      </div>
     );
 }
 
