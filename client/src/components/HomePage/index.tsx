@@ -18,7 +18,7 @@ function HomePage() {
                 Grind DS&A questions to enhance your skills
               </div>
               <div className="text-three">Become a better developer</div>
-              <button className="home-page-get-started">Get Started</button>
+              <button className="home-page-get-started">Start Paring</button>
             </div>
           </div>
         </div>
