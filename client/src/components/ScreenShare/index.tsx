@@ -1,22 +1,23 @@
+import { useState } from 'react';
 import ShareScreenComponent from '../../AgoraManager/screenShare';
 import config from '../../AgoraManager/config';
 import { fetchRTCToken } from '../../utility/fetchRTCToken';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from 'agora-rtc-react';
 import { useAppSelector } from '../../hooks';
-import './index.css';
 
-function ScreenShare(props: { channelName: string }) {
-    const [screenSharing, setScreenSharing] = useState<boolean>(false);
+function ScreenShare(props: {
+    channelName: string;
+    screenSharing: boolean;
+    setScreenSharing: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
     const { channelName } = props;
+    const [screenSharing, setScreenSharing] = useState<boolean>(false);
     const remoteUsers = useRemoteUsers();
     useRemoteVideoTracks(remoteUsers);
     const pairInfo = useAppSelector((state) => state.pairedUser.user);
     console.log(remoteUsers);
 
-    const toggleScreenShare = () => {
-        setScreenSharing(!screenSharing);
-    };
     useEffect(() => {
         const fetchTokenFunction = async () => {
             if (config.serverUrl !== '' && channelName !== '') {
@@ -34,15 +35,15 @@ function ScreenShare(props: { channelName: string }) {
 
         fetchTokenFunction();
 
-        console.log('😎screenSharing😎: ', screenSharing ? screenSharing : screenSharing);
-    }, [channelName, screenSharing]);
+        console.log('😎screenSharing😎: ', props.screenSharing ? props.screenSharing : props.screenSharing);
+    }, [channelName, props.screenSharing]);
 
-    // Conditional rendering based on screen sharing state
     const renderContent = () => {
         if (screenSharing === true) {
             return (
                 <>
-                    <h1>Screen Sharing</h1>
+                    {/* <h1>Screen Sharing</h1> */}
+
                     <ShareScreenComponent setScreenSharing={setScreenSharing} />
                 </>
             );
@@ -55,31 +56,24 @@ function ScreenShare(props: { channelName: string }) {
 
     return (
         <>
-            <div>
-                <button onClick={toggleScreenShare} id="share-screen-button">
-                    {screenSharing ? 'Stop Sharing' : 'Start Sharing'}
-                </button>
-                {renderContent()}
-                {remoteUsers.map((remoteUser) => {
-                    if (remoteUser.uid === pairInfo?.screenUid) {
-                        return (
-                            <div
-                                className="vid"
-                                style={{ height: '1920px', width: '1080px', objectFit: 'contain' }}
-                                key={remoteUser.uid}
-                            >
-                                <RemoteVideoTrack
-                                    style={{ width: '1920px', height: '1080px' }}
-                                    track={remoteUser.videoTrack}
-                                    play
-                                />
-                            </div>
-                        );
-                    } else {
-                        return null;
-                    }
-                })}
-            </div>
+            <button onClick={() => setScreenSharing(!screenSharing)} id="share-screen-button">
+                <p className="screen-share-button-text">{screenSharing ? 'Stop Sharing' : 'Start Sharing'}</p>
+            </button>
+            {renderContent()}
+            {remoteUsers.map((remoteUser) => {
+                if (remoteUser.uid === pairInfo?.screenUid) {
+                    return (
+                        <RemoteVideoTrack
+                            track={remoteUser.videoTrack}
+                            key={remoteUser.uid}
+                            play
+                            style={{ width: '192', height: '108' }}
+                        />
+                    );
+                } else {
+                    return null;
+                }
+            })}
         </>
     );
 }

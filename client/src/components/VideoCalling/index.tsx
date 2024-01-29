@@ -7,9 +7,10 @@ import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import PairedChat from '../PairedChat';
 import PairedVideos from '../PairedVideos';
 import { useAppDispatch } from '../../hooks';
-import './index.css';
 import { receiveUser } from '../../store/pairedUser';
 import ScreenShare from '../ScreenShare';
+// import ScreenShareButton from '../ScreenShare/screenShareButton';
+import './index.css';
 
 const VideoCall: React.FC = () => {
     const { socket } = useSocket();
@@ -18,16 +19,8 @@ const VideoCall: React.FC = () => {
     const [joined, setJoined] = useState<boolean>(false);
     const [channelName, setChannelName] = useState<string>('');
     const [loading, setLoading] = useState(false);
-    // const { navigationState } = useNavigation();
+    const [screenSharing, setScreenSharing] = useState<boolean>(false);
     const dispatch = useAppDispatch();
-
-    // Handle when a user navigates to a different page
-    // useEffect(() => {
-    //   if (navigationState.currentPath !== "/video-test") {
-    //     console.log("User Navigated Elsewhere.");
-    //     leaveRoomHandler();
-    //   }
-    // }, [navigationState, leaveRoomHandler]);
 
     useEffect(() => {
         if (socket) {
@@ -84,7 +77,6 @@ const VideoCall: React.FC = () => {
         }
     };
 
-    // Handle leave room
     const leaveRoomHandler = useCallback(() => {
         if (joined && socket) {
             socket.emit('leave_room', { room: channelName });
@@ -99,16 +91,30 @@ const VideoCall: React.FC = () => {
             <div id="video-main-wrapper">
                 <div id="button-wrapper">
                     {joined ? (
-                        <button onClick={leaveRoomHandler}>Leave</button>
+                        <>
+                            <button onClick={leaveRoomHandler} style={{ backgroundColor: 'red' }}>
+                                Leave
+                            </button>
+                        </>
                     ) : (
                         <>
                             <h1>Get Started with Video Calling</h1>
-                            <button onClick={handleJoinClick} disabled={loading}>
-                                {loading ? <div className="spinner"></div> : 'Join'}
-                            </button>
+                            <div id="join-call-cat-image">
+                                <img src="/src/assets/images/devpair-loading-screen.png" alt="loading-screen" />
+                            </div>
+                            <div id="join-channel-button-container">
+                                <button onClick={handleJoinClick} disabled={loading} id="join-channel-button">
+                                    {loading ? (
+                                        <div className="spinner"></div>
+                                    ) : (
+                                        <p className="join-channel-button-text">Join a call now!</p>
+                                    )}
+                                </button>
+                            </div>
                         </>
                     )}
                 </div>
+
                 {joined && (
                     <>
                         <AgoraRTCProvider client={agoraEngine}>
@@ -121,7 +127,11 @@ const VideoCall: React.FC = () => {
                                 </div>
                                 <div id="screen-share-container">
                                     <AgoraRTCScreenShareProvider client={agoraEngine}>
-                                        <ScreenShare channelName={channelName} />
+                                        <ScreenShare
+                                            channelName={channelName}
+                                            screenSharing={screenSharing}
+                                            setScreenSharing={setScreenSharing}
+                                        />
                                     </AgoraRTCScreenShareProvider>
                                 </div>
                                 <div id="paired-chat-container">

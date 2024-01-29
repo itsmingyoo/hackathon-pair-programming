@@ -1,17 +1,18 @@
 #main-wrapper {
     display: flex;
     justify-content: space-between;
-    align-content: space-between
-
+    flex-grow: 1;
+    flex: 1;
+    min-height: calc(100dvh - 20rem);
 }
 
 #video-main-wrapper {
-    /* min-height: calc(100dvh - 3.5rem); // this is a cheat to fix the footer */
+    /* min-height: calc(100dvh - 20rem); this is a cheat to fix the footer */
     /*!!! THIS SETS THE CONTENT BODY TO NOT OVERFLOW AND FIXES THE FOOTER TO BE ON THE BOTTOM  */
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     flex: 1;
-    min-width: 0;
+    min-width: 0; */
 }
 
 #button-wrapper > h1 {
@@ -22,27 +23,66 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-content: space-around;
-    align-items: stretch;
+    align-items: center;
 }
 
+/** BUTTON STYLING */
 #button-wrapper {
     text-align: center;
 }
 
-#button-wrapper > button {
-    color: black;
-    background-color: #20cc09;
-    height: 3rem;
-    width: 10rem;
+#join-channel-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#video-container, #paired-chat-container, #ide-container {
+#join-channel-button, #share-screen-button {
+    background-color: #20cc09;
+    /* background-color: #181717; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px 15px; */
+    padding: 2.5rem 5rem;
+    gap: 15px;
+    outline: 3px #181717 solid;
+    outline-offset: -3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+#join-channel-button:hover, #share-screen-button:hover {
+    background-color: transparent;
+}
+
+#join-channel-button:hover .join-channel-button-text {
+    color: white;
+}
+
+#join-channel-button .join-channel-button-text, #share-screen-button .screen-share-button-text {
+    color: white;
+    font-weight: 700;
+    font-size: 2.5rem;
+    transition: 400ms;
+}
+
+/** END OF BUTTON STYLING */
+
+
+/** IMAGE */
+#join-call-cat-image > img {
+    max-width: 477px;
+    max-height: 477px;
+}
+
+
+/** VIDEO CONTAINERS */
+#video-container, #paired-chat-container, #ide-container, #screen-share-container {
     display: flex;
     flex-direction: column;
-}
-
-#paired-chat-container {
     margin: 0 0.7rem;
 }
 
@@ -63,3 +103,54 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+#screen-share-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+#screen-share-container > div > div > video {
+    width: 192;
+    height: 108;
+    /** This puts it at a 1920 x 1080 ratio */
+    overflow: hidden;
+    background-color: transparent;
+    object-fit: contain !important;
+    /* border: 1px solid green; */
+}
+#screen-share-container > div > div {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent !important;
+}
+#screen-share-container > div {
+    width: 100%;
+    height: 100%;
+}
+
+#messages-container {
+    height: 100%;
+}
+
+#paired-chat-container {
+    justify-content: space-between;
+    align-items: center;
+}
+
+#share-screen-button {
+    width: 100%;
+    background-color: #20cc09;
+    color: black;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.vid > div > div > video, .vid > div > div > div > video {
+    border: 1px solid #20cc09;
+    border-radius: 4px;
+}
