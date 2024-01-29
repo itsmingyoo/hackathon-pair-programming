@@ -14,12 +14,27 @@
     min-width: 0;
 }
 
+#button-wrapper > h1 {
+    text-align: center;
+}
+
 #video-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-content: space-around;
     align-items: stretch;
+}
+
+#button-wrapper {
+    text-align: center;
+}
+
+#button-wrapper > button {
+    color: black;
+    background-color: #20cc09;
+    height: 3rem;
+    width: 10rem;
 }
 
 #video-container, #paired-chat-container, #ide-container {
@@ -34,3 +49,17 @@
 #ide-container {
    width: 100vw;
 }
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

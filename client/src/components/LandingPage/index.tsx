@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { useNavigate } from 'react-router-dom';
 // import coolImage from '../../assets/images/28565598_5500_9_10.svg';
 // import hacker from '../../assets/images/hacker.svg';
 import catsCoding from '../../assets/images/catsCoding.png';
@@ -9,19 +9,29 @@ import PageHeader from '../ScrambleText';
 import './landingPage.css';
 
 function LandingPage() {
-    const nav = useNavigate();
+    const navigate = useNavigate();
     const sessionUser = useSelector((state: RootState) => state.session.user);
+    const user = useRef(sessionUser);
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
-        let userLoggedIn: boolean = false;
         if (sessionUser && !sessionUser.errors) {
-            userLoggedIn = true;
+            setLoggedIn(true);
+        } else {
+            setLoggedIn(false);
         }
+        console.log('LOGGEDIN????', sessionUser, loggedIn);
+    }, [sessionUser, user]);
 
-        if (userLoggedIn) {
-            nav('/home');
-        }
-    }, [sessionUser, nav]);
+    const handleGetStarted = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        navigate('/signup');
+    };
+
+    const handleJoinRoom = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        navigate('/code-collab');
+    };
     return (
         <>
             <div className="landing-page">
@@ -41,7 +51,15 @@ function LandingPage() {
                         </div>
                         <div className="landing-text-two">Grind DS&A questions to enhance your skills</div>
                         <div className="landing-text-three">Become a better developer</div>
-                        <button className="landing-page-get-started">Get Started</button>
+                        {loggedIn ? (
+                            <button className="landing-page-get-started" onClick={handleJoinRoom}>
+                                Join a Room!
+                            </button>
+                        ) : (
+                            <button className="landing-page-get-started" onClick={handleGetStarted}>
+                                Get Started
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

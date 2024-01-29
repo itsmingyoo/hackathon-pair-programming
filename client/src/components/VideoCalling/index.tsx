@@ -17,17 +17,9 @@ const VideoCall: React.FC = () => {
     const agoraEngine = useRTCClient(AgoraRTC.createClient({ codec: 'vp8', mode: config.selectedProduct }));
     const [joined, setJoined] = useState<boolean>(false);
     const [channelName, setChannelName] = useState<string>('');
+    const [loading, setLoading] = useState(false);
     // const { navigationState } = useNavigation();
     const dispatch = useAppDispatch();
-
-    // Handle leave room
-    const leaveRoomHandler = useCallback(() => {
-        if (joined && socket) {
-            socket.emit('leave_room', { room: channelName });
-            setJoined(false);
-            setChannelName('');
-        }
-    }, [joined, socket, channelName]);
 
     // Handle when a user navigates to a different page
     // useEffect(() => {
@@ -85,21 +77,38 @@ const VideoCall: React.FC = () => {
 
     const handleJoinClick = () => {
         console.log('You are pressing the join button.', socket);
+        setLoading(true); // Start loading
         if (socket) {
             console.log('You are now joining a room', socket);
             socket.emit('join_room');
         }
     };
 
+    // Handle leave room
+    const leaveRoomHandler = useCallback(() => {
+        if (joined && socket) {
+            socket.emit('leave_room', { room: channelName });
+            setJoined(false);
+            setChannelName('');
+            setLoading(false);
+        }
+    }, [joined, socket, channelName]);
+
     return (
         <>
             <div id="video-main-wrapper">
-                <h1>Get Started with Video Calling</h1>
-                {joined ? (
-                    <button onClick={leaveRoomHandler}>Leave</button>
-                ) : (
-                    <button onClick={handleJoinClick}>Join</button>
-                )}
+                <div id="button-wrapper">
+                    {joined ? (
+                        <button onClick={leaveRoomHandler}>Leave</button>
+                    ) : (
+                        <>
+                            <h1>Get Started with Video Calling</h1>
+                            <button onClick={handleJoinClick} disabled={loading}>
+                                {loading ? <div className="spinner"></div> : 'Join'}
+                            </button>
+                        </>
+                    )}
+                </div>
                 {joined && (
                     <>
                         <AgoraRTCProvider client={agoraEngine}>
@@ -110,7 +119,7 @@ const VideoCall: React.FC = () => {
                                         <PairedVideos channelName={channelName} />
                                     </div>
                                 </div>
-                                <div id="Screen-share-container">
+                                <div id="screen-share-container">
                                     <AgoraRTCScreenShareProvider client={agoraEngine}>
                                         <ScreenShare channelName={channelName} />
                                     </AgoraRTCScreenShareProvider>

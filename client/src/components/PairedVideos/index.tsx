@@ -18,6 +18,7 @@ import config from '../../AgoraManager/config';
 import { useAppSelector } from '../../hooks';
 import RemoteAndLocalVolumeComponent from '../../AgoraManager/volumeControl';
 import { AgoraProvider } from '../../AgoraManager/agoraManager';
+import './index.css';
 
 function PairedVideos(props: { channelName: string }) {
     const user = useAppSelector((state) => state.session.user);
@@ -69,6 +70,9 @@ function PairedVideos(props: { channelName: string }) {
                     <div className="vid" style={{ height: 300, width: 350 }}>
                         <LocalVideoTrack track={localCameraTrack} play={true} />
                     </div>
+                    <div id="volume-control">
+                        <RemoteAndLocalVolumeComponent />
+                    </div>
                     {remoteUsers.map((remoteUser) => {
                         if (remoteUser.uid === pairInfo?.videoUid) {
                             return (
@@ -79,9 +83,6 @@ function PairedVideos(props: { channelName: string }) {
                             );
                         }
                     })}
-                </div>
-                <div id="volume-control">
-                    <RemoteAndLocalVolumeComponent />
                 </div>
             </AgoraProvider>
         </>

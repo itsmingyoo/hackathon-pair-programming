@@ -8,8 +8,8 @@ import { useAppDispatch, useAppSelector } from './hooks';
 import LandingPage from './components/LandingPage';
 import VideoCall from './components/VideoCalling';
 import Footer from './components/Footer';
-import HomePage from './components/HomePage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+// import HomePage from './components/HomePage';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -40,7 +40,7 @@ const App: React.FC = () => {
                     <Navigation isLoaded={isLoaded} />
                     <Routes>
                         <Route path="" element={<LandingPage />} />
-                        <Route path="/home" element={<HomePage />} />
+                        {/* <Route path="/home" element={<HomePage />} /> */}
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route

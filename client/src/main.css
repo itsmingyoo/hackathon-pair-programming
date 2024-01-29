@@ -2,6 +2,8 @@
 /* box-shadow: 4px 3px 3px black; */
 
 /** COLOR SCHEME
+--NEW PRIMARY COLOR: #20cc09
+
 --platinum: #D8DBE2;
 --DevPair-Green: #3cebca;
 --moonstone: #58A4B0;
@@ -36,7 +38,7 @@
 body {
   background-color: var(--background);
   background: linear-gradient(to top left,hsl(162,63%,13%) 0%, #080c0b 30%);
-  
+
   margin: 0;
   /* &::before,
   &::after {

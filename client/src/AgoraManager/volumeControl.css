@@ -1,0 +1,10 @@
+#toggle-mute {
+    color: black;
+    border-radius: 4px;
+}
+
+#volume-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}

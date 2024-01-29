@@ -31,6 +31,7 @@ function LoginFormPage() {
         if (login.fulfilled.match(actionResult)) {
             // Handle the fulfilled case
             console.log('Login successful:', actionResult.payload);
+            return <Navigate to="/" replace />;
         } else if (login.rejected.match(actionResult)) {
             // Handle the rejected case
             const error =
@@ -46,7 +47,7 @@ function LoginFormPage() {
         if (data && Array.isArray(data)) {
             setErrors(data);
         } else {
-            return <Navigate to="/home" replace />;
+            return <Navigate to="/" replace />;
         }
     };
 

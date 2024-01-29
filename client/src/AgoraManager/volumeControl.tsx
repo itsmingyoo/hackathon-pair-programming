@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAgoraContext } from './agoraManager';
 import { useRemoteUsers } from 'agora-rtc-react';
+import './volumeControl.css';
 
 const RemoteAndLocalVolumeComponent: React.FC = () => {
     const agoraContext = useAgoraContext();
@@ -24,11 +25,11 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
     return (
         <>
             <div>
-                <button onClick={handleLocalAudioToggle} style={{ color: 'black' }}>
+                <button onClick={handleLocalAudioToggle} id="toggle-mute">
                     {isLocalMuted ? 'Unmute Microphone' : 'Mute Microphone'}
                 </button>
             </div>
-            <div>
+            <div id='volume-slider'>
                 <label htmlFor="remote-audio-volume">Adjust User's Volume</label>
                 <input
                     type="range"

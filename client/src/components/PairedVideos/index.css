@@ -1,0 +1,13 @@
+#volume-control {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 2px;
+}
+
+#videos {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
