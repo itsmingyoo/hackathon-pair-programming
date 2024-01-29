@@ -17,6 +17,13 @@ class User(db.Model, UserMixin):
     video_uid = db.Column(db.String, unique=True, default=lambda:str(uuid.uuid4()))
     screen_uid = db.Column(db.String, unique=True, default=lambda:str(uuid.uuid4()))
 
+    pic_url = db.Column(db.String, nullable=True)
+
+    about = db.Column(db.String, nullable=True)
+
+    link_1 = db.Column(db.String, nullable=True)
+    link_2 = db.Column(db.String, nullable=True)
+    link_3 = db.Column(db.String, nullable=True)
     
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
 
