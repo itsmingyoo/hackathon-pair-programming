@@ -52,13 +52,13 @@ function ProfileButton({ user }: { user: User }) {
                 <div className={ulClassName} ref={ulRef}>
                     <div className="dropdown-list">
                         {user ? (
-                            <>
-                                <div>Welcome, {user.username}!</div>
-                                <div>{user.email}</div>
+                            <div className='user-profile-dropdown-info'>
+                                {/* <div className='profile-dropdown-welcome'>Welcome, {user.username}!</div> */}
+                                <button className='profile-setings-button'>Profile Settings</button>
                                 <div>
-                                    <button onClick={handleLogout}>Log Out</button>
+                                    <button className='logout-button' onClick={handleLogout}>Log Out</button>
                                 </div>
-                            </>
+                            </div>
                         ) : (
                             <>
                                 <OpenModalButton

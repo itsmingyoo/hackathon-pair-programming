@@ -1,0 +1,4 @@
+.on {
+    width: 100%;
+    transition: width .5s 1s;
+}

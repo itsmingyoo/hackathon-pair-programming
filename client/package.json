@@ -22,6 +22,7 @@
     "agora-extension-virtual-background": "^1.2.0",
     "agora-rtc-react": "^2.1.0",
     "agora-rtc-sdk-ng": "^4.20.0",
+    "gsap": "^3.12.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
