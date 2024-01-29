@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
 import ProfileButton from './ProfileButton';
 import name from '../../assets/devpair-logos/svg/logo-name.svg'
-import PageHeader from '../ScrambleText';
 import './Navigation.css';
 
 interface NavigationProps {
@@ -32,9 +31,7 @@ function Navigation({ isLoaded }: NavigationProps) {
                 </div>
                 <div className="nav-links-other">
                     {isLoaded && userLoggedIn && sessionUser ? (
-                        <div className="nav-links-profile-button">
                             <ProfileButton user={sessionUser} />
-                        </div>
                     ) : (
                         <div className="nav-links-login-and-signout">
                             <div>

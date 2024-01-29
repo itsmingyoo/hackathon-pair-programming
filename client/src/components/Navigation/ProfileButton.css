@@ -1,24 +1,27 @@
 /* Dropdown Button */
 .profile-dropdown {
     position: relative;
-    top: 10px;
-    right: 20px;
+    padding-top: .2rem;
 }
 
 #options-button {
-    position: fixed;
-    top: 0;
-    right: 10px;
+    width: 100%;
     border: none;
     background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#options-icon {
+    max-width: 100%;
 }
 
 /* Dropdown Content */
 .dropdown-container {
-    position: relative;
-    top: 70px;
-    right: 20px;
-    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    border-radius: .5rem;
     padding: 5px;
     background-color: #1b1b1b;
 }

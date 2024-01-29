@@ -1,7 +1,7 @@
-.profile-dropdown {
+/* .profile-dropdown {
     display: flex;
     flex-direction: column;
-  }
+  } */
 
   .hidden {
     display: none;
@@ -38,7 +38,6 @@
   }
 
   .nav-links-other {
-    /* border: 2px solid red; */
     margin-left: auto;
 
   }
