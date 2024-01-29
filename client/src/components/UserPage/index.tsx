@@ -14,8 +14,6 @@ function UserPage() {
     const sessionUser = useSelector((state: RootState) => state.session.user);
     const targetUser = useSelector((state: RootState) => state.user.targetUser);
 
-    
-
     useEffect(() => {
         if (userId) dispatch(getUser(+userId));
     }, [userId])
@@ -26,6 +24,7 @@ function UserPage() {
         <>
             <div className='user-page'>
                 <div className='user-page-content'>
+
                     <div className='user-header'>
                         <div className='user-pic-div'>
                             <img src="iMadeItUp" alt="bruh"></img>
@@ -33,13 +32,32 @@ function UserPage() {
                         </div>
 
                         <div className='user-name-div'>
-                            Put username here
+                            {targetUser?.username}
+                        </div>
+
+                        <div className='buttons-div'>
+                            <button>Follow</button>
                         </div>
                     </div>
 
                     <div className='user-body'>
+                        <div className='user-details-div'>
+                            <div className='summary'>
+                                <div>About Me:</div>
+                                <div>
+                                    Summary here
+                                </div>
+                            </div>
 
+                            <div className='links'>
+                                <div>Links:</div>
+                                <div>
+                                    Links here
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </>
