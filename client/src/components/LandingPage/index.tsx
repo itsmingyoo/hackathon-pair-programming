@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import catsCoding from '../../assets/images/catsCoding.png';
+import React, { useEffect, useState, useRef } from 'react';
 import chat1 from "../../assets/images/chat1.png";
 import chat2 from "../../assets/images/chat2.png";
 import comic1 from "../../assets/images/comic1.png";
