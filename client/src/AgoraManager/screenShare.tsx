@@ -42,7 +42,15 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
     }
     return (
         <div id="videos">
-            <LocalVideoTrack play style={{ width: '1920px', height: '1080px' }} track={screenTrack} />
+            <LocalVideoTrack
+                play
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                }}
+                track={screenTrack}
+            />
         </div>
     );
 };

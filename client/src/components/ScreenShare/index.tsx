@@ -1,22 +1,22 @@
 import ShareScreenComponent from '../../AgoraManager/screenShare';
 import config from '../../AgoraManager/config';
 import { fetchRTCToken } from '../../utility/fetchRTCToken';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from 'agora-rtc-react';
 import { useAppSelector } from '../../hooks';
 import './index.css';
 
-function ScreenShare(props: { channelName: string }) {
-    const [screenSharing, setScreenSharing] = useState<boolean>(false);
+function ScreenShare(props: {
+    channelName: string;
+    screenSharing: boolean;
+    setScreenSharing: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
     const { channelName } = props;
     const remoteUsers = useRemoteUsers();
     useRemoteVideoTracks(remoteUsers);
     const pairInfo = useAppSelector((state) => state.pairedUser.user);
     console.log(remoteUsers);
 
-    const toggleScreenShare = () => {
-        setScreenSharing(!screenSharing);
-    };
     useEffect(() => {
         const fetchTokenFunction = async () => {
             if (config.serverUrl !== '' && channelName !== '') {
@@ -34,52 +34,49 @@ function ScreenShare(props: { channelName: string }) {
 
         fetchTokenFunction();
 
-        console.log('😎screenSharing😎: ', screenSharing ? screenSharing : screenSharing);
-    }, [channelName, screenSharing]);
+        console.log('😎screenSharing😎: ', props.screenSharing ? props.screenSharing : props.screenSharing);
+    }, [channelName, props.screenSharing]);
 
     // Conditional rendering based on screen sharing state
     const renderContent = () => {
-        if (screenSharing === true) {
+        if (props.screenSharing === true) {
             return (
                 <>
                     <h1>Screen Sharing</h1>
-                    <ShareScreenComponent setScreenSharing={setScreenSharing} />
+                    <ShareScreenComponent setScreenSharing={props.setScreenSharing} />
                 </>
             );
         }
     };
-
     useEffect(() => {
-        console.log('😁😁😁 state', screenSharing);
+        console.log('😁😁😁 state', props.screenSharing);
     });
 
     return (
         <>
-            <div>
-                <button onClick={toggleScreenShare} id="share-screen-button">
-                    {screenSharing ? 'Stop Sharing' : 'Start Sharing'}
-                </button>
-                {renderContent()}
-                {remoteUsers.map((remoteUser) => {
-                    if (remoteUser.uid === pairInfo?.screenUid) {
-                        return (
-                            <div
-                                className="vid"
-                                style={{ height: '1920px', width: '1080px', objectFit: 'contain' }}
-                                key={remoteUser.uid}
-                            >
-                                <RemoteVideoTrack
-                                    style={{ width: '1920px', height: '1080px' }}
-                                    track={remoteUser.videoTrack}
-                                    play
-                                />
-                            </div>
-                        );
-                    } else {
-                        return null;
-                    }
-                })}
-            </div>
+            {renderContent()}
+            {remoteUsers.map((remoteUser) => {
+                if (remoteUser.uid === pairInfo?.screenUid) {
+                    return (
+                        <div className="vid" id="screenshare-container" key={remoteUser.uid}>
+                            <RemoteVideoTrack
+                                track={remoteUser.videoTrack}
+                                play
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'contain',
+                                }}
+                            />
+                        </div>
+                    );
+                } else {
+                    return null;
+                }
+            })}
         </>
     );
 }

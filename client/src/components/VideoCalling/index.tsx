@@ -7,9 +7,10 @@ import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import PairedChat from '../PairedChat';
 import PairedVideos from '../PairedVideos';
 import { useAppDispatch } from '../../hooks';
-import './index.css';
 import { receiveUser } from '../../store/pairedUser';
 import ScreenShare from '../ScreenShare';
+import ScreenShareButton from '../ScreenShare/screenShareButton';
+import './index.css';
 
 const VideoCall: React.FC = () => {
     const { socket } = useSocket();
@@ -18,6 +19,7 @@ const VideoCall: React.FC = () => {
     const [joined, setJoined] = useState<boolean>(false);
     const [channelName, setChannelName] = useState<string>('');
     const [loading, setLoading] = useState(false);
+    const [screenSharing, setScreenSharing] = useState<boolean>(false);
     // const { navigationState } = useNavigation();
     const dispatch = useAppDispatch();
 
@@ -99,7 +101,13 @@ const VideoCall: React.FC = () => {
             <div id="video-main-wrapper">
                 <div id="button-wrapper">
                     {joined ? (
-                        <button onClick={leaveRoomHandler}>Leave</button>
+                        <>
+                            <button onClick={leaveRoomHandler}>Leave</button>
+                            <ScreenShareButton
+                                screenSharing={screenSharing}
+                                toggleScreenShare={() => setScreenSharing(!screenSharing)}
+                            />
+                        </>
                     ) : (
                         <>
                             <h1>Get Started with Video Calling</h1>
@@ -119,9 +127,13 @@ const VideoCall: React.FC = () => {
                                         <PairedVideos channelName={channelName} />
                                     </div>
                                 </div>
-                                <div id="screen-share-container">
+                                <div id="screen-share-container" style={{ width: '60vw', position: 'relative' }}>
                                     <AgoraRTCScreenShareProvider client={agoraEngine}>
-                                        <ScreenShare channelName={channelName} />
+                                        <ScreenShare
+                                            channelName={channelName}
+                                            screenSharing={screenSharing}
+                                            setScreenSharing={setScreenSharing}
+                                        />
                                     </AgoraRTCScreenShareProvider>
                                 </div>
                                 <div id="paired-chat-container">

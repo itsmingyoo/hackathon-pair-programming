@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     align-content: space-between
-
 }
 
 #video-main-wrapper {
@@ -63,3 +62,21 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+
+#screenshare-container > div > div > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: black;
+    object-fit: contain;
+}
+#screenshare-container > div > div > div > video {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
