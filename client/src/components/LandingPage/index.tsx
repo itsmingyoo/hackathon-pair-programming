@@ -37,14 +37,13 @@ function LandingPage() {
     return (
       <>
         <div className="landing-page">
-          <div>
             <div className="landing-page-cool-image">
-                <img
-                  src={chat1}
-                  alt="first-cat-sitting-and-coding"
-                  id="cat-one"
-                  className='bouncy-cats-one'
-                />
+              <img
+                src={chat1}
+                alt="first-cat-sitting-and-coding"
+                id="cat-one"
+                className="bouncy-cats-one"
+              />
               <div className="comix-bubbles-container">
                 <div className="comic-one">
                   <img
@@ -69,16 +68,14 @@ function LandingPage() {
                 </div>
               </div>
               <div className="second-cat-div">
-              <img
+                <img
                   src={chat2}
                   alt="second-cat-sitting-and-coding"
                   id="cat-two"
-                  className='bouncy-cats-two'
+                  className="bouncy-cats-two"
                 />
               </div>
-              {/* <img src={catsCoding} alt="Cats working on DS&A" className="landing-page-cool-pic" /> */}
             </div>
-          </div>
           <div>
             <div className="landing-page-description">
               <PageHeader title={"Welcome to DevPair!"} />
