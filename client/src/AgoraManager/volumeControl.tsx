@@ -7,6 +7,7 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
     const agoraContext = useAgoraContext();
     const remoteUsers = useRemoteUsers();
     const [checked, setChecked] = useState<boolean>(true);
+    // const [userVolume, setUserVolume] = useState<number>();
 
     const handleLocalAudioToggle = () => {
         const newVolume = checked === false ? 100 : 0;
@@ -21,16 +22,12 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
         if (remoteUser && remoteUser.audioTrack) {
             const volume = parseInt(evt.target.value, 10);
             remoteUser.audioTrack.setVolume(volume);
+            // setUserVolume(volume);
         }
     };
 
     return (
         <>
-            {/* <div>
-                <button onClick={handleLocalAudioToggle} id="toggle-mute">
-                    {isLocalMuted ? 'Unmute Microphone' : 'Mute Microphone'}
-                </button>
-            </div> */}
             <label className="container">
                 <input
                     onClick={handleLocalAudioToggle}
@@ -46,7 +43,7 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
                 </svg>
             </label>
             <div id="volume-slider" className="PB-range-slider-div">
-                {/* <label htmlFor="remote-audio-volume">Adjust User's Volume</label> */}
+                <label htmlFor="remote-audio-volume">Adjust User's Volume</label>
                 <input
                     type="range"
                     id="remote-audio-volume myRange"
@@ -56,7 +53,7 @@ const RemoteAndLocalVolumeComponent: React.FC = () => {
                     step="1"
                     onChange={handleRemoteAudioVolumeChange}
                 />
-                <p className="PB-range-slidervalue">50px</p>
+                {/* <p className="PB-range-slidervalue">{userVolume}</p> */}
             </div>
         </>
     );

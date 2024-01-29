@@ -9,7 +9,7 @@ import PairedVideos from '../PairedVideos';
 import { useAppDispatch } from '../../hooks';
 import { receiveUser } from '../../store/pairedUser';
 import ScreenShare from '../ScreenShare';
-import ScreenShareButton from '../ScreenShare/screenShareButton';
+// import ScreenShareButton from '../ScreenShare/screenShareButton';
 import './index.css';
 
 const VideoCall: React.FC = () => {
@@ -99,9 +99,18 @@ const VideoCall: React.FC = () => {
                     ) : (
                         <>
                             <h1>Get Started with Video Calling</h1>
-                            <button onClick={handleJoinClick} disabled={loading}>
-                                {loading ? <div className="spinner"></div> : 'Join'}
-                            </button>
+                            <div id="join-call-cat-image">
+                                <img src="/src/assets/images/devpair-loading-screen.png" alt="loading-screen" />
+                            </div>
+                            <div id="join-channel-button-container">
+                                <button onClick={handleJoinClick} disabled={loading} id="join-channel-button">
+                                    {loading ? (
+                                        <div className="spinner"></div>
+                                    ) : (
+                                        <p className="join-channel-button-text">Join a call now!</p>
+                                    )}
+                                </button>
+                            </div>
                         </>
                     )}
                 </div>

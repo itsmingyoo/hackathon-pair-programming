@@ -38,29 +38,16 @@ function ScreenShare(props: {
         console.log('😎screenSharing😎: ', props.screenSharing ? props.screenSharing : props.screenSharing);
     }, [channelName, props.screenSharing]);
 
-    // Conditional rendering based on screen sharing state
-    // const renderContent = () => {
-    //     if (props.screenSharing === true) {
-    //         return (
-    //             <>
-    //                 <h1>Screen Sharing</h1>
-    //                 <ShareScreenComponent setScreenSharing={props.setScreenSharing} />
-    //             </>
-    //         );
-    //     }
-    // };
-
     const renderContent = () => {
-        return screenSharing === true ? (
-            <>
-                <h1>Screen Sharing</h1>
-                <ShareScreenComponent setScreenSharing={setScreenSharing} />
-            </>
-        ) : (
-            <button onClick={() => setScreenSharing(!screenSharing)} id="share-screen-button">
-                {screenSharing ? 'Stop Sharing' : 'Start Sharing'}
-            </button>
-        );
+        if (screenSharing === true) {
+            return (
+                <>
+                    {/* <h1>Screen Sharing</h1> */}
+
+                    <ShareScreenComponent setScreenSharing={setScreenSharing} />
+                </>
+            );
+        }
     };
 
     useEffect(() => {
@@ -69,6 +56,9 @@ function ScreenShare(props: {
 
     return (
         <>
+            <button onClick={() => setScreenSharing(!screenSharing)} id="share-screen-button">
+                <p className="screen-share-button-text">{screenSharing ? 'Stop Sharing' : 'Start Sharing'}</p>
+            </button>
             {renderContent()}
             {remoteUsers.map((remoteUser) => {
                 if (remoteUser.uid === pairInfo?.screenUid) {

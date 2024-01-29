@@ -2,12 +2,12 @@
     color: black;
     border-radius: 4px;
 }
-/*
+
 #volume-slider {
     display: flex;
     flex-direction: column;
-    gap: 3px;
-} */
+    row-gap: 10px;
+}
 
 
 
@@ -29,7 +29,7 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #000000;
+    background-color: #20cc09;
     cursor: pointer;
     transition: 0.3s ease-in-out;
   }
