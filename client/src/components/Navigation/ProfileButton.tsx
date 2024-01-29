@@ -48,9 +48,8 @@ function ProfileButton({ user }: { user: User }) {
         <div className={ulClassName} ref={ulRef}>
           <div className="dropdown-list">
             <div className="user-profile-dropdown-info">
-              {/* <div className='profile-dropdown-welcome'>Welcome, {user.username}!</div> */}
               <button className="profile-setings-button">
-                Profile Settings
+                Profile
               </button>
               <div>
                 <button className="logout-button" onClick={handleLogout}>

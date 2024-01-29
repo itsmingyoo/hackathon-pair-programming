@@ -12,13 +12,22 @@
   flex: 1; /* Take up remaining space */
   max-width: 100%; /* Allow description to take up to 50% of parent */
   text-align: center;
+  /* border: red solid 2px; */
 
 }
 
-.landing-page-cool-pic {
+.landing-page-cool-image {
   flex: 1; /* Take up remaining space */
-  max-width: 100%; /* Allow image to take up to 50% of parent */
+  max-width: 40%; /* Allow image to take up to 50% of parent */
   height: auto;
+  /* border: red solid 2px; */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.landing-page-cool-pic {
+  width: 100%;
+  margin-right: -5vw;
 }
 
 .landing-page-get-started {
@@ -56,9 +65,35 @@
     flex-direction: column; /* Stack content vertically on small screens */
   }
 
-  .landing-page-description,
-  .landing-page-cool-pic {
+  .landing-page-description {
     max-width: 100%; /* Allow both description and image to take full width on small screens */
-    margin-bottom: 2vw; /* Add some spacing between description and image */
+    margin-top: -8vw;;
+  }
+
+  .landing-page-cool-pic {
+    margin-right: 0;
+    object-fit: cover;
+
+  }
+
+  .landing-page-cool-image {
+    max-height: fit-content;
+    justify-content: center;
+    align-items: center;
+    max-width: 60%;
+  }
+
+  .landing-text-one {
+    font-size: 3vw; /* Adjust font size using viewport width unit */
+  
+  }
+  
+  .landing-text-two {
+    font-size: 2.5vw; /* Adjust font size using viewport width unit */
+  
+  }
+  
+  .landing-text-three {
+    font-size: 2.3vw; /* Adjust font size using viewport width unit */
   }
 }
