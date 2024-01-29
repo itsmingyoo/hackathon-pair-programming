@@ -44,12 +44,32 @@
 
 .landing-page-cool-image {
   position: relative;
+  display: flex;
 }
 
-#hacker {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+#cat-one {
+  padding-right: .8rem;
+}
+
+#comic1-one {
+
+}
+
+#comic2-two {
+
+}
+
+#comic3-three {
+
+}
+
+#cat-two{
+  padding-left: .8rem;
+}
+
+.comic-two {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .landing-text-one {
@@ -67,4 +87,54 @@
 
 .landing-text-three {
   font-size: 1rem;
+}
+
+
+
+.comic-one img {
+  opacity: 0; /* Initially hide the image */
+  animation: fadeIn 1.5s ease-in-out 1s forwards; /* Apply the animation */
+}
+
+.comic-two img {
+  opacity: 0; /* Initially hide the image */
+  animation: fadeIn 1.5s ease-in-out 2.5s forwards; /* Apply the animation */
+}
+
+.comic-three img {
+  opacity: 0; /* Initially hide the image */
+  animation: fadeIn 1.5s ease-in-out 4s forwards; /* Apply the animation */
+}
+
+.bouncy-cats-one {
+  animation: bounce 2s infinite; /* Play the animation infinitely */
+  animation-delay: 5s; /* Delay the animation for 5 seconds */
+}
+
+.bouncy-cats-two {
+  animation: bounce 2.3s infinite; /* Play the animation infinitely */
+  animation-delay: 5.2s; /* Delay the animation for 5 seconds */
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Start with opacity 0 */
+  }
+  to {
+    opacity: 1; /* End with opacity 1 */
+  }
+}
+
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0); /* Start and end position */
+  }
+  40% {
+    transform: translateY(-20px); /* Bounce up */
+  }
+  60% {
+    transform: translateY(-10px); /* Bounce down */
+  }
 }
