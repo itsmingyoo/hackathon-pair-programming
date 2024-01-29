@@ -70,7 +70,7 @@ function PairedVideos(props: { channelName: string }) {
                     <div className="vid" style={{ height: 300, width: 350 }}>
                         <LocalVideoTrack track={localCameraTrack} play={true} />
                     </div>
-                    <div id="volume-control">
+                    <div id="volume-control-component">
                         <RemoteAndLocalVolumeComponent />
                     </div>
                     {remoteUsers.map((remoteUser) => {

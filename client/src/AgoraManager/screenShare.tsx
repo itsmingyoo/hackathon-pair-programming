@@ -41,7 +41,7 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
         return <p>Sharing screen...</p>;
     }
     return (
-        <div id="videos">
+        <>
             <LocalVideoTrack
                 play
                 style={{
@@ -51,7 +51,7 @@ const ShareScreenComponent: React.FC<{ setScreenSharing: React.Dispatch<React.Se
                 }}
                 track={screenTrack}
             />
-        </div>
+        </>
     );
 };
 

@@ -4,7 +4,6 @@ import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import { useEffect } from 'react';
 import { RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from 'agora-rtc-react';
 import { useAppSelector } from '../../hooks';
-import './index.css';
 
 function ScreenShare(props: {
     channelName: string;
@@ -57,22 +56,7 @@ function ScreenShare(props: {
             {renderContent()}
             {remoteUsers.map((remoteUser) => {
                 if (remoteUser.uid === pairInfo?.screenUid) {
-                    return (
-                        <div className="vid" id="screenshare-container" key={remoteUser.uid}>
-                            <RemoteVideoTrack
-                                track={remoteUser.videoTrack}
-                                play
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'contain',
-                                }}
-                            />
-                        </div>
-                    );
+                    return <RemoteVideoTrack track={remoteUser.videoTrack} key={remoteUser.uid} play />;
                 } else {
                     return null;
                 }

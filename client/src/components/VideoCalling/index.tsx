@@ -20,16 +20,7 @@ const VideoCall: React.FC = () => {
     const [channelName, setChannelName] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [screenSharing, setScreenSharing] = useState<boolean>(false);
-    // const { navigationState } = useNavigation();
     const dispatch = useAppDispatch();
-
-    // Handle when a user navigates to a different page
-    // useEffect(() => {
-    //   if (navigationState.currentPath !== "/video-test") {
-    //     console.log("User Navigated Elsewhere.");
-    //     leaveRoomHandler();
-    //   }
-    // }, [navigationState, leaveRoomHandler]);
 
     useEffect(() => {
         if (socket) {
@@ -86,7 +77,6 @@ const VideoCall: React.FC = () => {
         }
     };
 
-    // Handle leave room
     const leaveRoomHandler = useCallback(() => {
         if (joined && socket) {
             socket.emit('leave_room', { room: channelName });
@@ -102,11 +92,13 @@ const VideoCall: React.FC = () => {
                 <div id="button-wrapper">
                     {joined ? (
                         <>
-                            <button onClick={leaveRoomHandler}>Leave</button>
                             <ScreenShareButton
                                 screenSharing={screenSharing}
                                 toggleScreenShare={() => setScreenSharing(!screenSharing)}
                             />
+                            <button onClick={leaveRoomHandler} style={{ backgroundColor: 'red' }}>
+                                Leave
+                            </button>
                         </>
                     ) : (
                         <>
@@ -117,6 +109,7 @@ const VideoCall: React.FC = () => {
                         </>
                     )}
                 </div>
+
                 {joined && (
                     <>
                         <AgoraRTCProvider client={agoraEngine}>
@@ -127,7 +120,7 @@ const VideoCall: React.FC = () => {
                                         <PairedVideos channelName={channelName} />
                                     </div>
                                 </div>
-                                <div id="screen-share-container" style={{ width: '60vw', position: 'relative' }}>
+                                <div id="screen-share-container">
                                     <AgoraRTCScreenShareProvider client={agoraEngine}>
                                         <ScreenShare
                                             channelName={channelName}
