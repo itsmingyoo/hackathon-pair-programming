@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ShareScreenComponent from '../../AgoraManager/screenShare';
 import config from '../../AgoraManager/config';
 import { fetchRTCToken } from '../../utility/fetchRTCToken';
@@ -11,6 +12,7 @@ function ScreenShare(props: {
     setScreenSharing: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
     const { channelName } = props;
+    const [screenSharing, setScreenSharing] = useState<boolean>(false);
     const remoteUsers = useRemoteUsers();
     useRemoteVideoTracks(remoteUsers);
     const pairInfo = useAppSelector((state) => state.pairedUser.user);
@@ -37,18 +39,32 @@ function ScreenShare(props: {
     }, [channelName, props.screenSharing]);
 
     // Conditional rendering based on screen sharing state
+    // const renderContent = () => {
+    //     if (props.screenSharing === true) {
+    //         return (
+    //             <>
+    //                 <h1>Screen Sharing</h1>
+    //                 <ShareScreenComponent setScreenSharing={props.setScreenSharing} />
+    //             </>
+    //         );
+    //     }
+    // };
+
     const renderContent = () => {
-        if (props.screenSharing === true) {
-            return (
-                <>
-                    <h1>Screen Sharing</h1>
-                    <ShareScreenComponent setScreenSharing={props.setScreenSharing} />
-                </>
-            );
-        }
+        return screenSharing === true ? (
+            <>
+                <h1>Screen Sharing</h1>
+                <ShareScreenComponent setScreenSharing={setScreenSharing} />
+            </>
+        ) : (
+            <button onClick={() => setScreenSharing(!screenSharing)} id="share-screen-button">
+                {screenSharing ? 'Stop Sharing' : 'Start Sharing'}
+            </button>
+        );
     };
+
     useEffect(() => {
-        console.log('😁😁😁 state', props.screenSharing);
+        console.log('😁😁😁 state', screenSharing);
     });
 
     return (
@@ -56,7 +72,14 @@ function ScreenShare(props: {
             {renderContent()}
             {remoteUsers.map((remoteUser) => {
                 if (remoteUser.uid === pairInfo?.screenUid) {
-                    return <RemoteVideoTrack track={remoteUser.videoTrack} key={remoteUser.uid} play />;
+                    return (
+                        <RemoteVideoTrack
+                            track={remoteUser.videoTrack}
+                            key={remoteUser.uid}
+                            play
+                            style={{ width: '192', height: '108' }}
+                        />
+                    );
                 } else {
                     return null;
                 }

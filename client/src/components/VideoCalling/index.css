@@ -1,7 +1,7 @@
 #main-wrapper {
     display: flex;
     justify-content: space-between;
-    align-content: space-between
+    flex-grow: 1;
 }
 
 #video-main-wrapper {
@@ -65,14 +65,14 @@
 #screen-share-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
 }
 
 #screen-share-container > div > div > video {
-    width: 100%;
-    height: auto;
+    width: 192;
+    height: 108;
     position: relative;
     overflow: hidden;
     background-color: transparent;
@@ -80,10 +80,14 @@
 }
 #screen-share-container > div > div {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: relative;
     overflow: hidden;
     background-color: transparent !important;
+}
+#screen-share-container > div {
+    width: 100%;
+    height: 100%;
 }
 
 #messages-container {
@@ -93,4 +97,10 @@
 #paired-chat-container {
     justify-content: space-between;
     align-items: center;
+}
+
+#share-screen-button {
+    color: black;
+    padding: 5px;
+    border-radius: 4px;
 }

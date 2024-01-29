@@ -92,10 +92,6 @@ const VideoCall: React.FC = () => {
                 <div id="button-wrapper">
                     {joined ? (
                         <>
-                            <ScreenShareButton
-                                screenSharing={screenSharing}
-                                toggleScreenShare={() => setScreenSharing(!screenSharing)}
-                            />
                             <button onClick={leaveRoomHandler} style={{ backgroundColor: 'red' }}>
                                 Leave
                             </button>
