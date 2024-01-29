@@ -1,56 +1,53 @@
+.all-developers {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* Ensure responsiveness */
+    gap: 8rem;
+    color: var(--text); /* Using custom color variable */
+    height: fit-content;
+    max-height: 10vh;
+    padding-bottom: .5rem;
+    box-sizing: border-box;
+    /* position: absolute; */
+}
+
 .developer-container {
-    border-top: var(--primary-opacity) solid .01rem;
-    border-bottom: var(--primary-opacity) solid .01rem;
-    color: #373F51;
+    border-top: var(--primary-opacity) solid 0.01rem;
+    border-bottom: var(--primary-opacity) solid 0.01rem;
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: .5em;
-    padding: .5rem 0 .5rem;
-}
+    padding: 0.5rem 0;
+    gap: .5rem
 
-.all-developers {
-    justify-content: center;
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    padding: 1rem 0;
-    display: flex;
-    flex-direction: row;
-    gap: 8rem;
-}
+    /* border: red solid 2px; */
 
-.copywrite {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 2px;
-    margin-right: 3rem;
 }
 
 .developer-links-container {
+    color: var(--primary); /* Using custom color variable */
     display: flex;
-    gap: .5rem;
+    justify-content: center;
+    align-items: center;
+    gap: .3rem
+    /* border: red solid 2px; */
 }
 
-.github, .linkedin {
-    text-decoration: none !important;
-    color: var(--primary);
+.developer-links-container img {
+    width: 18px;
+    height: 18px;
+}
+
+.developer-github,
+.developer-linkedin {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-@media only screen and (max-width: 900px) {
-    .footer-container {
-        display: none;
+@media only screen and (max-width: 900px), (max-height: 600px) {
+    .all-developers {
+        display: none; 
     }
-
-}
-
-@media only screen and (max-height: 600px) {
-    .footer-container {
-        display: none;
-    }
-
 }

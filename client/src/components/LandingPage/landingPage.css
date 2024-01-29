@@ -1,61 +1,64 @@
 .landing-page {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80vh;
-  /* border: yellow solid 2px; */
+  width: 100%;
+  overflow: hidden; /* Prevent content overflow */
 
 }
 
 .landing-page-description {
-  max-width: 60vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  border-radius: 0.5rem;
+  flex: 1; /* Take up remaining space */
+  max-width: 100%; /* Allow description to take up to 50% of parent */
+  text-align: center;
 
+}
+
+.landing-page-cool-pic {
+  flex: 1; /* Take up remaining space */
+  max-width: 100%; /* Allow image to take up to 50% of parent */
+  height: auto;
 }
 
 .landing-page-get-started {
-  width: fit-content;
   border: none;
-  padding: 0.4rem 0.8rem 0.4rem;
-  border-radius: 7px;
+  padding: 0 1vw; /* Adjust padding using viewport width unit */
+  border-radius: .5rem;
   background-color: var(--primary);
   color: var(--dark-text);
-  height: 50px;
-  font-size: 1.4rem;
+  font-size: 1.7vw; /* Adjust font size using viewport width unit */
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .landing-page-get-started:hover {
-  transform: scale(1.1); /* Increase size on hover */
-}
-
-.landing-page-cool-image {
-  display: flex;
-  width: 35vw;
-  height: auto;
-  position: relative;
-  color: white;
-
+  transform: scale(1.05);
 }
 
 .landing-text-one {
-  font-size: 1.8rem;
-}
+  font-size: 2vw; /* Adjust font size using viewport width unit */
 
-.accent {
-  color: var(--primary);
 }
 
 .landing-text-two {
-  font-size: 1.5rem;
+  font-size: 1.7vw; /* Adjust font size using viewport width unit */
+
 }
 
 .landing-text-three {
-  font-size: 1.3rem;
+  font-size: 1.6vw; /* Adjust font size using viewport width unit */
+}
+
+
+@media only screen and (max-width: 768px) {
+  .landing-page {
+    flex-direction: column; /* Stack content vertically on small screens */
+  }
+
+  .landing-page-description,
+  .landing-page-cool-pic {
+    max-width: 100%; /* Allow both description and image to take full width on small screens */
+    margin-bottom: 2vw; /* Add some spacing between description and image */
+  }
 }
