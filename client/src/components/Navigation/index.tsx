@@ -2,7 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
 import ProfileButton from './ProfileButton';
-import logo from '../../assets/devpair-logos/svg/logo-no-background.svg';
+import name from '../../assets/devpair-logos/svg/logo-name.svg'
+import PageHeader from '../ScrambleText';
 import './Navigation.css';
 
 interface NavigationProps {
@@ -26,7 +27,7 @@ function Navigation({ isLoaded }: NavigationProps) {
             <nav className="nav-links">
                 <div className="nav-links-home">
                     <NavLink to="/" className="nav-links-home">
-                        <img className="logo-for-nav" src={logo} alt="dev-pair logo" />
+                        <img className="logo-for-nav name" src={name} alt="devpair logo"/>
                     </NavLink>
                 </div>
                 <div className="nav-links-other">

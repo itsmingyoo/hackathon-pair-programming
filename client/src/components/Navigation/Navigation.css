@@ -8,19 +8,25 @@
   }
 
   .nav-links-home {
-    /* border: 2px solid green; */
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 10vw;
+    width: auto;
   }
 
   .logo-for-nav {
-    width: 100%;
     cursor: pointer;
     /* border: 2px solid red; */
 
     /* margin-left: 1rem; */
+  }
+
+  .cat {
+    width: 10%;
+  }
+  
+  .name {
+    width: 25%;
+    margin-left: -.5rem;
   }
 
   .nav-container {
@@ -65,7 +71,7 @@
   .nav-links a {
     color: #000;
     text-decoration: none;
-    font-size: 1.15rem;
+    font-size: 1.4rem;
     font-weight: 500;
   }
 

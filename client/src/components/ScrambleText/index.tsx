@@ -60,7 +60,7 @@ const PageHeader: React.FC<PageHeaderProps> = React.memo((props) => {
     return (
         <>
             <h1 ref={titleParent} id="welcome-message" >
-                Welcome To 
+                Welcome to
                 {props.title.split('').map((el, i) => (
                     <span key={i} className="span-par">
                         <span
