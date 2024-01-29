@@ -1,6 +1,14 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, ValidationError
+
+from app.models import User
+
+def username_taken(form, field):
+    new_username = field.data
+    username = User.query.filter(User.username == new_username).first()
+    if username:
+        raise ValidationError("This username is already taken.")
 
 class EditProfile(FlaskForm):
     username = StringField("Change your username.", validators=[DataRequired])
