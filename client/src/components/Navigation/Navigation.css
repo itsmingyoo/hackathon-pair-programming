@@ -1,6 +1,6 @@
 .nav-container {
   background-color: var(--background); /* Using custom color variable */
-  padding: 1em; /* Using em units for padding */
+  padding: .6rem 1.5rem; /* Using em units for padding */
   max-width: 100%;
 }
 

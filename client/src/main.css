@@ -58,3 +58,7 @@ a {
 .accent {
   color: var(--primary);
 }
+
+li {
+  list-style-type: none; /* Remove default list style */
+}

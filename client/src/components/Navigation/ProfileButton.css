@@ -1,50 +1,78 @@
-/* Dropdown Button */
 .profile-dropdown {
-    position: relative;
-    padding-top: .2rem;
+  position: relative;
 }
 
 #options-button {
-    width: 100%;
-    border: none;
-    background: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 #options-icon {
-    max-width: 100%;
+    object-fit: cover;
 }
 
-/* Dropdown Content */
 .dropdown-container {
-    position: absolute;
-    right: 0;
-    border-radius: .5rem;
-    padding: 5px;
-    background-color: #1b1b1b;
+  position: relative; /* Ensure proper positioning for arrow */
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  background-color: #1b1b1b;
+  border-radius: 0.5rem; /* Add rounded corners for better visual appearance */
+  width: 7vw; /* Allow the width to adjust based on content */
+  max-width: 8vw; /* Set a maximum width to prevent it from becoming too wide */
+}
+
+.dropdown-container::before {
+  content: "";
+  position: absolute;
+  top: -8px; /* Adjust as needed */
+  right: 18%; /* Adjust as needed */
+  border-width: 0 8px 8px; /* Adjust size of the arrow */
+  border-style: solid;
+  border-color: transparent transparent #1b1b1b; /* Adjust color */
 }
 
 .dropdown-list {
-    text-align: center;
+  list-style-type: none;
 }
-
 .user-profile-dropdown-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: .8rem;
-    gap: .5rem;
-
+  border-bottom: rgba(255, 255, 255, 0.1) 0.01rem solid;
+}
+.profile-setings-button,
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block; /* Ensure buttons fill entire width of parent */
+  padding: 0.5rem 1rem; /* Add padding for better clickable area */
+  width: 100%; /* Ensure buttons fill entire width of parent */
+  text-align: left; /* Align text to the left for better readability */
+  color: #fff; /* Ensure sufficient contrast against the background */
+  font-size: 1vw; /* Set font size relative to viewport width */
 }
 
-.logout-button, .profile-setings-button {
-    border: none;
-    background: none;
+.profile-setings-button:hover,
+.logout-button:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Add hover effect for better interactivity */
 }
 
-.profile-dropdown-welcome {
-    border-bottom: 1px solid;
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .dropdown-container {
+    max-width: 150px; /* Adjust maximum width for smaller screens */
+  }
+
+  .profile-setings-button,
+  .logout-button {
+    font-size: 3vw; /* Adjust font size for smaller screens */
+  }
 }
