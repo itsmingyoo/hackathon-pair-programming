@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { User } from '../interfaces/user';
-import { Following, FollowingState } from '../interfaces/following';
+// import { User } from '../interfaces/user';
+import { Following, FollowingObject, FollowingState } from '../interfaces/following';
 
-export const getFollowing = createAsyncThunk<Following | null, User, { rejectValue: string }>(
+export const getFollowing = createAsyncThunk<Following | null, number, { rejectValue: string }>(
     'following/getFollowing',
-    async (user, { rejectWithValue }) => {
+    async (userId, { rejectWithValue }) => {
         try {
-            const response = await fetch(`/api/follows/user/${user.id}`);
+            const response = await fetch(`/api/follows/user/${userId}`);
             if (response.ok) {
                 const data: Following = await response.json();
                 return data;
@@ -20,7 +20,7 @@ export const getFollowing = createAsyncThunk<Following | null, User, { rejectVal
     }
 );
 
-export const postFollow = createAsyncThunk<Following | null, number, { rejectValue: string }>(
+export const postFollow = createAsyncThunk<FollowingObject | null, number, { rejectValue: string }>(
     'following/postFollow',
     async (followId, { rejectWithValue }) => {
         try {
@@ -32,7 +32,7 @@ export const postFollow = createAsyncThunk<Following | null, number, { rejectVal
             });
 
             if (response.ok) {
-                const data: Following = await response.json();
+                const data: FollowingObject = await response.json();
                 return data;
             } else {
                 return rejectWithValue('Failed to post follow');
@@ -66,7 +66,7 @@ export const unfollow = createAsyncThunk<string | null, number, { rejectValue: s
     }
 );
 
-const initialState: FollowingState = {
+const initialState: FollowingState | Following = {
     following: null,
     followed: null,
     unfollowed: null,

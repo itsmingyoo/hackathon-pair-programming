@@ -16,5 +16,5 @@ export interface User {
 }
 
 export interface TargetUserProps {
-    targetUser: User | null;
+    targetUser: User;
 }
