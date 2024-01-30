@@ -37,6 +37,8 @@ def follow_user(id):
 @login_required
 def unfollow_user(id):
     follow = Follow.query.get(id)
+    print('🙄🙄follow🙄🙄',follow.to_dict())
+    print('🙄🙄current🙄🙄',current_user.to_dict())
     if follow.follower_id == current_user.id:
         db.session.delete(follow)
         db.session.commit()
