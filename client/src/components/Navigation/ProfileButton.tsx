@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/session';
 import { useAppDispatch } from '../../hooks';
 import optionsIcon from '../../assets/devpair-logos/svg/options-icon.svg';
+import { useAppSelector } from '../../hooks';
 import './ProfileButton.css';
 
 function ProfileButton() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const sessionUserId = useAppSelector((state) => state.session?.user?.id);
     const [showMenu, setShowMenu] = useState(false);
+    console.log(sessionUserId);
+
     const ulRef = useRef<HTMLDivElement>(null); // Specify the element type for the ref
 
     useEffect(() => {
@@ -32,6 +36,11 @@ function ProfileButton() {
         navigate('/', { replace: true });
     };
 
+    const handleProfileButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (sessionUserId) navigate(`/users/${+sessionUserId}`);
+    };
+
     const ulClassName = showMenu ? 'dropdown-container' : ' hidden';
     const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation(); // Prevent click event from bubbling up to the document
@@ -47,12 +56,12 @@ function ProfileButton() {
                 <div className={ulClassName} ref={ulRef}>
                     <div className="dropdown-list">
                         <div className="user-profile-dropdown-info">
-                            <button className="profile-setings-button">Profile</button>
-                            <div>
-                                <button className="logout-button" onClick={handleLogout}>
-                                    Log Out
-                                </button>
-                            </div>
+                            <button className="profile-setings-button" onClick={handleProfileButton}>
+                                Profile
+                            </button>
+                            <button className="logout-button" onClick={handleLogout}>
+                                Log Out
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -6,11 +6,11 @@ interface Props {
 
 function TargetUserSocials(props: Props) {
     if (props.targetUser) {
-        const { link1, link2, link3, username } = props.targetUser;
+        const { link1, link2, link3 } = props.targetUser;
 
         return (
             <>
-                <h2>{username}'s Socials:</h2>
+                <h3>My Socials:</h3>
                 <div>
                     <a href={link1 ? link1 : '#'} target="_blank" rel="noopener noreferrer">
                         LinkedIn
@@ -28,15 +28,6 @@ function TargetUserSocials(props: Props) {
                         Portfolio
                     </a>
                 </div>
-                {/* <div>
-                    <a
-                        href={'https://github.com/itsmingyoo/hackathon-pair-programming'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Test
-                    </a>
-                </div> */}
             </>
         );
     }
