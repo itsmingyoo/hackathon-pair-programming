@@ -1,19 +1,19 @@
-
+/* 
 .landing-page-content {
     height: 80vh;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-}
+} */
 
-.landing-page-description {
+/* .landing-page-description {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-}
+} */
 
 .text-one {
     font-size: 2.8rem;

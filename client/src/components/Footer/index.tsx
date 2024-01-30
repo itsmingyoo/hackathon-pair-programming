@@ -5,8 +5,7 @@ import LinkedInIcon from "../../assets/icons/svg/linkedin.svg";
 
 function Footer() {
     return (
-      <footer className="footer-container">
-        <div className="all-developers">
+        <footer className="all-developers">
           <div className="developer-container">
             <div className="developer-name">Minh Tran</div>
             <div className="developer-links-container">
@@ -75,7 +74,7 @@ function Footer() {
             <div className="developer-name">Melinda Cortez</div>
             <div className="developer-links-container">
               <div className="developer-github">
-                <a className="github" href="#" target="_blank">
+                <a className="github" href="https://github.com/Solita43" target="_blank">
                   <img
                     src={GitHubIcon}
                     alt="GitHub Icon"
@@ -85,7 +84,7 @@ function Footer() {
                 </a>
               </div>
               <div className="developer-linkedin">
-                <a className="linkedin" href="#" target="_blank">
+                <a className="linkedin" href="https://www.linkedin.com/in/melinda-cortez-3581b0139/" target="_blank">
                   <img
                     src={LinkedInIcon}
                     alt="GitHub Icon"
@@ -121,14 +120,7 @@ function Footer() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="copywrite">
-          App Academy Winter Hackathon 2024
-          <div>
-            "Empowering Collaboration, Anytime, Anywhere."
-          </div>
-        </div>
-      </footer>
+        </footer>
     );
 }
 

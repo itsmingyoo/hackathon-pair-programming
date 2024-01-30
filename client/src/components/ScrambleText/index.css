@@ -1,4 +1,12 @@
+#welcome-message {
+  font-size: 4vw;
+  /* text-transform: uppercase; */
+  font-weight: bold;
+  text-align: center;
+  /* border: red solid 2px; */
+}
+
 .on {
-    width: 100%;
-    transition: width .5s 1s;
+  width: 100%;
+  transition: width 0.5s 1s;
 }
