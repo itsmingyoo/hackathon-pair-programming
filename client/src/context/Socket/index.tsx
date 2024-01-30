@@ -52,7 +52,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
                 setSocket(null);
             }
         };
-    }, [user, socket]);
+    }, [user, socket, handleBeforeUnload]);
 
     useEffect(() => {
         // Disconnect the socket if the user logs out or their session ends
