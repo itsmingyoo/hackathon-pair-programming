@@ -28,6 +28,7 @@ function PairedVideos(props: { channelName: string }) {
     const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack();
     const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
     const remoteUsers = useRemoteUsers();
+    console.log('REMOTE USERS', remoteUsers);
     //   const { audioTracks } = useRemoteAudioTracks(remoteUsers);
 
     usePublish([localMicrophoneTrack, localCameraTrack]);
@@ -73,16 +74,23 @@ function PairedVideos(props: { channelName: string }) {
                     <div id="volume-control-component">
                         <RemoteAndLocalVolumeComponent />
                     </div>
-                    {remoteUsers.map((remoteUser) => {
-                        if (remoteUser.uid === pairInfo?.videoUid) {
-                            return (
-                                <div className="vid" style={{ height: 300, width: 350 }} key={remoteUser.uid}>
-                                    <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
-                                    <button id="follow-user">Follow</button>
-                                </div>
-                            );
-                        }
-                    })}
+                    {remoteUsers.length > 0 ? (
+                        remoteUsers.map((remoteUser) => {
+                            if (remoteUser.uid === pairInfo?.videoUid) {
+                                return (
+                                    <div className="vid" style={{ height: 300, width: 350 }} key={remoteUser.uid}>
+                                        <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
+                                        <button id="follow-user">Follow</button>
+                                    </div>
+                                );
+                            }
+                            return null;
+                        })
+                    ) : (
+                        <>
+                            <div id="waiting-for-user">WAITING FOR USER</div>
+                        </>
+                    )}
                 </div>
             </AgoraProvider>
         </>

@@ -11,6 +11,8 @@ import { receiveUser } from '../../store/pairedUser';
 import ScreenShare from '../ScreenShare';
 // import ScreenShareButton from '../ScreenShare/screenShareButton';
 import './index.css';
+import IDE from '../CodeMirror';
+import { channel } from 'diagnostics_channel';
 
 const VideoCall: React.FC = () => {
     const { socket } = useSocket();
@@ -125,6 +127,7 @@ const VideoCall: React.FC = () => {
                                         <PairedVideos channelName={channelName} />
                                     </div>
                                 </div>
+
                                 <div id="screen-share-container">
                                     <AgoraRTCScreenShareProvider client={agoraEngine}>
                                         <ScreenShare
@@ -134,6 +137,7 @@ const VideoCall: React.FC = () => {
                                         />
                                     </AgoraRTCScreenShareProvider>
                                 </div>
+
                                 <div id="paired-chat-container">
                                     <PairedChat channelName={channelName} />
                                 </div>

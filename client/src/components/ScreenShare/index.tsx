@@ -5,6 +5,7 @@ import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import { useEffect } from 'react';
 import { RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from 'agora-rtc-react';
 import { useAppSelector } from '../../hooks';
+// import IDE from '../CodeMirror';
 
 function ScreenShare(props: {
     channelName: string;
@@ -35,9 +36,10 @@ function ScreenShare(props: {
 
         fetchTokenFunction();
 
-        console.log('😎screenSharing😎: ', props.screenSharing ? props.screenSharing : props.screenSharing);
-    }, [channelName, props.screenSharing]);
+        console.log('😎screenSharing😎: ', screenSharing ? screenSharing : screenSharing);
+    }, [channelName, screenSharing]);
 
+    // If User starts screen share with the button, it will trigger an event asking them what screen they will share and render it
     const renderContent = () => {
         if (screenSharing === true) {
             return (
@@ -49,6 +51,17 @@ function ScreenShare(props: {
             );
         }
     };
+    // const renderContent = () => {
+    //     return screenSharing === true ? (
+    //         <>
+    //             <ShareScreenComponent setScreenSharing={setScreenSharing} />
+    //         </>
+    //     ) : (
+    //         <>
+    //             <IDE problemId="1" problemTitle="Two-Sum" />
+    //         </>
+    //     );
+    // };
 
     useEffect(() => {
         console.log('😁😁😁 state', screenSharing);
