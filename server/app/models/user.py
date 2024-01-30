@@ -44,6 +44,11 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'videoUid': self.video_uid,
-            'screenUid': self.screen_uid
+            'screenUid': self.screen_uid,
+            'picUrl': self.pic_url,
+            'about': self.about,
+            'link1': self.link_1,
+            'link2': self.link_2,
+            'link3': self.link_3
         }
     

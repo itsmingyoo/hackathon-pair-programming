@@ -18,7 +18,7 @@ function UserPage() {
         if (userId) dispatch(getUser(+userId));
     }, [userId])
 
-    console.log('hi', targetUser);
+
 
     return (
         <>
@@ -27,7 +27,7 @@ function UserPage() {
 
                     <div className='user-header'>
                         <div className='user-pic-div'>
-                            <img src="iMadeItUp" alt="bruh"></img>
+                            <img src={targetUser?.picUrl} alt="bruh"></img>
                             Placeholder until I get AWS going
                         </div>
 
@@ -35,8 +35,8 @@ function UserPage() {
                             {targetUser?.username}
                         </div>
 
-                        <div className='buttons-div'>
-                            <button>Follow</button>
+                        <div className='buttons-div'>   
+                            {(sessionUser?.id === targetUser?.id ? (<button>Edit</button> ) : <button>Follow</button>)}
                         </div>
                     </div>
 
@@ -45,14 +45,24 @@ function UserPage() {
                             <div className='summary'>
                                 <div>About Me:</div>
                                 <div>
-                                    Summary here
+                                    {targetUser?.about}
                                 </div>
                             </div>
 
                             <div className='links'>
                                 <div>Links:</div>
                                 <div>
-                                    Links here
+                                    <div>
+                                        <a href={targetUser?.link1}>LinkedIn</a>
+                                    </div>
+
+                                    <div>
+                                        <a href={targetUser?.link2}>GitHub</a>
+                                    </div>
+
+                                    <div>
+                                        <a href={targetUser?.link3}>Portfolio</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
