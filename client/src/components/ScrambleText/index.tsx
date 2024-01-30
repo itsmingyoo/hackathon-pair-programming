@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import "./index.css"
 
 // Define a type for your props if needed
 type PageHeaderProps = {
@@ -7,12 +9,12 @@ type PageHeaderProps = {
     title: string;
 };
 
-const PageHeader: React.FC<PageHeaderProps> = (props) => {
+const PageHeader: React.FC<PageHeaderProps> = React.memo((props) => {
     const titleParent = useRef<HTMLDivElement>(null);
     // const titleString = 'TestString';
 
     function randChar(): string {
-        let sample = ',./<>?0123456789/[]{}!@#$%^&*()_+=-';
+        const sample = ',./<>?0123456789/[]{}!@#$%^&*()_+=-';
         return sample.charAt(Math.floor(Math.random() * sample.length));
     }
 
@@ -20,12 +22,12 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
         if (!titlePart.current) return;
 
         for (let i = 0; i < titlePart.current.children.length; i++) {
-            let char = titlePart.current.children[i].children[0] as HTMLSpanElement;
-            let initialState = char.innerHTML;
+            const char = titlePart.current.children[i].children[0] as HTMLSpanElement;
+            const initialState = char.innerHTML;
             let inc = 0;
-            let dur = 0.3;
+            const dur = 0.3;
             let startDate = 0;
-            let del = i * 0.15 + delay;
+            const del = i * 0.15 + delay;
             gsap.fromTo(
                 char,
                 {
@@ -51,31 +53,29 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
         }
     }
 
-    useEffect(() => {
+    useGSAP(() => {
         appearTitle(titleParent, 0.2);
-    }, []);
+    }, {scope: titleParent});
 
     return (
         <>
-            <div ref={titleParent} id="welcome-message" style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <h1 ref={titleParent} id="welcome-message" >
+                Welcome to
                 {props.title.split('').map((el, i) => (
                     <span key={i} className="span-par">
                         <span
-                            style={{
-                                fontSize: '2.8rem',
-                                textTransform: 'uppercase',
-                                fontWeight: 'bold',
-                                marginBottom: '0.5rem',
-                                marginRight: '0.5rem',
-                            }}
+                            style={i === 0 ? {
+                                marginLeft: '0.8rem',
+                                color: 'var(--primary)'
+                            }: {color: 'var(--primary)'}}
                         >
                             {el}
                         </span>
                     </span>
                 ))}
-            </div>
+            </h1>
         </>
     );
-};
+});
 
 export default PageHeader;
