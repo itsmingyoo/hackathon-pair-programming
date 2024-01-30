@@ -20,7 +20,6 @@
   flex: 1; /* Take up remaining space */
   max-width: 40%; /* Allow image to take up to 50% of parent */
   height: auto;
-  /* border: red solid 2px; */
   display: flex;
   justify-content: flex-end;
 }
@@ -28,6 +27,7 @@
 .landing-page-cool-pic {
   width: 100%;
   margin-right: -5vw;
+
 }
 
 .landing-page-get-started {
@@ -73,14 +73,14 @@
   .landing-page-cool-pic {
     margin-right: 0;
     object-fit: cover;
+    
 
   }
 
   .landing-page-cool-image {
-    max-height: fit-content;
     justify-content: center;
     align-items: center;
-    max-width: 60%;
+    max-width: 70%;
   }
 
   .landing-text-one {
