@@ -4,7 +4,7 @@ export interface User {
     email: string;
     videoUid: string;
     screenUid: string;
-    
+
     // Add other user fields here
     picUrl: string;
     about: string;
@@ -13,4 +13,8 @@ export interface User {
     link3: string;
 
     errors: string;
+}
+
+export interface TargetUserProps {
+    targetUser: User | null;
 }
