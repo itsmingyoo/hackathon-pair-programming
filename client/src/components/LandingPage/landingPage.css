@@ -6,6 +6,7 @@
   width: 100%;
   overflow: hidden; /* Prevent content overflow */
 
+
 }
 
 .landing-page-description {
@@ -13,6 +14,11 @@
   max-width: 100%; /* Allow description to take up to 50% of parent */
   text-align: center;
   /* border: red solid 2px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5vw;
 
 }
 
