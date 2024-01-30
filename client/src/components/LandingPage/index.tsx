@@ -2,7 +2,11 @@ import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import chat1 from "../../assets/images/catsCoding.png";
+import chat1 from "../../assets/images/chat1.png";
+import chat2 from "../../assets/images/chat2.png";
+import comic1 from "../../assets/images/comic1.png";
+import comic2 from "../../assets/images/comic2.png";
+import comic3 from "../../assets/images/comic3.png";
 import PageHeader from "../ScrambleText";
 import "./landingPage.css";
 
@@ -35,12 +39,44 @@ function LandingPage() {
   return (
     <main className="landing-page">
         <div className="landing-page-cool-image">
-          <img
-            src={chat1}
-            alt="Cats working on DS&A"
-            className="landing-page-cool-pic"
-          />
-        </div>
+              <img
+                src={chat1}
+                alt="first-cat-sitting-and-coding"
+                id="cat-one"
+                className="bouncy-cats-one"
+              />
+              <div className="comix-bubbles-container">
+                <div className="comic-one">
+                  <img
+                    src={comic1}
+                    alt="first-chat-bubble-from-cats"
+                    id="comic1-one"
+                  />
+                </div>
+                <div className="comic-two">
+                  <img
+                    src={comic2}
+                    alt="second-chat-bubble-from-cats"
+                    id="comic2-two"
+                  />
+                </div>
+                <div className="comic-three">
+                  <img
+                    src={comic3}
+                    alt="third-chat-bubble-from-cats"
+                    id="comic3-three"
+                  />
+                </div>
+              </div>
+              <div className="second-cat-div">
+                <img
+                  src={chat2}
+                  alt="second-cat-sitting-and-coding"
+                  id="cat-two"
+                  className="bouncy-cats-two"
+                />
+              </div>
+            </div>
         <div className="landing-page-description">
           <PageHeader title="DevPair!" />
           <>
