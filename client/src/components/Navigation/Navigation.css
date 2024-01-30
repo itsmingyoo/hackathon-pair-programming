@@ -4,6 +4,11 @@
   max-width: 100%;
 }
 
+.nav-links-home {
+  display: flex;
+  justify-content: center;
+
+}
 
 .nav-links {
   display: flex;
@@ -12,7 +17,7 @@
 }
 
 .logo {
-  max-width: 13vw; /* Using em units for max-width */
+  max-width: 9.5vw; /* Using em units for max-width */
 }
 
 .nav-links-other {

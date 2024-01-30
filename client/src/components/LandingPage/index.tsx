@@ -1,7 +1,7 @@
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import chat1 from "../../assets/images/catsCoding.png";
 import PageHeader from "../ScrambleText";
 import "./landingPage.css";
@@ -9,7 +9,6 @@ import "./landingPage.css";
 function LandingPage() {
   const navigate = useNavigate();
   const sessionUser = useSelector((state: RootState) => state.session.user);
-  const user = useRef(sessionUser);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
@@ -18,8 +17,7 @@ function LandingPage() {
     } else {
       setLoggedIn(false);
     }
-    console.log("LOGGEDIN????", sessionUser, loggedIn);
-  }, [sessionUser, user]);
+  }, [sessionUser]);
 
   const handleGetStarted = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
