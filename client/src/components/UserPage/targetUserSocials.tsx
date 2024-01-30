@@ -6,7 +6,7 @@ function TargetUserSocials(props: TargetUserProps) {
 
         return (
             <>
-                <div id="user-socials">
+                <div id="target-user-socials">
                     <h3>My Socials:</h3>
                     <div>
                         <a href={link1 ? link1 : '#'} target="_blank" rel="noopener noreferrer">

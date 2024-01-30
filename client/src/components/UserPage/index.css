@@ -1,13 +1,13 @@
-#user-profile-main {
+#target-profile-main {
     display: flex;
     flex: 1;
 }
 
-#user-profile-container {
+#target-profile-container {
     width: 100vw;
 }
 
-#user-profile-header, #user-profile-content {
+#target-profile-header, #target-profile-content {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -36,8 +36,8 @@
 }
 
 #targetuser-pfp > img {
-    width: 10rem;
-    height: 10rem;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
 }
 
@@ -62,7 +62,7 @@
     margin: 1rem;
 }
 
-#profile-text {
+#target-profile-text {
     font-size: 2rem;
 }
 
@@ -72,14 +72,17 @@
     width: 100%;
 }
 
-#user-socials > div > * {
-    color: whitesmoke;
+#target-user-socials > div > * {
+    color: var(--text);
 }
 
-#user-about > h3, #user-socials > h3 {
+#target-user-about > h3, #target-user-socials > h3 {
     color: var(--primary);
 }
 
-.all-developers {
-    display: hidden;
+#targetuser-friends-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 40vw;
 }

@@ -15,12 +15,14 @@ function UserPage() {
     const dispatch = useAppDispatch();
     const sessionUser = useAppSelector((state: RootState) => state.session.user);
     const targetUser = useAppSelector((state: RootState) => state.user.targetUser);
+    const following = useAppSelector((state: RootState) => state.userFollowing);
 
     useEffect(() => {
         if (userId) dispatch(getUser(+userId));
         console.log('sessionuser', sessionUser);
     }, [userId]);
     console.log('targetuser', targetUser);
+    console.log('following', following);
 
     if (userId && sessionUser && +sessionUser.id === +userId) {
         return (
@@ -84,8 +86,8 @@ function UserPage() {
     } else {
         return (
             <>
-                <div id="user-profile-main">
-                    <div id="user-profile-container">
+                <div id="target-profile-main">
+                    <div id="target-profile-container">
                         <TargetUserHeader targetUser={targetUser} />
 
                         <div className="hr-line"></div>
@@ -98,7 +100,10 @@ function UserPage() {
 
                                 <TargetUserSocials targetUser={targetUser} />
                             </div>
-                            <div id="targetuser-friends-container">Friends</div>
+                            <div id="targetuser-friends-container">
+                                <div>Following</div>
+                                <div>Followers</div>
+                            </div>
                         </div>
                     </div>
                 </div>

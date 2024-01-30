@@ -4,7 +4,7 @@ function TargetUserAbout(props: TargetUserProps) {
         const { about } = props.targetUser;
         return (
             <>
-                <div id="user-about">
+                <div id="target-user-about">
                     <h3>About Me: </h3>
                     <p>{about ? about : 'This is a default description about me.'}</p>
                 </div>
