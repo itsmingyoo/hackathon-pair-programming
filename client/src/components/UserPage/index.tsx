@@ -35,7 +35,7 @@ function UserPage() {
                             {targetUser?.username}
                         </div>
 
-                        <div className='buttons-div'>   
+                        <div className='buttons-div'>
                             {(sessionUser?.id === targetUser?.id ? (<button>Edit</button> ) : <button>Follow</button>)}
                         </div>
                     </div>
