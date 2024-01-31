@@ -45,32 +45,11 @@ function TargetUserHeader(props: TargetUserProps) {
     const handleGetFollowing = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const response = await dispatch(getFollowing(+sessionUser?.id!));
-        console.log('get following response', response);
+        // console.log('get following response', response);
     };
 
-    // useEffect(() => {
-    //     console.log('isFollowed UE', isFollowed);
-
-    //     // Grab session user's followings
-    //     if (sessionUser && !sessionUser?.errors && sessionUser !== null) {
-    //         async function once() {
-    //             await dispatch(getFollowing(+sessionUser?.id!));
-    //             isFollowingTarget =
-    //                 followings?.some(
-    //                     (follow) => +follow.follower_id === +sessionUser.id && +follow.followed_id === +id
-    //                 ) || false;
-    //             console.log('isFollowingTarget', isFollowingTarget);
-    //             setIsFollowed(isFollowingTarget);
-    //             console.log('Done dispatching getFollowing in UE');
-    //         }
-    //         once();
-    //     } else {
-    //         setIsFollowed(false);
-    //     }
-    // }, [sessionUser, isFollowed, dispatch]);
-
     useEffect(() => {
-        console.log('isFollowed UE', isFollowed);
+        // console.log('isFollowed UE', isFollowed);
 
         // Async function to dispatch getFollowing
         async function fetchFollowing() {
@@ -80,9 +59,9 @@ function TargetUserHeader(props: TargetUserProps) {
                     followings?.some(
                         (follow) => follow.follower_id === +sessionUser.id && +follow.followed_id === +id
                     ) || false;
-                console.log('isFollowingTarget', isFollowing);
+                // console.log('isFollowingTarget', isFollowing);
                 setIsFollowed(isFollowing);
-                console.log('Done dispatching getFollowing in UE');
+                // console.log('Done dispatching getFollowing in UE');
             }
         }
 
