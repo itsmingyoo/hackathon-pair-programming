@@ -44,7 +44,7 @@ export const postFollow = createAsyncThunk<FollowingObject | null, number, { rej
     }
 );
 
-export const unfollow = createAsyncThunk<string | null, number, { rejectValue: string }>(
+export const unfollow = createAsyncThunk<number | null, number, { rejectValue: string }>(
     'following/unfollow',
     async (relationshipId, { rejectWithValue }) => {
         try {
@@ -53,8 +53,8 @@ export const unfollow = createAsyncThunk<string | null, number, { rejectValue: s
             });
 
             if (response.ok) {
-                const message: string = await response.text(); // Getting the response as text since it's a string
-                return message;
+                // const message: string = await response.text(); // Getting the response as text since it's a string
+                return relationshipId;
             } else {
                 // Handle non-OK responses
                 return rejectWithValue(`Failed to unfollow, server responded with status: ${response.status}`);
@@ -84,7 +84,12 @@ const followingSlice = createSlice({
             state.followed = action.payload;
         });
         builder.addCase(unfollow.fulfilled, (state, action) => {
-            state.unfollowed = action.payload;
+            const unfollowedId = action.payload;
+            // console.log('unfollowedId in reducer');
+
+            if (state.following) {
+                state.following.follows = state.following.follows.filter((follow) => +follow.id !== +unfollowedId!);
+            }
         });
     },
 });

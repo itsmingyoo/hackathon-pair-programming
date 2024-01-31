@@ -15,15 +15,14 @@ function UserPage() {
     const dispatch = useAppDispatch();
     const sessionUser = useAppSelector((state: RootState) => state.session.user);
     const targetUser = useAppSelector((state: RootState) => state.user.targetUser);
-    const storeState = useAppSelector((state: RootState) => state);
     // const following = useAppSelector((state: RootState) => state.userFollowing);
 
     useEffect(() => {
         if (userId) dispatch(getUser(+userId));
     }, [userId]);
-    console.log('sessionuser', sessionUser);
-    console.log('targetuser', targetUser);
-    console.log('storeState', storeState);
+    // console.log('sessionuser', sessionUser);
+    // console.log('targetuser', targetUser);
+    // console.log('storeState', storeState);
     // console.log('following', following);
 
     // Render Current User's Profile ELSE Render Target User's Profile
