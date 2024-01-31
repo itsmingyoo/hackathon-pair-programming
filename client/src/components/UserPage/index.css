@@ -90,7 +90,12 @@
 
 #targetuser-following {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 40vw;
+}
+
+#follower-image-container > img {
+    width: 50px;
+    height: 50px;
 }

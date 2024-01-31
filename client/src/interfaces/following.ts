@@ -3,6 +3,14 @@ export interface FollowingObject {
     id: number;
     follower_id: number;
     followed_id: number;
+    followed: BasicUserInfo;
+    follower: BasicUserInfo;
+}
+
+export interface BasicUserInfo {
+    id: number;
+    username: string;
+    picUrl: string;
 }
 
 export interface Following {

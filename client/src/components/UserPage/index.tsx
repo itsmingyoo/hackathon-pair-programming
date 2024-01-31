@@ -10,6 +10,7 @@ import { FollowingObject } from '../../interfaces/following';
 import { unfollow, postFollow } from '../../store/userFollowing';
 import TargetUserInfoBox from './targetUserInfoBox';
 import TargetUserAbout from './targetUserAbout';
+import TargetUserFollowing from './targetUserFollowing';
 // import { User } from '../../interfaces/user';
 // import TargetUserHeader from './targetUserHeader';
 import './index.css';
@@ -21,6 +22,7 @@ function UserPage() {
     const sessionUser = useAppSelector((state: RootState) => state.session.user);
     const targetUser = useAppSelector((state: RootState) => state.user.targetUser);
     const following = useAppSelector((state: RootState) => state.userFollowing);
+    // console.log(sessionUser);
 
     useEffect(() => {
         async function fetchData() {
@@ -69,7 +71,7 @@ function UserPage() {
 
     const handleFollow = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (!sessionUser) {
+        if (sessionUser?.errors) {
             alert('You must be logged in to follow this user.');
             return;
         }
@@ -81,7 +83,7 @@ function UserPage() {
             } else {
                 const followingTarget = following?.following?.find(
                     (follow: FollowingObject) =>
-                        +follow.follower_id === +sessionUser.id && +follow.followed_id === +userId!
+                        +follow.follower_id === +sessionUser?.id! && +follow.followed_id === +userId!
                 );
 
                 if (followingTarget) {
@@ -101,20 +103,71 @@ function UserPage() {
     const updateFollowState = async () => {
         if (sessionUser) {
             await dispatch(getFollowing(sessionUser));
+            await dispatch(getUser(+userId!));
         }
     };
-
+    // console.log('following', following);
     const isCurrentUserProfile = userId && sessionUser && +sessionUser.id === +userId;
 
     return (
         <>
             {isCurrentUserProfile ? (
-                <div id="user-page-wrapper">
-                    {/* Your Current User Profile JSX here */}
-                    <div className="user-page">
-                        <div className="user-page-content">{/* Your user page content */}</div>
+                <>
+                    <div id="user-page-wrapper">
+                        <div className="user-page">
+                            <div className="user-page-content">
+                                <div className="user-header">
+                                    <div className="user-pic-div">
+                                        <img src={targetUser?.picUrl} alt="bruh"></img>
+                                        Placeholder until I get AWS going
+                                    </div>
+
+                                    <div className="user-name-div">{targetUser?.username}</div>
+
+                                    <div className="buttons-div">
+                                        {sessionUser?.id === targetUser?.id ? (
+                                            <button>Edit</button>
+                                        ) : (
+                                            <button>Follow</button>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="user-body">
+                                    <div className="user-details-div">
+                                        <div className="summary">
+                                            <div>About Me:</div>
+                                            <div>{targetUser?.about}</div>
+                                        </div>
+
+                                        <div className="links">
+                                            <div>Links:</div>
+                                            <div>
+                                                <div>
+                                                    <a href={targetUser?.link1} target="_blank">
+                                                        LinkedIn
+                                                    </a>
+                                                </div>
+
+                                                <div>
+                                                    <a href={targetUser?.link2} target="_blank">
+                                                        GitHub
+                                                    </a>
+                                                </div>
+
+                                                <div>
+                                                    <a href={targetUser?.link3} target="_blank">
+                                                        Portfolio
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </>
             ) : (
                 <div id="target-profile-main">
                     <div id="target-profile-container">
@@ -152,7 +205,39 @@ function UserPage() {
                                     />
                                 )}
                             </div>
-                            <div id="targetuser-friends-container">{/* Additional content if needed */}</div>
+                            {targetUser && (
+                                <TargetUserFollowing
+                                    {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed, userId }}
+                                />
+                            )}
+                            {/* <div id="targetuser-friends-container">
+                                <h1>Friends</h1>
+
+                                <div id="targetuser-following">
+                                    <div>
+                                        <div>Following</div>
+                                        {following &&
+                                            following?.following?.map((follows, i) => {
+                                                return (
+                                                    <>
+                                                        <div key={i}>{follows.followed_id}</div>
+                                                    </>
+                                                );
+                                            })}
+                                    </div>
+                                    <div>
+                                        <div>Followers</div>
+                                        {following &&
+                                            following?.followers?.map((follower, i) => {
+                                                return (
+                                                    <>
+                                                        <div key={i}>{follower.follower_id}</div>
+                                                    </>
+                                                );
+                                            })}
+                                    </div>
+                                </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

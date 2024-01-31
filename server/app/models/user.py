@@ -24,8 +24,22 @@ class User(db.Model, UserMixin):
     link_1 = db.Column(db.String, nullable=True)
     link_2 = db.Column(db.String, nullable=True)
     link_3 = db.Column(db.String, nullable=True)
-    
+
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
+
+    following = db.relationship(
+        'Follow',
+        foreign_keys='Follow.follower_id',
+        back_populates='followed',
+        lazy='dynamic'
+    )
+
+    followers = db.relationship(
+        'Follow',
+        foreign_keys='Follow.followed_id',
+        back_populates='follower',
+        lazy='dynamic'
+    )
 
     @property
     def password(self):
@@ -38,8 +52,8 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
-        return {
+    def to_dict(self, include_relationships=True):
+        data = {
             'id': self.id,
             'username': self.username,
             'email': self.email,
@@ -49,6 +63,12 @@ class User(db.Model, UserMixin):
             'about': self.about,
             'link1': self.link_1,
             'link2': self.link_2,
-            'link3': self.link_3
+            'link3': self.link_3,
+            'following': [follow.to_dict() for follow in self.following],
+            'followers': [follow.to_dict() for follow in self.followers],
         }
-    
+        if include_relationships:
+            data['following'] = [follow.to_dict(include_user=False) for follow in self.following]
+            data['followers'] = [follow.to_dict(include_user=False) for follow in self.followers]
+
+        return data

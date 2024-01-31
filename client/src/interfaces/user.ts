@@ -23,4 +23,5 @@ export interface TargetUserProps {
     following: FollowingState;
     isFollowed: boolean;
     setIsFollowed?: React.Dispatch<React.SetStateAction<boolean>>;
+    userId?: string;
 }

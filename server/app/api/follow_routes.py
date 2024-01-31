@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 from ..models import User, Follow, db
+from sqlalchemy.orm import joinedload
 
 follow_routes = Blueprint('follows', __name__)
 
@@ -8,8 +9,14 @@ follow_routes = Blueprint('follows', __name__)
 def get_user_followers(id):
     user = User.query.get(id)
 
-    follows = Follow.query.filter(Follow.follower_id == user.id)
-    followers = Follow.query.filter(Follow.followed_id == user.id)
+    # follows = Follow.query.filter(Follow.follower_id == user.id)
+    # followers = Follow.query.filter(Follow.followed_id == user.id)
+
+    # Eagerly load the 'followed' and 'follower' user relationships
+    follows = Follow.query.options(joinedload(Follow.followed), joinedload(Follow.follower))\
+                   .filter(Follow.follower_id == user.id).all()
+    followers = Follow.query.options(joinedload(Follow.followed), joinedload(Follow.follower))\
+                        .filter(Follow.followed_id == user.id).all()
 
     return jsonify({
         'follows': [follow.to_dict() for follow in follows],
