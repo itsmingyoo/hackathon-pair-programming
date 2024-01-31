@@ -1,3 +1,5 @@
+import { FollowingState } from './following';
+
 export interface User {
     id: string;
     username: string;
@@ -17,4 +19,8 @@ export interface User {
 
 export interface TargetUserProps {
     targetUser: User;
+    sessionUser: User | null;
+    following: FollowingState;
+    isFollowed: boolean;
+    setIsFollowed?: React.Dispatch<React.SetStateAction<boolean>>;
 }

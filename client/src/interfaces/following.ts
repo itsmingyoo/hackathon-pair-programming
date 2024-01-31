@@ -1,3 +1,4 @@
+import { User } from './user';
 export interface FollowingObject {
     id: number;
     follower_id: number;
@@ -5,14 +6,21 @@ export interface FollowingObject {
 }
 
 export interface Following {
-    id: number;
+    id?: number;
     followers: FollowingObject[];
     follows: FollowingObject[];
 }
 
+export interface FollowingPayload {
+    data: Following;
+    user: User;
+}
+
 // Define the type for the initial state
 export interface FollowingState {
-    following: Following | null;
-    followed: FollowingObject | null;
-    unfollowed: string | null;
+    user: User | null;
+    followers: FollowingObject[] | null;
+    following: FollowingObject[] | null;
+    justFollowed: FollowingObject | null;
+    justUnfollowed: FollowingObject | number | null;
 }

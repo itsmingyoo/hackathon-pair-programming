@@ -1,18 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { User } from '../interfaces/user';
-import { Following, FollowingObject, FollowingState } from '../interfaces/following';
+import { User } from '../interfaces/user';
+import { Following, FollowingObject, FollowingState, FollowingPayload } from '../interfaces/following';
 
-export const getFollowing = createAsyncThunk<Following | null, number, { rejectValue: string }>(
+export const getFollowing = createAsyncThunk<FollowingPayload | null, User, { rejectValue: string }>(
     'following/getFollowing',
-    async (userId, { rejectWithValue }) => {
+    async (user, { rejectWithValue }) => {
         try {
-            const response = await fetch(`/api/follows/user/${userId}`);
-            if (response.ok) {
-                const data: Following = await response.json();
-                return data;
-            } else {
+            const response = await fetch(`/api/follows/user/${user.id}`);
+            if (!response.ok) {
+                // If response is not OK, reject
                 return rejectWithValue('Failed to fetch following');
             }
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                // If response is not JSON, reject
+                return rejectWithValue('Response not in JSON format');
+            }
+            const data: Following = await response.json();
+            return { data, user };
         } catch (error) {
             console.error('Error fetching: ', error);
             return rejectWithValue('Failed to fetch following');
@@ -66,10 +71,12 @@ export const unfollow = createAsyncThunk<number | null, number, { rejectValue: s
     }
 );
 
-const initialState: FollowingState | Following = {
-    following: null,
-    followed: null,
-    unfollowed: null,
+const initialState: FollowingState = {
+    user: null,
+    followers: [],
+    following: [],
+    justFollowed: null,
+    justUnfollowed: null,
 };
 
 const followingSlice = createSlice({
@@ -78,17 +85,32 @@ const followingSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getFollowing.fulfilled, (state, action) => {
-            state.following = action.payload;
+            if (action.payload) {
+                console.log('get following action.payload', action.payload);
+                state.following = action.payload.data.follows || [];
+                state.followers = action.payload.data.followers || [];
+                state.user = action.payload.user;
+            }
         });
         builder.addCase(postFollow.fulfilled, (state, action) => {
-            state.followed = action.payload;
+            state.justFollowed = action.payload;
         });
         builder.addCase(unfollow.fulfilled, (state, action) => {
             const unfollowedId = action.payload;
-            // console.log('unfollowedId in reducer');
 
             if (state.following) {
-                state.following.follows = state.following.follows.filter((follow) => +follow.id !== +unfollowedId!);
+                // Filter out the unfollowed ID from 'following'
+                state.following = state.following.filter((follow) => follow.id !== unfollowedId);
+            }
+
+            if (state.following && state.followers) {
+                // Find the specific 'FollowingObject' that was unfollowed
+                const unfollowedObject =
+                    state.following.find((follow) => follow.id === unfollowedId) ||
+                    state.followers.find((follow) => follow.id === unfollowedId);
+
+                // Set 'justUnfollowed' to the found object, or null if not found
+                state.justUnfollowed = unfollowedObject || null;
             }
         });
     },

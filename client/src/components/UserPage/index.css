@@ -82,7 +82,15 @@
 
 #targetuser-friends-container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 40vw;
+}
+
+#targetuser-following {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     width: 40vw;
 }

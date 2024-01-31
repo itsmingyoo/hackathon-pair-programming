@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 from ..models import User, Follow, db
 
@@ -11,10 +11,10 @@ def get_user_followers(id):
     follows = Follow.query.filter(Follow.follower_id == user.id)
     followers = Follow.query.filter(Follow.followed_id == user.id)
 
-    return {
+    return jsonify({
         'follows': [follow.to_dict() for follow in follows],
         'followers': [follower.to_dict() for follower in followers]
-    }
+    })
 
 
 @follow_routes.route('/user/<int:id>', methods=['POST'])
