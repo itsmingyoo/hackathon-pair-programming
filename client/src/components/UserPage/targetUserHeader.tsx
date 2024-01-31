@@ -44,7 +44,7 @@ function TargetUserHeader(props: TargetUserProps) {
     // Helper Fn for debug
     const handleGetFollowing = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const response = await dispatch(getFollowing(+sessionUser?.id!));
+        await dispatch(getFollowing(+sessionUser?.id!));
         // console.log('get following response', response);
     };
 
