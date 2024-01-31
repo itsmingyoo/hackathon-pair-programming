@@ -18,16 +18,21 @@ function ProfileButton() {
       }
     };
 
-    document.addEventListener("click", closeMenuOnClickOutside);
+        document.addEventListener('click', closeMenuOnClickOutside);
 
     return () => document.removeEventListener("click", closeMenuOnClickOutside);
   }, []);
 
-  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await dispatch(logout());
-    navigate("/", { replace: true });
-  };
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        await dispatch(logout());
+        navigate('/', { replace: true });
+    };
+
+    const handleProfileButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (sessionUserId) navigate(`/users/${+sessionUserId}`);
+    };
 
   const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -56,4 +61,3 @@ function ProfileButton() {
 }
 
 export default ProfileButton;
-

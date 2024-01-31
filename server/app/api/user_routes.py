@@ -8,8 +8,8 @@ from sqlalchemy import select
 user_routes = Blueprint('users', __name__)
 
 
+# @login_required
 @user_routes.route('/')
-@login_required
 def users():
     """
     Query for all users and returns them in a list of user dictionaries
@@ -18,8 +18,8 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
+# @login_required
 @user_routes.route('/<int:id>')
-@login_required
 def user(id):
     """
     Query for a user by id and returns that user in a dictionary
@@ -33,7 +33,7 @@ def edit_user(id):
     user = User.query.get(id)
     if not user:
         return {"error": "User is not found"}
-    
+
     form = EditProfile()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -48,5 +48,5 @@ def edit_user(id):
 
         db.session.commit()
         return user.to_dict()
-    
+
     return {"errors": form.errors}

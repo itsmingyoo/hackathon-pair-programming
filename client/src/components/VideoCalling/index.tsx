@@ -11,8 +11,8 @@ import { receiveUser } from '../../store/pairedUser';
 import ScreenShare from '../ScreenShare';
 // import ScreenShareButton from '../ScreenShare/screenShareButton';
 import './index.css';
-import IDE from '../CodeMirror';
-import { channel } from 'diagnostics_channel';
+// import IDE from '../CodeMirror';
+// import { channel } from 'diagnostics_channel';
 
 const VideoCall: React.FC = () => {
     const { socket } = useSocket();

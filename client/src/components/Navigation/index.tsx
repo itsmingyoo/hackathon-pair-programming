@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
 import ProfileButton from './ProfileButton';
-import name from '../../assets/devpair-logos/svg/devpair-high-resolution-logo-transparent.svg'
+import name from '../../assets/devpair-logos/svg/devpair-high-resolution-logo-transparent.svg';
 import './Navigation.css';
 
 interface NavigationProps {
@@ -26,12 +26,12 @@ function Navigation({ isLoaded }: NavigationProps) {
             <div className="nav-links">
                 <div className="nav-links-home">
                     <NavLink to="/" className="nav-links-home">
-                        <img className="logo" src={name} alt="devpair logo and link to home"/>
+                        <img className="logo" src={name} alt="devpair logo and link to home" />
                     </NavLink>
                 </div>
                 <nav className="nav-links-other">
                     {isLoaded && userLoggedIn && sessionUser ? (
-                            <ProfileButton user={sessionUser} />
+                        <ProfileButton />
                     ) : (
                         <div className="nav-links-login-and-signout">
                             <div>

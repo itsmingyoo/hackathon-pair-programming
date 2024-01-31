@@ -76,3 +76,7 @@
     font-size: 3vw; /* Adjust font size for smaller screens */
   }
 }
+
+.hidden {
+    display: none;
+}

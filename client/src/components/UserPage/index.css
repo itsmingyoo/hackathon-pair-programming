@@ -1,0 +1,88 @@
+#target-profile-main {
+    display: flex;
+    flex: 1;
+}
+
+#target-profile-container {
+    width: 100vw;
+}
+
+#target-profile-header, #target-profile-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 0 1rem;
+    margin: 0.5rem 0;
+}
+
+#dm-button {
+    color: black;
+    background-color: var(--primary);
+    height: 2rem;
+    width: 10rem;
+}
+
+#user-profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+#targetuser-username {
+    font-size: 3rem;
+    color: var(--primary);
+}
+
+#targetuser-pfp > img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+}
+
+#targetuser-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#targetuser-info > span:first-child {
+    font-size: 2rem;
+}
+
+#targetuser-info-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem
+}
+
+#targetuser-profile-split {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem;
+}
+
+#target-profile-text {
+    font-size: 2rem;
+}
+
+.hr-line {
+    height: 2px;
+    background-color: white;
+    width: 100%;
+}
+
+#target-user-socials > div > * {
+    color: var(--text);
+}
+
+#target-user-about > h3, #target-user-socials > h3 {
+    color: var(--primary);
+}
+
+#targetuser-friends-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 40vw;
+}
