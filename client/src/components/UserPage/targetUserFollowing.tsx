@@ -7,7 +7,9 @@ function TargetUserFollowing(props: TargetUserProps) {
     const dispatch = useAppDispatch();
     const targetFollowing = useAppSelector((state) => state.userFollowing.following);
     const targetFollowers = useAppSelector((state) => state.userFollowing.followers);
-    // console.log('following, followers', targetFollowing, targetFollowers); // array of obj
+    const { targetUser } = props;
+    console.log('following, followers', targetFollowing, targetFollowers); // array of obj
+    console.log('targetuser in userfollowing', targetUser);
 
     useEffect(() => {
         if (props.targetUser) dispatch(getFollowing(props.targetUser));
@@ -30,14 +32,14 @@ function TargetUserFollowing(props: TargetUserProps) {
                                             <div id="followed-image-container">
                                                 <img
                                                     src={
-                                                        follow.followed.picUrl
-                                                            ? follow.followed.picUrl
+                                                        follow.follower.picUrl
+                                                            ? follow.follower.picUrl
                                                             : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
                                                     }
-                                                    alt="followed-user-pic"
+                                                    alt="follower-user-pic"
                                                 />
                                             </div>
-                                            <div>{follow.followed.username}</div>
+                                            <div>{follow.follower.username}</div>
                                         </div>
                                     </>
                                 );
