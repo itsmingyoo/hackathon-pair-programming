@@ -1,4 +1,4 @@
-import { FollowingState } from './following';
+import { FollowingObject, FollowingState } from './following';
 
 export interface User {
     id: string;
@@ -13,6 +13,9 @@ export interface User {
     link1: string;
     link2: string;
     link3: string;
+
+    following: FollowingObject[];
+    followers: FollowingObject[];
 
     errors: string;
 }

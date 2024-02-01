@@ -52,7 +52,7 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self, include_relationships=True):
+    def to_dict(self, include_relationships=True, include_user=True):
         data = {
             'id': self.id,
             'username': self.username,
@@ -64,11 +64,11 @@ class User(db.Model, UserMixin):
             'link1': self.link_1,
             'link2': self.link_2,
             'link3': self.link_3,
-            'following': [follow.to_dict() for follow in self.following],
-            'followers': [follow.to_dict() for follow in self.followers],
+            # 'following': [follow.to_dict() for follow in self.following],
+            # 'followers': [follow.to_dict() for follow in self.followers],
         }
         if include_relationships:
-            data['following'] = [follow.to_dict(include_user=False) for follow in self.following]
-            data['followers'] = [follow.to_dict(include_user=False) for follow in self.followers]
+            data['following'] = [follow.to_dict(include_user=include_user) for follow in self.following]
+            data['followers'] = [follow.to_dict(include_user=include_user) for follow in self.followers]
 
         return data
