@@ -10,9 +10,6 @@ import { FollowingObject } from '../../interfaces/following';
 import { unfollow, postFollow } from '../../store/userFollowing';
 import TargetUserInfoBox from './targetUserInfoBox';
 import TargetUserAbout from './targetUserAbout';
-// import TargetUserFollowing from './targetUserFollowing';
-// import { User } from '../../interfaces/user';
-// import TargetUserHeader from './targetUserHeader';
 import './index.css';
 
 function UserPage() {
@@ -50,25 +47,6 @@ function UserPage() {
             setIsFollowed(isFollowingTarget);
         }
     }, [following, sessionUser, targetUser, isFollowed]);
-
-    // useEffect(() => {
-    //     if (sessionUser && userId) {
-    //         const isFollowingTarget =
-    //             following?.following?.some(
-    //                 (obj) => +obj.followed_id === +userId && +obj.follower_id === +sessionUser?.id
-    //             ) ?? false;
-
-    //         const isTargetsFollower =
-    //             following?.followers?.some(
-    //                 (obj) => +obj.followed_id === +sessionUser?.id && +obj.follower_id === +userId
-    //             ) ?? false;
-
-    //         const isActuallyFollowing = isFollowingTarget || isTargetsFollower;
-
-    //         console.log('isactuallyfollowing', isFollowingTarget, isTargetsFollower, isActuallyFollowing);
-    //         setIsFollowed(isActuallyFollowing);
-    //     }
-    // }, [following, sessionUser, userId, dispatch]);
 
     const handleFollow = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -214,7 +192,6 @@ function UserPage() {
                                         {targetUser &&
                                             targetUser.following.length > 0 &&
                                             targetUser.following.map((follow, i) => {
-                                                // console.log('this is each follower', follow);
                                                 return (
                                                     <>
                                                         <a href={`/users/${follow.followed.id}`}>
@@ -245,7 +222,6 @@ function UserPage() {
                                         {targetUser &&
                                             targetUser.followers.length > 0 &&
                                             targetUser.followers.map((follower, i) => {
-                                                // console.log('this is each follower', follower);
                                                 return (
                                                     <>
                                                         <a href={`/users/${follower.follower.id}`}>
