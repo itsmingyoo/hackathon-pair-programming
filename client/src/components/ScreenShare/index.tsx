@@ -5,6 +5,7 @@ import { fetchRTCToken } from '../../utility/fetchRTCToken';
 import { useEffect } from 'react';
 import { RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from 'agora-rtc-react';
 import { useAppSelector } from '../../hooks';
+import RemoteAndLocalVolumeComponent from '../../AgoraManager/volumeControl';
 // import IDE from '../CodeMirror';
 
 function ScreenShare(props: {
@@ -69,9 +70,7 @@ function ScreenShare(props: {
 
     return (
         <>
-            <button onClick={() => setScreenSharing(!screenSharing)} id="share-screen-button">
-                <p className="screen-share-button-text">{screenSharing ? 'Stop Sharing' : 'Start Sharing'}</p>
-            </button>
+
             {renderContent()}
             {remoteUsers.map((remoteUser) => {
                 if (remoteUser.uid === pairInfo?.screenUid) {
@@ -87,6 +86,8 @@ function ScreenShare(props: {
                     return null;
                 }
             })}
+            <RemoteAndLocalVolumeComponent screenSharing={screenSharing}
+                        setScreenSharing={setScreenSharing} />
         </>
     );
 }

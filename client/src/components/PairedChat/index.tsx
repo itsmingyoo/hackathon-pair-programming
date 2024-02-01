@@ -1,5 +1,6 @@
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
-import { useSocket, useAppDispatch, useAppSelector } from '../../hooks';
+import {  useAppDispatch, useAppSelector } from '../../hooks';
+import { useSocket } from '../../hooks/socket';
 import { clearChatMessages, receiveChatMessage } from '../../store/pairedChatLog';
 import { PairedChatMessage } from '../../interfaces/socket';
 import './index.css';
@@ -15,8 +16,10 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
     const [chatInput, setChatInput] = useState<string>('');
     const dispatch = useAppDispatch();
 
+
     // Memoized callback for handling received chat messages
     const handleTempMessageReceived = useCallback(
+        
         (data: PairedChatMessage) => {
             // Format the date for user's local time
             const transformedMessage: PairedChatMessage = {
@@ -32,7 +35,9 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
     // Memoized callback for sending chat messages
     const sendChat = useCallback(
         (e: FormEvent) => {
+            
             e.preventDefault();
+            console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬I am here!",socket)
 
             socket?.emit('temp_chat_message', { message: chatInput, room: channelName });
             setChatInput('');
@@ -59,7 +64,7 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
                 {messages &&
                     messages.map((message, index) => {
                         return (
-                            <div key={index}>
+                            <div key={index} className="chat-message">
                                 {message.from.username} sent at {message.created_at} : {message.message}
                             </div>
                         );

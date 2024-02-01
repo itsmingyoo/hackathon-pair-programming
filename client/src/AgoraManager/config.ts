@@ -3,7 +3,7 @@ import { EncryptionMode, UID, SDK_MODE } from 'agora-rtc-sdk-ng';
 const config: configType = {
     uid: 0,
     appId: import.meta.env.VITE_APP_ID,
-    channelName: 'testing',
+    channelName: '',
     rtcToken: '',
     serverUrl: 'https://agora-token-server-kicu.onrender.com',
     proxyUrl: '',
@@ -19,6 +19,7 @@ const config: configType = {
     secondChannelToken: '',
     secondChannelUID: 2,
     selectedProduct: 'rtc',
+    joined: false,
 };
 
 export type configType = {
@@ -40,6 +41,7 @@ export type configType = {
     secondChannelToken: string;
     secondChannelUID: number;
     selectedProduct: SDK_MODE;
+    joined: boolean;
 };
 
 export default config;
