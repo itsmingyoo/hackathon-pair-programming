@@ -1,19 +1,7 @@
 import { TargetUserProps } from '../../interfaces/user';
-import { RootState } from '../../store';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
-import { getFollowing } from '../../store/userFollowing';
 
 function TargetUserInfoBox(props: TargetUserProps) {
-    const { picUrl, username, id } = props.targetUser;
-    const dispatch = useAppDispatch();
-
-    const followers = useAppSelector((state: RootState) => state.userFollowing.followers);
-    const following = useAppSelector((state: RootState) => state.userFollowing.following);
-
-    useEffect(() => {
-        dispatch(getFollowing(props.targetUser));
-    }, [id, dispatch]);
+    const { picUrl, username, followers, following } = props.targetUser;
 
     return (
         <>
@@ -25,14 +13,15 @@ function TargetUserInfoBox(props: TargetUserProps) {
                                 ? picUrl
                                 : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
                         }
+                        // src="https://cdn.pixabay.com/photo/2020/03/31/19/20/dog-4988985_640.jpg"
                         alt="targetuser-pfp"
                     ></img>
                 </div>
                 <div id="targetuser-info">
                     <span>{username}</span>
-                    <span>Example: Joined July 2022</span>
+                    <span>Joined July 2022</span>
                     <span>
-                        {following?.length ?? 0} Following /{followers?.length ?? 0} Followers
+                        {following?.length ?? 0} Following / {followers?.length ?? 0} Followers
                     </span>
                 </div>
             </div>

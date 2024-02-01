@@ -22,12 +22,8 @@ function UserPage() {
     const sessionUser = useAppSelector((state: RootState) => state.session.user);
     const targetUser = useAppSelector((state: RootState) => state.user.targetUser);
     const following = useAppSelector((state: RootState) => state.userFollowing);
-    const targetFollowing = useAppSelector((state) => state.userFollowing.following);
-    const targetFollowers = useAppSelector((state) => state.userFollowing.followers);
-    console.log('targetuser', targetUser);
-    // console.log('following main', following);
-    // console.log('following', targetFollowing);
-    // console.log('followers', targetFollowers);
+    console.log("User's page: ", targetUser);
+    console.log('Session User', sessionUser);
 
     useEffect(() => {
         async function fetchData() {
@@ -53,7 +49,7 @@ function UserPage() {
 
             setIsFollowed(isFollowingTarget);
         }
-    }, [following, sessionUser, targetUser, targetFollowers, targetFollowing]);
+    }, [following, sessionUser, targetUser, isFollowed]);
 
     // useEffect(() => {
     //     if (sessionUser && userId) {
@@ -111,7 +107,7 @@ function UserPage() {
             await dispatch(getUser(+userId!));
         }
     };
-    // console.log('following', following);
+
     const isCurrentUserProfile = userId && sessionUser && +sessionUser.id === +userId;
 
     return (
@@ -176,16 +172,13 @@ function UserPage() {
             ) : (
                 <div id="target-profile-main">
                     <div id="target-profile-container">
-                        {/* {targetUser && (
-                            <TargetUserHeader {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed }} />
-                        )} */}
                         <div id="target-profile-header">
                             <span id="targetuser-username">{targetUser?.username}'s </span>
                             <span id="target-profile-text">Profile</span>
                             <button id="dm-button" onClick={() => alert('Feature coming soon!')}>
                                 Direct Message
                             </button>
-                            <button id="dm-button" onClick={handleFollow}>
+                            <button id="dm-button" onClick={(e) => handleFollow(e)}>
                                 {isFollowed ? 'Unfollow' : 'Follow'}
                             </button>
                         </div>
@@ -210,11 +203,7 @@ function UserPage() {
                                     />
                                 )}
                             </div>
-                            {/* {targetUser && (
-                                <TargetUserFollowing
-                                    {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed, userId }}
-                                />
-                            )} */}
+
                             <div id="targetuser-friends-container">
                                 <h1>Friends</h1>
 
@@ -225,22 +214,27 @@ function UserPage() {
                                         {targetUser &&
                                             targetUser.following.length > 0 &&
                                             targetUser.following.map((follow, i) => {
-                                                console.log('this is each follower', follow);
+                                                // console.log('this is each follower', follow);
                                                 return (
                                                     <>
-                                                        <div key={i} id="following-container">
-                                                            <div id="follower-image-container">
-                                                                <img
-                                                                    src={
-                                                                        follow?.followed?.picUrl
-                                                                            ? follow?.followed?.picUrl
-                                                                            : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
-                                                                    }
-                                                                    alt="follower-user-pic"
-                                                                />
+                                                        <a href={`/users/${follow.followed.id}`}>
+                                                            <div
+                                                                key={follow.followed.username + i}
+                                                                id="following-container"
+                                                            >
+                                                                <div id="follower-image-container">
+                                                                    <img
+                                                                        src={
+                                                                            follow?.followed?.picUrl
+                                                                                ? follow?.followed?.picUrl
+                                                                                : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
+                                                                        }
+                                                                        alt="followed-user-pic"
+                                                                    />
+                                                                </div>
+                                                                <div>{follow.followed.username}</div>
                                                             </div>
-                                                            <div>{follow.followed.username}</div>
-                                                        </div>
+                                                        </a>
                                                     </>
                                                 );
                                             })}
@@ -251,22 +245,27 @@ function UserPage() {
                                         {targetUser &&
                                             targetUser.followers.length > 0 &&
                                             targetUser.followers.map((follower, i) => {
-                                                console.log('this is each follower', follower);
+                                                // console.log('this is each follower', follower);
                                                 return (
                                                     <>
-                                                        <div key={i} id="following-container">
-                                                            <div id="follower-image-container">
-                                                                <img
-                                                                    src={
-                                                                        follower?.follower?.picUrl
-                                                                            ? follower?.follower?.picUrl
-                                                                            : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
-                                                                    }
-                                                                    alt="follower-user-pic"
-                                                                />
+                                                        <a href={`/users/${follower.follower.id}`}>
+                                                            <div
+                                                                key={follower.follower.username + i}
+                                                                id="following-container"
+                                                            >
+                                                                <div id="follower-image-container">
+                                                                    <img
+                                                                        src={
+                                                                            follower?.follower?.picUrl
+                                                                                ? follower?.follower?.picUrl
+                                                                                : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
+                                                                        }
+                                                                        alt="follower-user-pic"
+                                                                    />
+                                                                </div>
+                                                                <div>{follower.follower.username}</div>
                                                             </div>
-                                                            <div>{follower.follower.username}</div>
-                                                        </div>
+                                                        </a>
                                                     </>
                                                 );
                                             })}
