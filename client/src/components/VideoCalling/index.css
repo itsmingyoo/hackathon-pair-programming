@@ -1,11 +1,9 @@
-/* #ide-screenshare {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-} */
-
 #button-wrapper > h1 {
   text-align: center;
+}
+
+.not-joined-wrapper {
+  flex: 1
 }
 
 #video-main-wrapper {
@@ -94,9 +92,9 @@
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
-  width: 100%;
+  max-width: 100%;
   border: red solid 2px;
-
+  flex: 4;
 }
 
 #screen-share-container > div > div > video {
@@ -104,6 +102,8 @@
   background-color: transparent !important;
   width: 100%;
   object-fit: contain !important;
+  border: red solid 2px;
+
 
 }
 #screen-share-container > div > div {
@@ -125,14 +125,19 @@
 
 .agora_video_player {
   position: unset !important;
+
 }
 
 #messages-container {
   width: 100%;
   height: 100%;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
   color: var(--text); /* Set text color */
   background-color: var(--background); /* Set background color */
+  gap: 0.8rem;
+
 }
 
 #paired-chat-container {
@@ -141,8 +146,7 @@
   align-items: center;
   border: 1px solid white;
   flex-direction: column;
-  /* flex: 1; */
-  width: 30vw;
+  flex: 1;
 }
 
 .chat-message {
@@ -151,6 +155,25 @@
   ); /* Replace with your background color */
   border-radius: 10px;
   padding: 8px 12px; /* Adjust padding as needed */
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  justify-content: flex-end;
+}
+
+.message-user-info {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+
+.message-time-updated {
+  font-size: 10px;
+}
+
+.message-text {
+  word-break: break-all;
 }
 
 .vid > div > div > video,
@@ -158,34 +181,35 @@
   border-radius: 4px;
   position: unset !important;
   object-fit: contain !important;
-  width: 100%; /* Ensure video fills the container horizontally */
+  max-width: 100%; /* Ensure video fills the container horizontally */
   height: 100%; /* Ensure video fills the container vertically */
 }
 
 .video-wrapper {
-  flex: 1;
   display: flex;
-  flex-direction: column;
-  max-width: 100%;
-
+  flex-wrap: wrap;
+  width: fit-content;
+  max-width: 100%; 
+  flex: 4;
   position: relative;
   /* border: 1px solid rgb(75, 93, 172); */
+  border: 1px solid #20cc09;
+  
+
 }
 
 .vid {
-  flex: 1;
+  /* flex: 1; */
   border: 1px solid #20cc09;
-
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: fit-content;
   max-height: 50%;
 }
 
 #video-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
   max-width: 100%;
   flex: 1;
   padding: 0.5rem;

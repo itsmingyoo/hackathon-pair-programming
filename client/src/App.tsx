@@ -43,7 +43,6 @@ const App: React.FC = () => {
                     <Navigation isLoaded={isLoaded} />
                     <Routes>
                         <Route path="" element={<LandingPage />} />
-                        <Route path="/home" element={<HomePage />} />
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route
@@ -56,7 +55,6 @@ const App: React.FC = () => {
                         />
                         <Route path='/users/:userId/' element={<UserPage />} />
                     </Routes>
-                    {/* <Footer /> */}
                 </Router>
             )}
         </>

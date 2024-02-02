@@ -24,33 +24,25 @@ import {
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { configType } from "./config";
-import RemoteAndLocalVolumeComponent from "./volumeControl";
 import "./agoraManager.css";
 
 // Define the shape of the Agora context
 interface AgoraContextType {
   localCameraTrack: ICameraVideoTrack | null;
   localMicrophoneTrack: IMicrophoneAudioTrack | null;
-  isLoadingCam: boolean;
-  isLoadingMic: boolean;
+  children: React.ReactNode;
 }
 
 // Create the Agora context
 const AgoraContext = createContext<AgoraContextType | null>(null);
 
 // AgoraProvider component to provide the Agora context to its children
-export const AgoraProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
-  const { isLoading: isLoadingMic, localMicrophoneTrack } =
-    useLocalMicrophoneTrack();
-  return (
-    <AgoraContext.Provider
-      value={{ localCameraTrack, localMicrophoneTrack, isLoadingCam, isLoadingMic}}
-    >
+export const AgoraProvider: React.FC<AgoraContextType> = ({ children, localCameraTrack, localMicrophoneTrack }) => (
+  <AgoraContext.Provider value={{ localCameraTrack, localMicrophoneTrack, children }}>
       {children}
-    </AgoraContext.Provider>
-  );
-};
+  </AgoraContext.Provider>
+);
+
 
 // Custom hook to access the Agora context
 export const useAgoraContext = () => {
@@ -193,9 +185,7 @@ export const AgoraManager = ({
         <div className="vid" style={{ height: 300, width: 350 }}>
           <LocalVideoTrack track={localCameraTrack} play={true} />
           <button id="follow-user">Follow</button>
-          <div id="volume-control">
-            <RemoteAndLocalVolumeComponent />
-          </div>
+
         </div>
         {/* Render OTHER users and screen shares etc. */}
         {remoteUsers.map((remoteUser) => (
@@ -206,9 +196,7 @@ export const AgoraManager = ({
           >
             <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
             <button id="follow-user">Follow</button>
-            <div id="volume-control">
-              <RemoteAndLocalVolumeComponent />
-            </div>
+
           </div>
         ))}
       </div>

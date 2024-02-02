@@ -9,6 +9,7 @@ import comic2 from "../../assets/images/comic2.png";
 import comic3 from "../../assets/images/comic3.png";
 import PageHeader from "../ScrambleText";
 import "./landingPage.css";
+import Footer from "../Footer";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -37,46 +38,47 @@ function LandingPage() {
     navigate("/code-collab");
   };
   return (
-    <main className="landing-page">
+    <>
+      <main className="landing-page">
         <div className="landing-page-cool-image">
+          <img
+            src={chat1}
+            alt="first-cat-sitting-and-coding"
+            id="cat-one"
+            className="bouncy-cats-one"
+          />
+          <div className="comix-bubbles-container">
+            <div className="comic-one">
               <img
-                src={chat1}
-                alt="first-cat-sitting-and-coding"
-                id="cat-one"
-                className="bouncy-cats-one"
+                src={comic1}
+                alt="first-chat-bubble-from-cats"
+                id="comic1-one"
               />
-              <div className="comix-bubbles-container">
-                <div className="comic-one">
-                  <img
-                    src={comic1}
-                    alt="first-chat-bubble-from-cats"
-                    id="comic1-one"
-                  />
-                </div>
-                <div className="comic-two">
-                  <img
-                    src={comic2}
-                    alt="second-chat-bubble-from-cats"
-                    id="comic2-two"
-                  />
-                </div>
-                <div className="comic-three">
-                  <img
-                    src={comic3}
-                    alt="third-chat-bubble-from-cats"
-                    id="comic3-three"
-                  />
-                </div>
-              </div>
-              <div className="second-cat-div">
-                <img
-                  src={chat2}
-                  alt="second-cat-sitting-and-coding"
-                  id="cat-two"
-                  className="bouncy-cats-two"
-                />
-              </div>
             </div>
+            <div className="comic-two">
+              <img
+                src={comic2}
+                alt="second-chat-bubble-from-cats"
+                id="comic2-two"
+              />
+            </div>
+            <div className="comic-three">
+              <img
+                src={comic3}
+                alt="third-chat-bubble-from-cats"
+                id="comic3-three"
+              />
+            </div>
+          </div>
+          <div className="second-cat-div">
+            <img
+              src={chat2}
+              alt="second-cat-sitting-and-coding"
+              id="cat-two"
+              className="bouncy-cats-two"
+            />
+          </div>
+        </div>
         <div className="landing-page-description">
           <PageHeader title="DevPair!" />
           <>
@@ -92,20 +94,25 @@ function LandingPage() {
               <span className="accent">Unleash</span> Your Developer Potential!
             </div>
           </>
-        {loggedIn ? (
-          <button className="landing-page-get-started" onClick={handleJoinRoom}>
-            Join a Room!
-          </button>
-        ) : (
-          <button
-            className="landing-page-get-started"
-            onClick={handleGetStarted}
-          >
-            Get Started
-          </button>
-        )}
-      </div>
-    </main>
+          {loggedIn ? (
+            <button
+              className="landing-page-get-started"
+              onClick={handleJoinRoom}
+            >
+              Join a Room!
+            </button>
+          ) : (
+            <button
+              className="landing-page-get-started"
+              onClick={handleGetStarted}
+            >
+              Get Started
+            </button>
+          )}
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
 

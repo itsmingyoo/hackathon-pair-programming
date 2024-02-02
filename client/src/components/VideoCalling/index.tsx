@@ -2,24 +2,16 @@ import { useState, useEffect, useCallback } from "react";
 import AgoraRTC, {
   AgoraRTCProvider,
   useRTCClient,
-  AgoraRTCScreenShareProvider,
 } from "agora-rtc-react";
 import config from "../../AgoraManager/config";
 import { useAppSelector } from "../../hooks";
 import { useSocket } from "../../hooks/socket";
 import { fetchRTCToken } from "../../utility/fetchRTCToken";
-// import { useNavigation } from "../../context/Navigation";
 import PairedChat from "../PairedChat";
 import PairedVideos from "../PairedVideos";
 import { useAppDispatch } from "../../hooks";
 import { receiveUser } from "../../store/pairedUser";
-import ScreenShare from "../ScreenShare";
-// import ScreenShareButton from '../ScreenShare/screenShareButton';
 import "./index.css";
-import RemoteAndLocalVolumeComponent from "../../AgoraManager/volumeControl";
-import { AgoraProvider } from "../../AgoraManager/agoraManager";
-// import IDE from '../CodeMirror';
-// import { channel } from 'diagnostics_channel';
 
 const VideoCall: React.FC = () => {
   const { socket } = useSocket();
@@ -30,7 +22,6 @@ const VideoCall: React.FC = () => {
   const [joined, setJoined] = useState<boolean>(false);
   const [channelName, setChannelName] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [screenSharing, setScreenSharing] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -96,7 +87,8 @@ const VideoCall: React.FC = () => {
   const leaveRoomHandler = useCallback(() => {
     if (joined && socket) {
       socket.emit("leave_room", { room: channelName });
-      config.joined = false;
+      setJoined(false);
+      setChannelName('')
       config.channelName = "";
       setLoading(false);
     }
@@ -106,26 +98,28 @@ const VideoCall: React.FC = () => {
     <>
       <main id="video-main-wrapper">
         {joined ? null : (
-          <div id="button-wrapper">
-            <h1>Get Started with Video Calling</h1>
-            <div id="join-call-cat-image">
-              <img
-                src="/src/assets/images/devpair-loading-screen.png"
-                alt="loading-screen"
-              />
-            </div>
-            <div id="join-channel-button-container">
-              <button
-                onClick={handleJoinClick}
-                disabled={loading}
-                id="join-channel-button"
-              >
-                {loading ? (
-                  <div className="spinner"></div>
-                ) : (
-                  <p className="join-channel-button-text">Join a call now!</p>
-                )}
-              </button>
+          <div className="not-joined-wrapper">
+            <div id="button-wrapper">
+              <h1>Get Started with Video Calling</h1>
+              <div id="join-call-cat-image">
+                <img
+                  src="/src/assets/images/devpair-loading-screen.png"
+                  alt="loading-screen"
+                />
+              </div>
+              <div id="join-channel-button-container">
+                <button
+                  onClick={handleJoinClick}
+                  disabled={loading}
+                  id="join-channel-button"
+                >
+                  {loading ? (
+                    <div className="spinner"></div>
+                  ) : (
+                    <p className="join-channel-button-text">Join a call now!</p>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -136,30 +130,18 @@ const VideoCall: React.FC = () => {
               <div className="video-wrapper">
                 <PairedVideos channelName={config.channelName} />
               </div>
-              <div id="screen-share-container">
-                <AgoraProvider>
-                  <AgoraRTCScreenShareProvider client={agoraEngine}>
-                    <ScreenShare
-                      channelName={config.channelName}
-                      screenSharing={screenSharing}
-                      setScreenSharing={setScreenSharing}
-                    />
-                  </AgoraRTCScreenShareProvider>
-                </AgoraProvider>
-              </div>
-
               <div id="paired-chat-container">
                 <PairedChat channelName={config.channelName} />
               </div>
             </AgoraRTCProvider>
-            {/* <div id="button-wrapper">
+            <div id="button-wrapper">
               <button
                 onClick={leaveRoomHandler}
                 style={{ backgroundColor: "red" }}
               >
                 Leave
               </button>
-            </div> */}
+            </div>
           </>
         )}
       </main>

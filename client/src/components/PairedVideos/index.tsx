@@ -1,4 +1,4 @@
-import {
+import AgoraRTC, {
   LocalVideoTrack,
   RemoteUser,
   useJoin,
@@ -8,12 +8,15 @@ import {
   useRTCClient,
   useRemoteUsers,
   useClientEvent,
+  AgoraRTCScreenShareProvider,
 } from "agora-rtc-react";
 
 import { useEffect } from "react";
 import config from "../../AgoraManager/config";
 import { useAppSelector } from "../../hooks";
 import "./index.css";
+import { AgoraProvider } from "../../AgoraManager/agoraManager";
+import ScreenShare from "../ScreenShare";
 
 function PairedVideos(props: { channelName: string }) {
   const user = useAppSelector((state) => state.session.user);
@@ -26,7 +29,6 @@ function PairedVideos(props: { channelName: string }) {
   const remoteUsers = useRemoteUsers();
   console.log("REMOTE USERS", remoteUsers);
   //   const { audioTracks } = useRemoteAudioTracks(remoteUsers);
-
 
   useJoin({
     appid: config.appId,
@@ -57,7 +59,8 @@ function PairedVideos(props: { channelName: string }) {
     console.log(
       "🍉🍉🍉🍉🍉🍉🍉🍉🍉 The user",
       user,
-      " has published media in the channel", _
+      " has published media in the channel",
+      _
     );
   });
 
@@ -70,15 +73,22 @@ function PairedVideos(props: { channelName: string }) {
 
   usePublish([localMicrophoneTrack, localCameraTrack]);
 
-
+  console.log(localCameraTrack);
   const deviceLoading = isLoadingMic || isLoadingCam;
-  if (deviceLoading) return <div>Loading devices...</div>;
+  // if (deviceLoading) return <div>Loading devices...</div>;
 
   return (
     <>
-          <div className="vid" style={{ height: 300, width: 350 }}>
+      <div id="video-container">
+        {deviceLoading ? (
+          <div id="vid" style={{ height: 300, width: 350 }}>
+            Loading Devices...
+          </div>
+        ) : (
+          <div className="vid">
             <LocalVideoTrack track={localCameraTrack} play={true} />
           </div>
+        )}
         {remoteUsers.length > 0 ? (
           remoteUsers.map((remoteUser) => {
             if (remoteUser.uid === pairInfo?.videoUid) {
@@ -101,9 +111,19 @@ function PairedVideos(props: { channelName: string }) {
           })
         ) : (
           <>
-            <div id="waiting-for-user">WAITING FOR USER</div>
+            <div id="vid" style={{ height: 300, width: 350 }}>
+              WAITING FOR USER
+            </div>
           </>
         )}
+      </div>
+      <div id="screen-share-container">
+      <AgoraProvider localCameraTrack={localCameraTrack} localMicrophoneTrack={localMicrophoneTrack}>
+          <AgoraRTCScreenShareProvider client={AgoraRTC.createClient({ codec: 'vp8', mode: 'rtc' })}>
+            <ScreenShare channelName={config.channelName} />
+          </AgoraRTCScreenShareProvider>
+        </AgoraProvider>
+      </div>
     </>
   );
 }

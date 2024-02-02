@@ -2,7 +2,6 @@ import React, { SetStateAction, useState } from "react";
 import { useAgoraContext } from "./agoraManager";
 import { useRemoteUsers } from "agora-rtc-react";
 import "./volumeControl.css";
-import screenshare from "../assets/icons/svg/screenshare.svg";
 
 function RemoteAndLocalVolumeComponent(props: {
   screenSharing: boolean;
