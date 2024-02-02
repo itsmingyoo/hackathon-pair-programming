@@ -27,7 +27,7 @@
     transition: .2s ease-in-out;
   }
 
-  .linkedin{
+  .linkedin-2 {
     margin-top: 1.5em;
     margin-left: 1.2em;
     fill: white;
@@ -61,7 +61,7 @@
     transition: .2s ease-in-out;
   }
 
-  .github {
+  .github-2 {
     margin-top: -.6em;
     margin-left: 1.2em;
   }
@@ -109,7 +109,7 @@
     background-color: black;
   }
 
-  .card3:hover .github {
+  .card3:hover .github-2 {
     fill: white;
   }
 
