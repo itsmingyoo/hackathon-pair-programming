@@ -1,3 +1,13 @@
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  max-width: 100%;
+}
 #toggle-mute {
     color: black;
     border-radius: 4px;
@@ -13,7 +23,6 @@
 
 .PB-range-slider {
     -webkit-appearance: none;
-    width: 100%;
     height: 4px;
     border-radius: 5px;
     background: #D5DBE1;
@@ -54,7 +63,6 @@
     gap: 1rem;
     padding: 1rem;
     border-radius: 6px;
-    border: 1px solid #C6CACE;
     box-shadow: 0px 1px 2px 0px #1F1E241F;
   }
 
@@ -65,25 +73,22 @@
 
   /*------ Settings ------*/
 .container {
-    --color: #a5a5b0;
+    /* --color: #a5a5b0; */
     --size: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
     cursor: pointer;
     font-size: var(--size);
     user-select: none;
-    fill: var(--color);
+    /* color: var(--color); */
   }
 
   .container .microphone-slash {
-    position: absolute;
     animation: keyframes-fill .5s;
   }
 
   .container .microphone {
-    position: absolute;
     display: none;
     animation: keyframes-fill .5s;
   }
