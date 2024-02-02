@@ -1,71 +1,172 @@
-.landing-page {
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+#cat-one {
+  padding-right: .8rem;
 }
 
-.landing-page-description {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-}
 
-.landing-page-get-started {
-  width: fit-content;
-  border: none;
-  padding: 0.4rem 0.8rem 0.4rem;
-  border-radius: 7px;
-  /* box-shadow: 4px 4px 5px #3cebcb81; */
-  background-color: var(--primary);
-  color: var(--dark-text);
-  height: 50px;
-  font-size: 1.4rem;
-  font-weight: 500;
-  /* margin-top: 15px; */
-  transition: all 0.3s ease;
-}
-
-.landing-page-get-started:hover {
-  transform: scale(1.1); /* Increase size on hover */
+#cat-two{
+  padding-left: .8rem;
 }
 
 #cool-image {
     position: absolute;
     top: 0;
     right: 0;
-
-}
-
-.landing-page-cool-image {
-  position: relative;
-  color: white;
-}
-
-#hacker {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.landing-text-one {
-  font-size: 1.8rem;
-  font-weight: bold;
 }
 
 .accent {
   color: var(--primary);
 }
 
+.bouncy-cats-one {
+  animation: bounce 2s infinite; /* Play the animation infinitely */
+  animation-delay: 5s; /* Delay the animation for 5 seconds */
+}
+
+.bouncy-cats-two {
+  animation: bounce 2.3s infinite; /* Play the animation infinitely */
+  animation-delay: 5.2s; /* Delay the animation for 5 seconds */
+}
+
+.comic-one img {
+  opacity: 0; /* Initially hide the image */
+  animation: fadeIn 1.5s ease-in-out 1s forwards; /* Apply the animation */
+}
+
+.comic-two img {
+  opacity: 0; /* Initially hide the image */
+  animation: fadeIn 1.5s ease-in-out 2.5s forwards; /* Apply the animation */
+}
+
+.comic-three img {
+  opacity: 0; /* Initially hide the image */
+  animation: fadeIn 1.5s ease-in-out 4s forwards; /* Apply the animation */
+}
+
+.comic-two {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.landing-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.landing-page-description {
+  flex: 1; /* Take up remaining space */
+  max-width: 100%; /* Allow description to take up to 50% of parent */
+  text-align: center;
+  /* border: red solid 2px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5vw;
+
+}
+
+.landing-page-cool-image {
+  flex: 1; /* Take up remaining space */
+  max-width: 40%; /* Allow image to take up to 50% of parent */
+  height: auto;
+  display: flex;
+}
+
+.landing-page-get-started {
+  border: none;
+  padding: 0 1vw; /* Adjust padding using viewport width unit */
+  border-radius: .5rem;
+  background-color: var(--primary);
+  color: var(--dark-text);
+  font-size: 1.7vw; /* Adjust font size using viewport width unit */
+  font-weight: 500;
+  transition: transform 0.3s ease;
+}
+
+.landing-page-get-started:hover {
+  transform: scale(1.05);
+}
+
+.landing-text-one {
+  font-size: 2vw; /* Adjust font size using viewport width unit */
+
+}
+
 .landing-text-two {
-  font-size: 1.3rem;
+  font-size: 1.7vw; /* Adjust font size using viewport width unit */
+
 }
 
 .landing-text-three {
-  font-size: 1rem;
+  font-size: 1.6vw; /* Adjust font size using viewport width unit */
+}
+
+
+@media only screen and (max-width: 768px) {
+  .landing-page {
+    flex-direction: column; /* Stack content vertically on small screens */
+  }
+
+  .landing-page-description {
+    max-width: 100%; /* Allow both description and image to take full width on small screens */
+    margin-top: -10vw;;
+  }
+
+  .landing-page-cool-pic {
+    margin-right: 0;
+    object-fit: cover;
+
+  }
+
+  .landing-page-cool-image {
+    max-height: fit-content;
+    justify-content: center;
+    align-items: center;
+    max-width: 70%;
+  }
+
+  .landing-text-one {
+    font-size: 3vw; /* Adjust font size using viewport width unit */
+  
+  }
+  
+  .landing-text-two {
+    font-size: 2.5vw; /* Adjust font size using viewport width unit */
+  
+  }
+  
+  .landing-text-three {
+    font-size: 2.3vw; /* Adjust font size using viewport width unit */
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .landing-page-cool-image {
+    display: none;
+  }
+}
+
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0); /* Start and end position */
+  }
+  40% {
+    transform: translateY(-20px); /* Bounce up */
+  }
+  60% {
+    transform: translateY(-10px); /* Bounce down */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Start with opacity 0 */
+  }
+  to {
+    opacity: 1; /* End with opacity 1 */
+  }
 }

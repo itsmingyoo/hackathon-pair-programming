@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 6e600ec3d422
+Revision ID: a37b49b1873d
 Revises:
-Create Date: 2024-01-26 17:33:53.955136
+Create Date: 2024-02-02 12:54:40.287262
 
 """
 from alembic import op
@@ -11,8 +11,9 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = '6e600ec3d422'
+revision = 'a37b49b1873d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,6 +28,12 @@ def upgrade():
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('video_uid', sa.String(), nullable=True),
     sa.Column('screen_uid', sa.String(), nullable=True),
+    sa.Column('pic_url', sa.String(), nullable=True),
+    sa.Column('about', sa.String(), nullable=True),
+    sa.Column('link_github', sa.String(), nullable=True),
+    sa.Column('link_linkedin', sa.String(), nullable=True),
+    sa.Column('link_portfolio', sa.String(), nullable=True),
+    sa.Column('link_leetcode', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('screen_uid'),
@@ -70,13 +77,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['sender_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE chatrooms SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE direct_messages SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE following SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 

@@ -5,7 +5,8 @@ import random, time, functools, datetime, logging
 
 origins = []
 
-socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins=origins)
+# socketio = SocketIO(logger=True, engineio_logger=True, cors_allowed_origins=origins) # this is for error-handling, remove this so you dont get stacks of logs
+socketio = SocketIO(cors_allowed_origins=origins)
 
 socket_rooms = {}
 

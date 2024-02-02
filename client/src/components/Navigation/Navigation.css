@@ -1,85 +1,74 @@
-.profile-dropdown {
-    display: flex;
+.nav-container {
+  background-color: var(--background); /* Using custom color variable */
+  padding: .6rem 1.5rem; /* Using em units for padding */
+  max-width: 100%;
+  max-height: 10vh;
+}
+
+.nav-links-home {
+  display: flex;
+  justify-content: center;
+
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  max-width: 9.5vw; /* Using em units for max-width */
+}
+
+.nav-links-other {
+  display: flex;
+}
+
+.nav-links-login-and-signout {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 1rem;
+  font-size: 1.5vw; 
+}
+
+
+
+.nav-links-login-and-signout div {
+  color: var(--text); /* Using custom color variable */
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links-login-and-signout div::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: .1rem;
+  background-color: #20CC09; /* Color of sliding border */
+  transition: width 0.3s ease; /* Transition for width */
+}
+
+.nav-links-login-and-signout div:hover::after {
+  width: 100%; /* Slide in border from left to right on hover */
+}
+
+
+
+/* @media screen and (max-width: 48em) {
+  .nav-links {
     flex-direction: column;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .nav-links-home {
-    /* border: 2px solid green; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10vw;
-  }
-
-  .logo-for-nav {
-    width: 100%;
-    cursor: pointer;
-    /* border: 2px solid red; */
-
-    /* margin-left: 1rem; */
-  }
-
-  .nav-container {
-    width: 100%;
-    height: 10vh;
-    padding: 1rem;
-    /* border: 2px solid red; */
-    /* background-color: white; */
+    align-items: flex-start;
   }
 
   .nav-links-other {
-    /* border: 2px solid red; */
-    margin-left: auto;
-
+    margin-top: 1em; 
   }
 
-  .nav-links {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    /* border: 2px solid yellow; */
-
+  .nav-links-other div {
+    margin-right: 0;
+    margin-bottom: 0.5em; 
   }
-
-  .nav-links-login-and-signout {
-    display: flex;
-    justify-content: space-between;
-    /* padding-right: 35px; */
-    
-  }
-
-  .nav-links-login-and-signout > div > a {
-    color: var(--text);
-    position: relative;
-
-  }
-
-  .nav-links-login-and-signout {
-    gap: 1rem;
-  }
-
-  .nav-links a {
-    color: #000;
-    text-decoration: none;
-    font-size: 1.15rem;
-    font-weight: 500;
-  }
-
-  .nav-links-login-and-signout > div > a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: .1rem;
-    background-color: #20CC09; /* Color of sliding border */
-    transition: width 0.3s ease; /* Transition for width */
-}
-
-.nav-links-login-and-signout > div > a:hover::after {
-    width: 100%; /* Slide in border from left to right on hover */
-}
+} */

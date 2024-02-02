@@ -1,4 +1,23 @@
+#ide-container {
+    display: flex;
+    flex-direction: column;
+}
+
 #user-results {
     display: flex;
     gap: 10px;
+}
+
+#python-button, #javascript-button, #ide-submit-button {
+    color: black;
+}
+
+#ide-submit-button {
+    background-color: green;
+    height: 3.5rem;
+    font-size: 1.5rem;
+}
+
+.cm-theme {
+    height: auto !important;
 }

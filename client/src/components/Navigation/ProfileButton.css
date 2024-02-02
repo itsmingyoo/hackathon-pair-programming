@@ -1,34 +1,82 @@
-/* Dropdown Button */
 .profile-dropdown {
-    position: relative;
-    top: 10px;
-    right: 20px;
+  position: relative;
 }
 
 #options-button {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    border: none;
-    background: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Dropdown Content */
+#options-icon {
+    object-fit: cover;
+}
+
 .dropdown-container {
-    position: relative;
-    top: 70px;
-    right: 20px;
-    border: 1px solid black;
-    padding: 5px;
-    background-color: #58A4B0;
-    box-shadow: 3px 3px 3px black;
+  position: relative; /* Ensure proper positioning for arrow */
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  background-color: #1b1b1b;
+  border-radius: 0.5rem; /* Add rounded corners for better visual appearance */
+  width: 7vw; /* Allow the width to adjust based on content */
+  max-width: 8vw; /* Set a maximum width to prevent it from becoming too wide */
+}
+
+.dropdown-container::before {
+  content: "";
+  position: absolute;
+  top: -8px; /* Adjust as needed */
+  right: 18%; /* Adjust as needed */
+  border-width: 0 8px 8px; /* Adjust size of the arrow */
+  border-style: solid;
+  border-color: transparent transparent #1b1b1b; /* Adjust color */
 }
 
 .dropdown-list {
-    text-align: center;
+  list-style-type: none;
+}
+.user-profile-dropdown-info {
+  border-bottom: rgba(255, 255, 255, 0.1) 0.01rem solid;
+}
+.profile-setings-button,
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block; /* Ensure buttons fill entire width of parent */
+  padding: 0.5rem 1rem; /* Add padding for better clickable area */
+  width: 100%; /* Ensure buttons fill entire width of parent */
+  text-align: left; /* Align text to the left for better readability */
+  color: #fff; /* Ensure sufficient contrast against the background */
+  font-size: 1vw; /* Set font size relative to viewport width */
 }
 
-.dropdown-list > div {
-    width: 10rem;
-    margin: 4px 0;
+.profile-setings-button:hover,
+.logout-button:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Add hover effect for better interactivity */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .dropdown-container {
+    max-width: 150px; /* Adjust maximum width for smaller screens */
+  }
+
+  .profile-setings-button,
+  .logout-button {
+    font-size: 3vw; /* Adjust font size for smaller screens */
+  }
+}
+
+.hidden {
+    display: none;
 }

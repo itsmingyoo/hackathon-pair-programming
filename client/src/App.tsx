@@ -8,8 +8,9 @@ import { useAppDispatch, useAppSelector } from './hooks';
 import LandingPage from './components/LandingPage';
 import VideoCall from './components/VideoCalling';
 import Footer from './components/Footer';
-import HomePage from './components/HomePage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+// import HomePage from './components/HomePage';
+import UserPage from './components/UserPage/index';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -17,18 +18,20 @@ const App: React.FC = () => {
     const currentUser = useAppSelector((state) => state.session.user);
 
     useEffect(() => {
-        dispatch(authenticate())
-            .then((result) => {
-                if (authenticate.fulfilled.match(result)) {
-                    setIsLoaded(true);
-                } else {
-                    console.log('Authentication result doesnt match', result);
-                }
-            })
-            .catch((error: Error) => {
-                console.error({ Error: error, Message: 'Error authenticating!' });
-            });
-    }, [dispatch]);
+        if (!currentUser) {
+            dispatch(authenticate())
+                .then((result) => {
+                    if (authenticate.fulfilled.match(result)) {
+                        setIsLoaded(true);
+                    } else {
+                        console.log('Authentication result doesnt match', result);
+                    }
+                })
+                .catch((error: Error) => {
+                    console.error({ Error: error, Message: 'Error authenticating!' });
+                });
+        }
+    }, [dispatch, currentUser]);
 
     const loggedIn = currentUser?.errors ? false : true;
 
@@ -40,7 +43,6 @@ const App: React.FC = () => {
                     <Navigation isLoaded={isLoaded} />
                     <Routes>
                         <Route path="" element={<LandingPage />} />
-                        <Route path="/home" element={<HomePage />} />
                         <Route path="/login" element={<LoginFormPage />} />
                         <Route path="/signup" element={<SignupFormPage />} />
                         <Route
@@ -51,8 +53,8 @@ const App: React.FC = () => {
                                 </ProtectedRoute>
                             }
                         />
+                        <Route path="/users/:userId/" element={<UserPage />} />
                     </Routes>
-                    <Footer />
                 </Router>
             )}
         </>

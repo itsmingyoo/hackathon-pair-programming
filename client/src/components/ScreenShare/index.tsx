@@ -1,52 +1,59 @@
+import { useState } from "react";
 import ShareScreenComponent from "../../AgoraManager/screenShare";
 import config from "../../AgoraManager/config";
 import { fetchRTCToken } from "../../utility/fetchRTCToken";
-import { useEffect, useState } from "react";
-import { RemoteVideoTrack, useRemoteUsers, useRemoteVideoTracks } from "agora-rtc-react";
+import { useEffect } from "react";
+import {
+  RemoteVideoTrack,
+  useRemoteUsers,
+  useRemoteVideoTracks,
+} from "agora-rtc-react";
 import { useAppSelector } from "../../hooks";
+import RemoteAndLocalVolumeComponent from "../../AgoraManager/volumeControl";
+// import IDE from '../CodeMirror';
 
-function ScreenShare(props: { channelName: string }) {
-  const [screenSharing, setScreenSharing] = useState<boolean>(false);
+function ScreenShare(props: {
+  channelName: string;
+}) {
   const { channelName } = props;
+  const [screenSharing, setScreenSharing] = useState<boolean>(false);
   const remoteUsers = useRemoteUsers();
-  useRemoteVideoTracks(remoteUsers)
+  useRemoteVideoTracks(remoteUsers);
   const pairInfo = useAppSelector((state) => state.pairedUser.user);
-  console.log(remoteUsers)
+  console.log(remoteUsers);
 
-  const toggleScreenShare = () => {
-    setScreenSharing(!screenSharing);
-  };
-    useEffect(() => {
-      const fetchTokenFunction = async () => {
-        if (config.serverUrl !== "" && channelName !== "") {
-          try {
-            const token = (await fetchRTCToken(channelName)) as string;
-            config.rtcToken = token;
-            config.channelName = channelName;
-          } catch (error) {
-            console.error(error);
-          }
-        } else {
-          console.log(
-            "Please make sure you specified the token server URL in the configuration file"
-          );
+  useEffect(() => {
+    const fetchTokenFunction = async () => {
+      if (config.serverUrl !== "" && channelName !== "") {
+        try {
+          const token = (await fetchRTCToken(channelName)) as string;
+          config.rtcToken = token;
+          config.channelName = channelName;
+        } catch (error) {
+          console.error(error);
         }
-      };
+      } else {
+        console.log(
+          "Please make sure you specified the token server URL in the configuration file"
+        );
+      }
+    };
 
-      fetchTokenFunction();
+    fetchTokenFunction();
 
-      console.log(
-        "😎screenSharing😎: ",
-        screenSharing ? screenSharing : screenSharing
-      );
-    }, [channelName, screenSharing]);
+    console.log(
+      "😎screenSharing😎: ",
+      screenSharing ? screenSharing : screenSharing
+    );
+  }, [channelName, screenSharing]);
 
-  // Conditional rendering based on screen sharing state
+  // If User starts screen share with the button, it will trigger an event asking them what screen they will share and render it
   const renderContent = () => {
     if (screenSharing === true) {
       return (
         <>
-          <h1>Screen Sharing</h1>
+          {/* <h1>Screen Sharing</h1> */}
+
           <ShareScreenComponent setScreenSharing={setScreenSharing} />
         </>
       );
@@ -59,28 +66,31 @@ function ScreenShare(props: { channelName: string }) {
 
   return (
     <>
-      <div>
-        <button onClick={toggleScreenShare}>
-          {screenSharing ? "Stop Sharing" : "Start Sharing"}
-        </button>
-        {renderContent()}
-        {remoteUsers.map((remoteUser) => {
-          if (remoteUser.uid === pairInfo?.screenUid) {
-            
-            return (
-              <div
-                className="vid"
-                style={{ height: '1920px', width: '1080px', objectFit: 'contain' }}
+      {renderContent()}
+      {remoteUsers.map((remoteUser) => {
+        if (remoteUser.uid === pairInfo?.screenUid) {
+          return (
+            <div
+              className="vid"
+              style={{ height: 300, width: 350 }}
+              key={remoteUser.uid}
+            >
+              <RemoteVideoTrack
+                track={remoteUser.videoTrack}
                 key={remoteUser.uid}
-              >
-                <RemoteVideoTrack style={{ width: '1920px', height: '1080px' }} track={remoteUser.videoTrack} play/>
-              </div>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </div>
+                play
+                // style={{ width: "192", height: "108" }}
+              />
+            </div>
+          );
+        } else {
+          return null;
+        }
+      })}
+      <RemoteAndLocalVolumeComponent
+        screenSharing={screenSharing}
+        setScreenSharing={setScreenSharing}
+      />
     </>
   );
 }

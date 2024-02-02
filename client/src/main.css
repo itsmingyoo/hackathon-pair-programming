@@ -2,62 +2,58 @@
 /* box-shadow: 4px 3px 3px black; */
 
 /** COLOR SCHEME
---platinum: #D8DBE2;
---DevPair-Green: #3cebca;
---moonstone: #58A4B0;
---charcoal: #373F51;
---eerie-black: #1b1b1b;
+  --text: #E5F2E3;
+  --background: #080c0b;
+  --primary:#20CC09;
+  --dark-text: #0a0f0e;
+  --primary-opacity: rgb(32, 204, 9, .3);
+  --corner-background:hsl(113, 78%, 12%)
 */
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
-  color: var(--text)
-}
-
 :root {
-  --text: #f3f7f6;
+  --text: #e5f2e3;
   --background: #080c0b;
-  --primary:#20cc09;
+  --primary: #20cc09;
   --dark-text: #0a0f0e;
-  --primary-opacity: rgb(0, 219, 183, .3);
+  --primary-opacity: rgb(32, 204, 9, 0.3);
+  --corner-background: hsl(113, 78%, 12%);
 }
 
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
 
-body {
-  background-color: var(--background);
-  background: linear-gradient(to top left,hsl(162,63%,13%) 0%, #080c0b 30%);
-  
+* {
+  box-sizing: border-box;
   margin: 0;
-  /* &::before,
-  &::after {
-    opacity: 20%;
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    --gradone: radial-gradient(at 60% 50%, #373f51, transparent 80%);
-    --mask: var(--gradone);
-    -webkit-mask: var(--mask);
-    -webkit-mask-composite: intersect;
-    content: "";
-  }
-  &::before {
-    background: var(--background);
-    filter: url(#f);
-  }
+  padding: 0;
+  font-family: "Poppins", Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text);
+}
 
-  &::after {
-    background: linear-gradient(90deg, #00dbb7, #58a480 70%);
-  } */
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  background: linear-gradient(
+    to top left,
+    var(--corner-background) 0%,
+    var(--background) 30%
+  );
+  background-attachment: fixed;
+  margin: 0;
+  width: 100dvw;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-height: 90dvh;;
 }
 
 button {
@@ -66,4 +62,17 @@ button {
 
 a {
   text-decoration: none;
+}
+
+
+li {
+  list-style-type: none; /* Remove default list style */
+}
+
+.accent {
+  color: var(--primary);
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

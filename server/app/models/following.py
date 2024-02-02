@@ -13,15 +13,22 @@ class Follow(db.Model):
     followed_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
     follower_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
 
-    followed = db.relationship('User', foreign_keys=[followed_id])
-    follower = db.relationship('User', foreign_keys=[follower_id])
+    followed = db.relationship('User', foreign_keys=[followed_id], lazy='joined')
+    follower = db.relationship('User', foreign_keys=[follower_id], lazy='joined')
 
-    def to_dict(self):
+
+    def to_dict(self, include_user=True):
         data = {
             'id': self.id,
             'followed_id': self.followed_id,
             'follower_id': self.follower_id
         }
+
+        if include_user:
+            if self.followed:
+                data['followed'] = {'id': self.followed.id, 'username': self.followed.username, 'picUrl': self.followed.pic_url}
+            if self.follower:
+                data['follower'] = {'id': self.follower.id, 'username': self.follower.username, 'picUrl': self.follower.pic_url}
 
         return data
 

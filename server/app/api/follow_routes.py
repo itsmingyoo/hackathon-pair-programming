@@ -1,6 +1,7 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 from ..models import User, Follow, db
+from sqlalchemy.orm import joinedload
 
 follow_routes = Blueprint('follows', __name__)
 
@@ -8,13 +9,19 @@ follow_routes = Blueprint('follows', __name__)
 def get_user_followers(id):
     user = User.query.get(id)
 
-    follows = Follow.query.filter(Follow.follower_id == user.id)
-    followers = Follow.query.filter(Follow.followed_id == user.id)
+    # follows = Follow.query.filter(Follow.follower_id == user.id)
+    # followers = Follow.query.filter(Follow.followed_id == user.id)
 
-    return {
+    # Eagerly load the 'followed' and 'follower' user relationships
+    follows = Follow.query.options(joinedload(Follow.followed), joinedload(Follow.follower))\
+                   .filter(Follow.follower_id == user.id).all()
+    followers = Follow.query.options(joinedload(Follow.followed), joinedload(Follow.follower))\
+                        .filter(Follow.followed_id == user.id).all()
+
+    return jsonify({
         'follows': [follow.to_dict() for follow in follows],
         'followers': [follower.to_dict() for follower in followers]
-    }
+    })
 
 
 @follow_routes.route('/user/<int:id>', methods=['POST'])
@@ -37,6 +44,8 @@ def follow_user(id):
 @login_required
 def unfollow_user(id):
     follow = Follow.query.get(id)
+    print('🙄🙄follow🙄🙄',follow.to_dict())
+    print('🙄🙄current🙄🙄',current_user.to_dict())
     if follow.follower_id == current_user.id:
         db.session.delete(follow)
         db.session.commit()
