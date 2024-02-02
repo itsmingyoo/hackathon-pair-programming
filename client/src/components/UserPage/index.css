@@ -1,3 +1,67 @@
+/** BUTTONS  */
+#dm-button {
+    color: black;
+    background-color: var(--primary);
+    height: 2rem;
+    width: 10rem;
+}
+
+#db-button {
+    color: black;
+    background-color: var(--primary);
+    height: 4.5rem;
+    width: 20rem;
+    font-size: 1.3rem;
+}
+
+/** SESSION USER CSS */
+#user-profile-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#user-profile-container {
+    display: flex;
+    width: 100vw;
+}
+
+#user-profile-header {
+    font-size: 3.5rem;
+}
+
+#user-profile-header > span {
+    padding-left: 1.8rem;
+}
+
+#user-profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 20vw;
+    height: 100vh;
+    border-right: 1px solid white;
+    padding: 1.3rem;
+}
+
+#user-profile-content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: 100vh;
+    font-size: 5rem;
+}
+
+.vr-line {
+    width: 2px;
+    height: 100vh;
+    background-color: white;
+    margin-left: 12rem;
+}
+
+/** TARGET USER CSS */
 #target-profile-main {
     display: flex;
     flex: 1;
@@ -14,13 +78,6 @@
     gap: 10px;
     padding: 0 1rem;
     margin: 0.5rem 0;
-}
-
-#dm-button {
-    color: black;
-    background-color: var(--primary);
-    height: 2rem;
-    width: 10rem;
 }
 
 #user-profile-content {
@@ -71,6 +128,7 @@
     background-color: white;
     width: 100%;
 }
+
 
 #target-user-socials > div > * {
     color: var(--text);

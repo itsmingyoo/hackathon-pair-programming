@@ -10,9 +10,10 @@ export interface User {
     // Add other user fields here
     picUrl: string;
     about: string;
-    link1: string;
-    link2: string;
-    link3: string;
+    github: string;
+    linkedin: string;
+    portfolio: string;
+    leetcode: string;
 
     following: FollowingObject[];
     followers: FollowingObject[];

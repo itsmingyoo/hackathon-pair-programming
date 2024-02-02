@@ -21,9 +21,10 @@ class User(db.Model, UserMixin):
 
     about = db.Column(db.String, nullable=True)
 
-    link_1 = db.Column(db.String, nullable=True)
-    link_2 = db.Column(db.String, nullable=True)
-    link_3 = db.Column(db.String, nullable=True)
+    link_github = db.Column(db.String, nullable=True)
+    link_linkedin = db.Column(db.String, nullable=True)
+    link_portfolio = db.Column(db.String, nullable=True)
+    link_leetcode = db.Column(db.String, nullable=True)
 
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
 
@@ -61,12 +62,12 @@ class User(db.Model, UserMixin):
             'screenUid': self.screen_uid,
             'picUrl': self.pic_url,
             'about': self.about,
-            'link1': self.link_1,
-            'link2': self.link_2,
-            'link3': self.link_3,
-            # 'following': [follow.to_dict() for follow in self.following],
-            # 'followers': [follow.to_dict() for follow in self.followers],
+            'github': self.link_github,
+            'linkedin': self.link_linkedin,
+            'portfolio': self.link_portfolio,
+            'leetcode': self.link_leetcode,
         }
+
         if include_relationships:
             data['following'] = [follow.to_dict(include_user=include_user) for follow in self.following]
             data['followers'] = [follow.to_dict(include_user=include_user) for follow in self.followers]
