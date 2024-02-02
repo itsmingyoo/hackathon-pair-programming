@@ -7,7 +7,6 @@ import { authenticate } from './store/session';
 import { useAppDispatch, useAppSelector } from './hooks';
 import LandingPage from './components/LandingPage';
 import VideoCall from './components/VideoCalling';
-import Footer from './components/Footer';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 // import HomePage from './components/HomePage';
 import UserPage from './components/UserPage/index';
