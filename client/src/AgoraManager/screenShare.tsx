@@ -63,7 +63,7 @@ const ShareScreenComponent: React.FC<{
 
           style={{
             width: "158px",
-            height: "81px",
+            height: "108",
             objectFit: "contain",
           }}
           track={screenTrack}

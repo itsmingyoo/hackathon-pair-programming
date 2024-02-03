@@ -86,6 +86,8 @@ function ScreenShare(props: { channelName: string }) {
                 <img src={shareScreenPlaceholder} alt="Cats waiting for a user to share their screen"  className="share-screen-cats"/>
             </div>
         )
+    } else {
+      return null;
     }
   };
 

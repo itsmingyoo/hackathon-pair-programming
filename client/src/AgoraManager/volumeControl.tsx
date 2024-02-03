@@ -36,18 +36,22 @@ function RemoteAndLocalVolumeComponent(props: {
 
   return (
     <div className="controls">
-      <div id="volume-slider" className="PB-range-slider-div">
-        <label htmlFor="remote-audio-volume">Adjust {pairInfo?.username}'s Volume</label>
-        <input
-          type="range"
-          id="remote-audio-volume"
-          className="PB-range-slider"
-          min="0"
-          max="100"
-          step="1"
-          onChange={handleRemoteAudioVolumeChange}
-        />
-      </div>
+      {pairInfo && (
+        <div id="volume-slider" className="PB-range-slider-div">
+          <label htmlFor="remote-audio-volume">
+            Adjust {pairInfo?.username}'s Volume
+          </label>
+          <input
+            type="range"
+            id="remote-audio-volume"
+            className="PB-range-slider"
+            min="0"
+            max="100"
+            step="1"
+            onChange={handleRemoteAudioVolumeChange}
+          />
+        </div>
+      )}
       <label className="container" htmlFor="toggle-mute">
         <input
           onClick={handleLocalAudioToggle}
@@ -85,8 +89,8 @@ function RemoteAndLocalVolumeComponent(props: {
 
       <button
         onClick={() => setScreenSharing(!screenSharing)}
-        id={screenSharing? "stop-screen-share" :"share-screen-button"}
-        aria-label={screenSharing ? "Stop Screen Share": "Share Your Screen"}
+        id={screenSharing ? "stop-screen-share" : "share-screen-button"}
+        aria-label={screenSharing ? "Stop Screen Share" : "Share Your Screen"}
       >
         {screenSharing ? (
           <svg

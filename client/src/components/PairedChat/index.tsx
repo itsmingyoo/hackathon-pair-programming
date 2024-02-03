@@ -7,7 +7,6 @@ import {
 } from "../../store/pairedChatLog";
 import { PairedChatMessage } from "../../interfaces/socket";
 import "./index.css";
-import user from "../../assets/icons/user.png";
 
 // Define the props interface for the PairedChat component
 interface PairedChatProps {
@@ -82,13 +81,15 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
             return (
               <div key={index} className="chat-message">
                 <div className="message-user-img">
-                  <img alt="" className="dm-profile-img" src={user}></img>
+                  <img alt="" className="message-profile-pic" src={message.from.picUrl}></img>
                 </div>
+                <div className="message-details">
                 <div className="message-user-info">
                   {message.from.username}
-                  <p className="message-time-updated">{message.created_at}</p>
+                  <p className="message-time-updated">{new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
                 <p className="message-text">{message.message}</p>
+                </div>
               </div>
             );
           })}
