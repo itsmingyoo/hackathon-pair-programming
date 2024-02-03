@@ -18,6 +18,26 @@ export const getUser = createAsyncThunk<User | null, number, { rejectValue: {} |
     }
 );
 
+export const editUser = createAsyncThunk<User | null, User, { rejectValue: {} | string }>(
+    'user/editUser',
+    async (user, {rejectWithValue}) => {
+        try {
+            const res = await fetch(`/api/users/edit/${user?.id}`, {
+                method: 'PUT',
+                body: JSON.stringify(user)
+            });
+            if (res.ok) {
+                const data = await res.json();
+                return data;
+            } else {
+                return "Edit user response not ok"
+            }
+        } catch (error) {
+            return rejectWithValue('User not found');
+        }
+    }
+);
+
 const initialState: {targetUser: User | null} = {targetUser: null}
 
 const userSlice = createSlice({
