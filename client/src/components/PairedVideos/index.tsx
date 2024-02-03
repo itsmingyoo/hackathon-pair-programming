@@ -90,10 +90,11 @@ function PairedVideos(props: {
           </div>
         ) : (
           <div className="videos" style={{ height: 300, width: 300 }}>
+            <p className="video-username">{user.username}</p>
             <LocalVideoTrack track={localCameraTrack} play={true} />
           </div>
         )}
-        {remoteUsers.length > 0 ? (
+        {remoteUsers.length > 0  && remoteUsers.find(user => user.uid === pairInfo?.videoUid) ? (
           remoteUsers.map((remoteUser) => {
             if (remoteUser.uid === pairInfo?.videoUid) {
               return (
@@ -102,15 +103,16 @@ function PairedVideos(props: {
                   style={{ height: 300, width: 300 }}
                   key={remoteUser.uid}
                 >
+                  <p className="video-username">{pairInfo.username}</p>
                   <RemoteUser
                     user={remoteUser}
                     playVideo={true}
                     playAudio={true}
                   />
+                  <button id="follow-user">Follow</button>
                 </div>
               );
             }
-            return null;
           })
         ) : (
           <>
@@ -122,7 +124,7 @@ function PairedVideos(props: {
                 src={userWaiting}
                 alt="Cat informing we are waiting for a user to join"
               />
-                <p>Waiting for user...</p>
+              <p>Waiting for user...</p>
             </div>
           </>
         )}

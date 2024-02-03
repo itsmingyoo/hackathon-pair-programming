@@ -9,9 +9,7 @@
 }
 
 /** BUTTON STYLING */
-#button-wrapper {
-  text-align: center;
-}
+
 
 #join-channel-button-container {
   display: flex;
@@ -81,10 +79,8 @@
 }
 
 #share-screen-placeholder {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  flex: 1;
+  text-align: center;
   font-size: 2vw;
 }
 
@@ -98,17 +94,25 @@
   background-color: transparent !important;
 }
 
-#share-screen-button {
-  width: 3rem;
-  height: 3rem;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2b2d31;
-  border-radius: 100%;
-  color: var(--text); /* Set text color */
+.share-screen-cats {
+  object-fit: contain;
+  max-width: 90%;
+  filter: brightness(70%);
+  border-radius: 1rem;
 }
+
+.screen-share > div {
+  height: unset !important;
+}
+
+.screen-share {
+  border-radius: .5rem;
+  overflow: hidden;
+  padding: .2rem;
+}
+
+
+
 
 .agora_video_player {
   position: unset !important;
@@ -176,5 +180,4 @@
   max-width: 100%;
   flex: 4;
   position: relative;
-  /* border: 1px solid rgb(75, 93, 172); */
 }

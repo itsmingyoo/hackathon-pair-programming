@@ -59,8 +59,9 @@ const ShareScreenComponent: React.FC<{
       {isRemoteScreen ? (
         <LocalVideoTrack
           play
+          className="screen-share"
+
           style={{
-            flex: "1",
             width: "158px",
             height: "81px",
             objectFit: "contain",
@@ -70,8 +71,8 @@ const ShareScreenComponent: React.FC<{
       ) : (
         <LocalVideoTrack
           play
+          className="screen-share"
           style={{
-            flex: "1",
             width: "100%",
             height: "108",
             objectFit: "contain",

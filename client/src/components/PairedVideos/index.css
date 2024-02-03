@@ -1,5 +1,5 @@
 .videos {
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,6 +7,7 @@
   max-height: 50%;
   border: solid var(--primary-opacity) 0.1rem;
   overflow: hidden;
+  position: relative;
 
 }
 
@@ -23,4 +24,33 @@
   display: flex;
   flex-direction: column;
   font-size: 1.5vw;
+}
+
+#follow-user {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--primary-opacity);
+    max-width: fit-content;
+    padding: .2rem;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: .2rem;
+    font: 1vw;
+    font-weight: 500;
+
+}
+
+#follow-user:hover {
+    background-color: var(--primary);
+    color: var(--dark-text)
+}
+
+.video-username {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    padding-left: .2rem;
 }

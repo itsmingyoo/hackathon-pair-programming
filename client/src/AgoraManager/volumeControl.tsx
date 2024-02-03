@@ -14,7 +14,6 @@ function RemoteAndLocalVolumeComponent(props: {
   const [checked, setChecked] = useState<boolean>(true);
   const pairInfo = useAppSelector((state) => state.pairedUser.user);
 
-
   const handleLocalAudioToggle = () => {
     const newVolume = checked === false ? 100 : 0;
     console.log("newvolume", newVolume);
@@ -25,8 +24,10 @@ function RemoteAndLocalVolumeComponent(props: {
   const handleRemoteAudioVolumeChange = (
     evt: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬", remoteUsers)
-    const remoteUser = remoteUsers.find(rUser => rUser.uid === pairInfo?.videoUid);
+    console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬", remoteUsers);
+    const remoteUser = remoteUsers.find(
+      (rUser) => rUser.uid === pairInfo?.videoUid
+    );
     if (remoteUser && remoteUser.audioTrack) {
       const volume = parseInt(evt.target.value, 10);
       remoteUser.audioTrack.setVolume(volume);
@@ -35,16 +36,31 @@ function RemoteAndLocalVolumeComponent(props: {
 
   return (
     <div className="controls">
-      <label className="container">
+      <div id="volume-slider" className="PB-range-slider-div">
+        <label htmlFor="remote-audio-volume">Adjust User's Volume</label>
+        <input
+          type="range"
+          id="remote-audio-volume"
+          className="PB-range-slider"
+          min="0"
+          max="100"
+          step="1"
+          onChange={handleRemoteAudioVolumeChange}
+        />
+      </div>
+      <label className="container" htmlFor="toggle-mute">
         <input
           onClick={handleLocalAudioToggle}
           checked={checked}
           type="checkbox"
           onChange={(e) => setChecked(e.target.checked)} // Add onChange handler
+          id="toggle-mute"
+          aria-label="Toggle Audio Mute"
         />
         <svg
           viewBox="0 0 640 512"
-          height="1em"
+          height="24"
+          width="24"
           xmlns="http://www.w3.org/2000/svg"
           className="microphone-slash"
         >
@@ -55,7 +71,8 @@ function RemoteAndLocalVolumeComponent(props: {
         </svg>
         <svg
           viewBox="0 0 384 512"
-          height="1em"
+          height="24"
+          width="24"
           xmlns="http://www.w3.org/2000/svg"
           className="microphone"
         >
@@ -65,21 +82,11 @@ function RemoteAndLocalVolumeComponent(props: {
           ></path>
         </svg>
       </label>
-      <div id="volume-slider" className="PB-range-slider-div">
-        <label htmlFor="remote-audio-volume">Adjust User's Volume</label>
-        <input
-          type="range"
-          id="remote-audio-volume myRange"
-          className="PB-range-slider"
-          min="0"
-          max="100"
-          step="1"
-          onChange={handleRemoteAudioVolumeChange}
-        />
-      </div>
+
       <button
         onClick={() => setScreenSharing(!screenSharing)}
-        id="share-screen-button"
+        id={screenSharing? "stop-screen-share" :"share-screen-button"}
+        aria-label={screenSharing ? "Stop Screen Share": "Share Your Screen"}
       >
         {screenSharing ? (
           <svg
@@ -89,7 +96,7 @@ function RemoteAndLocalVolumeComponent(props: {
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
-            fill="none"
+            fill="red"
             viewBox="0 0 24 24"
           >
             <path
@@ -131,11 +138,25 @@ function RemoteAndLocalVolumeComponent(props: {
           </svg>
         )}
       </button>
-      <div id="button-wrapper">
-        <button onClick={agoraContext.leaveRoomHandler} style={{ backgroundColor: "red" }}>
-          Leave
-        </button>
-      </div>
+      <button
+        onClick={agoraContext.leaveRoomHandler}
+        style={{ backgroundColor: "red" }}
+        id="leave-room"
+        aria-label="Leave the room"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="var(--text)"
+            d="M8 13.4782v-.6165s0-1.4654 4-1.4654 4 1.4654 4 1.4654v.3883c0 .9564.7227 1.7692 1.7004 1.9125l2 .2931C20.9105 15.6329 22 14.7267 22 13.5429v-2.1246c0-.587-.1838-1.1641-.6297-1.56229C20.2296 8.83732 17.4208 7 12 7c-5.74859 0-8.55973 2.58269-9.55917 3.7889C2.1247 11.1704 2 11.6525 2 12.1414v1.9229c0 1.298 1.29561 2.2277 2.57997 1.8513l2-.5861C7.42329 15.0823 8 14.3305 8 13.4782Z"
+          />
+        </svg>
+      </button>
       {/* <p className="PB-range-slidervalue">{userVolume}</p> */}
     </div>
   );

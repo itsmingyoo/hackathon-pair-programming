@@ -82,8 +82,8 @@ function ScreenShare(props: { channelName: string }) {
     } else if (!screenSharing && !isRemoteScreen) {
         return (
             <div id="share-screen-placeholder">
-                <img src={shareScreenPlaceholder} alt="Cats waiting for a user to share their screen" />
                 <p>Share your screen and start coding!</p>
+                <img src={shareScreenPlaceholder} alt="Cats waiting for a user to share their screen"  className="share-screen-cats"/>
             </div>
         )
     }
@@ -96,8 +96,8 @@ function ScreenShare(props: { channelName: string }) {
           return (
             <RemoteVideoTrack
               track={remoteUser.videoTrack}
+              className="screen-share"
               style={{
-                flex: "4",
                 width: "100%",
                 height: "108",
                 objectFit: "contain",
