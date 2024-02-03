@@ -103,29 +103,26 @@ const VideoCall: React.FC = () => {
                                     {loading ? (
                                         <div className="spinner"></div>
                                     ) : (
-                                        <p className="join-channel-button-text">Join a call now!</p>
+                                        <p className="join-channel-button-text">Pair Up!</p>
                                     )}
                                 </button>
                             </div>
                         </div>
                     </div>
+                    
                 )}
 
                 {joined && (
                     <>
                         <AgoraRTCProvider client={agoraEngine}>
                             <div className="video-wrapper">
-                                <PairedVideos channelName={config.channelName} />
+                                <PairedVideos channelName={config.channelName} leaveRoomHandler={leaveRoomHandler}/>
                             </div>
                             <div id="paired-chat-container">
                                 <PairedChat channelName={config.channelName} />
                             </div>
                         </AgoraRTCProvider>
-                        <div id="button-wrapper">
-                            <button onClick={leaveRoomHandler} style={{ backgroundColor: 'red' }}>
-                                Leave
-                            </button>
-                        </div>
+
                     </>
                 )}
             </main>
