@@ -1,4 +1,5 @@
 export interface UserDict {
+    picUrl: string | undefined;
     id: string;
     username: string;
     email: string;

@@ -98,7 +98,7 @@ const VideoCall: React.FC = () => {
       {joined ? (
         <main id="video-main-wrapper">
           <AgoraRTCProvider client={agoraEngine}>
-            <div className="video-wrapper">
+            <div className="video-wrapper"> 
               <PairedVideos
                 channelName={config.channelName}
                 leaveRoomHandler={leaveRoomHandler}
