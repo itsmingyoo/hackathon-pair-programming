@@ -1,6 +1,13 @@
+#target-user-socials-container {
+  width: 100%;
+  padding: 2rem;
+}
+
 .target-user-socials {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 0.5em;
   }
 
@@ -77,7 +84,7 @@
     transition: .2s ease-in-out;
   }
 
-  .discord {
+  .leetcode {
     margin-top: -.9em;
     margin-left: -1.2em;
     fill: #8c9eff;
@@ -89,7 +96,7 @@
     background-color: #0288D1;
   }
 
-  .card1:hover .linkedin {
+  .card1:hover .linkedin-2 {
     fill: white;
   }
 
@@ -116,9 +123,10 @@
   .card4:hover {
     cursor: pointer;
     scale: 1.1;
-    background-color: #8c9eff;
+    background-color: #E7A41F;
   }
 
-  .card4:hover .discord {
+  .card4:hover .leetcode {
     fill: white;
+    stroke: black;
   }
