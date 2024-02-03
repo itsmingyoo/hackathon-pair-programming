@@ -90,7 +90,7 @@ function PairedVideos(props: {
           </div>
         ) : (
           <div className="videos" style={{ height: 300, width: 300 }}>
-            <p className="video-username">{user.username}</p>
+            <p className="video-username">{user?.username}</p>
             <LocalVideoTrack track={localCameraTrack} play={true} />
           </div>
         )}

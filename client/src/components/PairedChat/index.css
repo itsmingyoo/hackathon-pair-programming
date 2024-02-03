@@ -3,3 +3,39 @@
   width: 100%;
   text-align: center;
 }
+
+.message-input {
+  width: 100%;
+  color: #d4d4d4;
+  color: var(--input-text-messages);
+  background-color: transparent;
+  border: none;
+  resize: none;
+  padding: .2rem 1.6rem .2rem .2rem;;
+}
+
+.message-input-form {
+  position: relative;
+  width: 100%;
+  display: flex;
+  border: solid var(--primary-opacity) .01rem;
+  background-color: #2b2d31;
+  border-radius: .2rem;
+  height: 100px;
+}
+
+
+#send-message {
+  border: none;
+  background-color: transparent;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+
+}
+

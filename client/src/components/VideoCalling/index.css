@@ -125,7 +125,6 @@
   display: flex;
   flex-direction: column-reverse;
   color: var(--text); /* Set text color */
-  background-color: var(--background); /* Set background color */
   gap: 0.8rem;
 }
 
@@ -133,9 +132,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid white;
   flex-direction: column;
   flex: 1;
+  padding-right: .3rem;
+  padding-bottom: .3rem;
+  gap: .2rem;
+
 }
 
 .chat-message {

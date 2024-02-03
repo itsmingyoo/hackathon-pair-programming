@@ -37,7 +37,7 @@ function RemoteAndLocalVolumeComponent(props: {
   return (
     <div className="controls">
       <div id="volume-slider" className="PB-range-slider-div">
-        <label htmlFor="remote-audio-volume">Adjust User's Volume</label>
+        <label htmlFor="remote-audio-volume">Adjust {pairInfo?.username}'s Volume</label>
         <input
           type="range"
           id="remote-audio-volume"
