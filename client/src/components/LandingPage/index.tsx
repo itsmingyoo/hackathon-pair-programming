@@ -84,7 +84,7 @@ function LandingPage() {
           <>
             <div className="landing-text-one">
               <span className="accent">Connect</span> and collaborate with
-              developers worldwide.
+              developers worldwide
             </div>
             <div className="landing-text-two">
               <span className="accent">Grind</span> DS&A questions to enhance
