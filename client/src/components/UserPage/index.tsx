@@ -23,6 +23,7 @@ function UserPage() {
     const following = useAppSelector((state: RootState) => state.userFollowing);
     console.log("User's page: ", targetUser);
     console.log('Session User', sessionUser);
+    console.log('following', following);
 
     useEffect(() => {
         async function fetchData() {
@@ -150,7 +151,7 @@ function UserPage() {
                                                             </span>
                                                             <span className="terminal_location">~</span>
                                                             <span className="terminal_bling">
-                                                                $ start coding by clicking this terminal
+                                                                $ Start Pairing by clicking this terminal
                                                             </span>
                                                             <span className="terminal_cursor"></span>
                                                         </div>
@@ -161,120 +162,171 @@ function UserPage() {
                                     </>
                                 )}
                                 {action === 1 && <div>Profile Content & Form</div>}
-                                {action === 2 && <div>Following</div>}
-                                {action === 3 && <div>Followers</div>}
+                                {action === 2 && (
+                                    <div id="user-friends">
+                                        {following && following.following!.length > 0 ? (
+                                            following.following!.map((follow) => {
+                                                console.log('follow', follow);
+                                                return (
+                                                    <div id="each-friend">
+                                                        <div>{follow?.followed.username}</div>
+                                                        <img
+                                                            src={
+                                                                follow?.followed.picUrl
+                                                                    ? follow.followed.picUrl
+                                                                    : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
+                                                            }
+                                                            style={{ height: '150px', width: '150px' }}
+                                                        />
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <div>Currently not following anyone...</div>
+                                        )}
+                                    </div>
+                                )}
+                                {action === 3 && (
+                                    <div id="user-friends">
+                                        {following && following.followers!.length > 0 ? (
+                                            following.followers!.map((follower) => {
+                                                console.log('follow', follower);
+                                                return (
+                                                    <>
+                                                        <div id="each-friend">
+                                                            <div>{follower?.follower.username}</div>
+                                                            <img
+                                                                src={
+                                                                    follower?.follower.picUrl
+                                                                        ? follower.follower.picUrl
+                                                                        : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
+                                                                }
+                                                                style={{ height: '150px', width: '150px' }}
+                                                            />
+                                                        </div>
+                                                    </>
+                                                );
+                                            })
+                                        ) : (
+                                            <div>You have no new followers...</div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                     <Footer />
                 </>
             ) : (
-                <div id="target-profile-main">
-                    <div id="target-profile-container">
-                        <div id="target-profile-header">
-                            <span id="targetuser-username">{targetUser?.username}'s </span>
-                            <span id="target-profile-text">Profile</span>
-                            <button id="dm-button" onClick={() => alert('Feature coming soon!')}>
-                                Direct Message
-                            </button>
-                            <button id="dm-button" onClick={(e) => handleFollow(e)}>
-                                {isFollowed ? 'Unfollow' : 'Follow'}
-                            </button>
-                        </div>
-
-                        <div className="hr-line"></div>
-
-                        <div id="targetuser-profile-split">
-                            <div id="user-profile-content">
-                                {targetUser && (
-                                    <TargetUserInfoBox
-                                        {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed }}
-                                    />
-                                )}
-                                {targetUser && (
-                                    <TargetUserAbout
-                                        {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed }}
-                                    />
-                                )}
-                                {targetUser && (
-                                    <TargetUserSocials
-                                        {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed }}
-                                    />
-                                )}
+                <>
+                    <div id="target-profile-main">
+                        <div id="target-profile-container">
+                            <div id="target-profile-header">
+                                <span id="targetuser-username">{targetUser?.username}'s </span>
+                                <span id="target-profile-text">Profile</span>
+                                <button id="dm-button" onClick={() => alert('Feature coming soon!')}>
+                                    Direct Message
+                                </button>
+                                <button id="dm-button" onClick={(e) => handleFollow(e)}>
+                                    {isFollowed ? 'Unfollow' : 'Follow'}
+                                </button>
                             </div>
-                            <div id="targetuser-friends-container">
-                                {/* <h1>Friends</h1> */}
 
-                                <div id="targetuser-following">
-                                    <div id="targetuser-following-container">
-                                        <h2>Following</h2>
-                                        <div className="hr-line"></div>
-                                        {targetUser &&
-                                            targetUser.following.length > 0 &&
-                                            targetUser.following.map((follow, i) => {
-                                                return (
-                                                    <>
-                                                        <a href={`/users/${follow.followed.id}`}>
-                                                            <div
-                                                                key={follow.followed.username + i}
-                                                                id="following-container"
-                                                            >
-                                                                <div id="follower-image-container">
-                                                                    <img
-                                                                        src={
-                                                                            follow?.followed?.picUrl
-                                                                                ? follow?.followed?.picUrl
-                                                                                : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
-                                                                        }
-                                                                        alt="followed-user-pic"
-                                                                    />
+                            <div className="hr-line-primary"></div>
+
+                            <div id="targetuser-profile-split">
+                                <div id="user-profile-content">
+                                    {targetUser && (
+                                        <TargetUserInfoBox
+                                            {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed }}
+                                        />
+                                    )}
+                                    {targetUser && (
+                                        <TargetUserAbout
+                                            {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed }}
+                                        />
+                                    )}
+                                    {targetUser && (
+                                        <TargetUserSocials
+                                            {...{ targetUser, sessionUser, following, isFollowed, setIsFollowed }}
+                                        />
+                                    )}
+                                </div>
+                                <div id="targetuser-friends-container">
+                                    {/* <h1>Friends</h1> */}
+
+                                    <div id="targetuser-following">
+                                        <div id="targetuser-following-container">
+                                            <h2>Following</h2>
+                                            <div className="hr-line-primary"></div>
+                                            {targetUser &&
+                                                targetUser.following.length > 0 &&
+                                                targetUser.following.map((follow, i) => {
+                                                    return (
+                                                        <>
+                                                            <a href={`/users/${follow.followed.id}`}>
+                                                                <div
+                                                                    key={follow.followed.username + i}
+                                                                    id="following-container"
+                                                                >
+                                                                    <div id="follower-image-container">
+                                                                        <img
+                                                                            src={
+                                                                                follow?.followed?.picUrl
+                                                                                    ? follow?.followed?.picUrl
+                                                                                    : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
+                                                                            }
+                                                                            alt="followed-user-pic"
+                                                                        />
+                                                                    </div>
+                                                                    <div id="friends-username">
+                                                                        {follow.followed.username}
+                                                                    </div>
                                                                 </div>
-                                                                <div id="friends-username">
-                                                                    {follow.followed.username}
+                                                            </a>
+                                                        </>
+                                                    );
+                                                })}
+                                        </div>
+                                        <div id="targetuser-followers-container">
+                                            <h2>Followers</h2>
+                                            <div className="hr-line-primary"></div>
+                                            {targetUser &&
+                                                targetUser.followers.length > 0 &&
+                                                targetUser.followers.map((follower, i) => {
+                                                    return (
+                                                        <>
+                                                            <a href={`/users/${follower.follower.id}`}>
+                                                                <div
+                                                                    key={follower.follower.username + i}
+                                                                    id="following-container"
+                                                                >
+                                                                    <div id="follower-image-container">
+                                                                        <img
+                                                                            src={
+                                                                                follower?.follower?.picUrl
+                                                                                    ? follower?.follower?.picUrl
+                                                                                    : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
+                                                                            }
+                                                                            alt="follower-user-pic"
+                                                                        />
+                                                                    </div>
+                                                                    <div id="friends-username">
+                                                                        {follower.follower.username}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </a>
-                                                    </>
-                                                );
-                                            })}
-                                    </div>
-                                    <div id="targetuser-followers-container">
-                                        <h2>Followers</h2>
-                                        <div className="hr-line"></div>
-                                        {targetUser &&
-                                            targetUser.followers.length > 0 &&
-                                            targetUser.followers.map((follower, i) => {
-                                                return (
-                                                    <>
-                                                        <a href={`/users/${follower.follower.id}`}>
-                                                            <div
-                                                                key={follower.follower.username + i}
-                                                                id="following-container"
-                                                            >
-                                                                <div id="follower-image-container">
-                                                                    <img
-                                                                        src={
-                                                                            follower?.follower?.picUrl
-                                                                                ? follower?.follower?.picUrl
-                                                                                : 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?w=740'
-                                                                        }
-                                                                        alt="follower-user-pic"
-                                                                    />
-                                                                </div>
-                                                                <div id="friends-username">
-                                                                    {follower.follower.username}
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </>
-                                                );
-                                            })}
+                                                            </a>
+                                                        </>
+                                                    );
+                                                })}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <Footer />
+                </>
             )}
         </>
     );

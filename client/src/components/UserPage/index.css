@@ -16,6 +16,7 @@
 
 #db-button {
     color: var(--text);
+    opacity: 0.7;
     text-decoration: none;
     font-size: 2.2rem;
     border: none;
@@ -220,6 +221,26 @@
     margin-left: 12rem;
 }
 
+#user-friends {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+}
+
+#user-friends div {
+    font-size: 2.2rem;
+}
+
+#each-friend {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    border-bottom: 1px solid var(--primary);
+}
+
 /** TARGET USER CSS */
 #target-profile-main {
     display: flex;
@@ -248,7 +269,7 @@
     /** VERTICAL LINE SPLIT */
     padding-right: 5rem;
     padding-left: 5rem;
-    border-right: 1px solid white;
+    border-right: 1px solid var(--primary);
 }
 
 #targetuser-username {
