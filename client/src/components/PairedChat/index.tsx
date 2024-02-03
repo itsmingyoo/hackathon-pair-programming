@@ -86,7 +86,7 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
                 <div className="message-details">
                 <div className="message-user-info">
                   {message.from.username}
-                  <p className="message-time-updated">{message.created_at}</p>
+                  <p className="message-time-updated">{new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
                 <p className="message-text">{message.message}</p>
                 </div>
