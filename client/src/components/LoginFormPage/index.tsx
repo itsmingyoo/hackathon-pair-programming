@@ -42,7 +42,7 @@ function LoginFormPage() {
             if (login.fulfilled.match(actionResult)) {
                 // Handle the fulfilled case
                 console.log('Login successful:', actionResult.payload);
-                navigate(`/users/${actionResult?.payload?.id}`);
+                navigate(`/users/${actionResult.payload!.id}`);
             } else if (login.rejected.match(actionResult)) {
                 // Handle the rejected case
                 const error =
@@ -58,8 +58,10 @@ function LoginFormPage() {
         const data = await dispatch(login({ email: 'demo@aa.io', password: 'password' }));
         if (data && Array.isArray(data)) {
             setErrors(data);
+        } else if (login.fulfilled.match(data)) {
+            navigate(`/users/${data.payload!.id}`);
         } else {
-            navigate('/users/1');
+            alert('Login failed');
         }
     };
 
