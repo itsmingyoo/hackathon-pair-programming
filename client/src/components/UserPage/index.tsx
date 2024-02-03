@@ -11,11 +11,13 @@ import { unfollow, postFollow } from '../../store/userFollowing';
 import TargetUserInfoBox from './targetUserInfoBox';
 import TargetUserAbout from './targetUserAbout';
 import './index.css';
+import Footer from '../Footer';
 
 function UserPage() {
     const { userId } = useParams();
     const dispatch = useAppDispatch();
     const [isFollowed, setIsFollowed] = useState<boolean>(false);
+    const [action, setAction] = useState<number>(0);
     const sessionUser = useAppSelector((state: RootState) => state.session.user);
     const targetUser = useAppSelector((state: RootState) => state.user.targetUser);
     const following = useAppSelector((state: RootState) => state.userFollowing);
@@ -91,23 +93,81 @@ function UserPage() {
     return (
         <>
             {isCurrentUserProfile ? (
-                <div id="user-profile-main">
-                    <div id="user-profile-header">
-                        <span>Dashboard</span>
-                    </div>
-
-                    <div className="hr-line"></div>
-
-                    <div id="user-profile-container">
-                        <div id="user-profile-sidebar">
-                            <button id="db-button">Start a Session</button>
-                            <button id="db-button">Profile</button>
-                            <button id="db-button">Follows</button>
-                            <button id="db-button">Followers</button>
+                <>
+                    <div id="user-profile-main">
+                        <div id="user-profile-header">
+                            <span>Dashboard</span>
+                            {/* <button id="db-button">Start a Session</button> */}
                         </div>
-                        <div id="user-profile-content-container">Render Content Here</div>
+
+                        <div className="hr-line-primary"></div>
+
+                        <div id="user-profile-container">
+                            <div id="user-profile-sidebar">
+                                <button id="db-button" onClick={() => setAction(0)}>
+                                    Start
+                                </button>
+                                <button id="db-button" onClick={() => setAction(1)}>
+                                    Profile
+                                </button>
+                                <button id="db-button" onClick={() => setAction(2)}>
+                                    Following
+                                </button>
+                                <button id="db-button" onClick={() => setAction(3)}>
+                                    Followers
+                                </button>
+                            </div>
+                            <div id="user-profile-content-container">
+                                {action === 0 && (
+                                    <>
+                                        <div className="container2">
+                                            <div className="container_terminal"></div>
+
+                                            <a href="/code-collab">
+                                                <div className="terminal_toolbar">
+                                                    <div className="butt2">
+                                                        <button className="btn btn-color"></button>
+                                                        <button className="btn"></button>
+                                                        <button className="btn"></button>
+                                                    </div>
+                                                    <p className="user">{sessionUser.username}@admin: ~</p>
+                                                </div>
+
+                                                <div className="terminal_body">
+                                                    <div>
+                                                        <div className="terminal_promt">
+                                                            <span className="terminal_user">
+                                                                {sessionUser.username}@admin:
+                                                            </span>
+                                                            <span className="terminal_location">~</span>
+                                                            <span className="terminal_bling">
+                                                                $ Welcome back, {sessionUser.username}!
+                                                            </span>
+                                                        </div>
+                                                        <div className="terminal_promt">
+                                                            <span className="terminal_user">
+                                                                {sessionUser.username}@admin:
+                                                            </span>
+                                                            <span className="terminal_location">~</span>
+                                                            <span className="terminal_bling">
+                                                                $ start coding by clicking this terminal
+                                                            </span>
+                                                            <span className="terminal_cursor"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </>
+                                )}
+                                {action === 1 && <div>Profile Content & Form</div>}
+                                {action === 2 && <div>Following</div>}
+                                {action === 3 && <div>Followers</div>}
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <Footer />
+                </>
             ) : (
                 <div id="target-profile-main">
                     <div id="target-profile-container">
@@ -142,13 +202,12 @@ function UserPage() {
                                     />
                                 )}
                             </div>
-
                             <div id="targetuser-friends-container">
-                                <h1>Friends</h1>
+                                {/* <h1>Friends</h1> */}
 
                                 <div id="targetuser-following">
-                                    <div>
-                                        <div>Following</div>
+                                    <div id="targetuser-following-container">
+                                        <h2>Following</h2>
                                         <div className="hr-line"></div>
                                         {targetUser &&
                                             targetUser.following.length > 0 &&
@@ -170,15 +229,17 @@ function UserPage() {
                                                                         alt="followed-user-pic"
                                                                     />
                                                                 </div>
-                                                                <div>{follow.followed.username}</div>
+                                                                <div id="friends-username">
+                                                                    {follow.followed.username}
+                                                                </div>
                                                             </div>
                                                         </a>
                                                     </>
                                                 );
                                             })}
                                     </div>
-                                    <div>
-                                        <div>Followers</div>
+                                    <div id="targetuser-followers-container">
+                                        <h2>Followers</h2>
                                         <div className="hr-line"></div>
                                         {targetUser &&
                                             targetUser.followers.length > 0 &&
@@ -200,7 +261,9 @@ function UserPage() {
                                                                         alt="follower-user-pic"
                                                                     />
                                                                 </div>
-                                                                <div>{follower.follower.username}</div>
+                                                                <div id="friends-username">
+                                                                    {follower.follower.username}
+                                                                </div>
                                                             </div>
                                                         </a>
                                                     </>
