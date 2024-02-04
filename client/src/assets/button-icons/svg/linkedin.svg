@@ -19,7 +19,7 @@
         fontWeight="none"
         fontSize="none"
         textAnchor="none"
-        style={{ mixBlendMode: 'normal' }}
+        style='mixBlendMode: normal;'
     >
         <g transform="scale(6,6)">
             <path
