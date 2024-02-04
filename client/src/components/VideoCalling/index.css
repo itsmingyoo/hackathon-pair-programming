@@ -1,20 +1,18 @@
-#button-wrapper > h1 {
-  text-align: center;
-}
-
 .not-joined-wrapper {
-  flex: 1
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #video-main-wrapper {
   display: flex;
+  flex: 1;
   width: 100%;
 }
 
 /** BUTTON STYLING */
-#button-wrapper {
-  text-align: center;
-}
+
 
 #join-channel-button-container {
   display: flex;
@@ -22,36 +20,28 @@
   align-items: center;
 }
 
-#join-channel-button {
-  background-color: #20cc09;
-  /* background-color: #181717; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* padding: 10px 15px; */
-  padding: 2.5rem 5rem;
-  gap: 15px;
-  outline: 3px #181717 solid;
-  outline-offset: -3px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: 400ms;
+.join-channel-button {
+  border: solid transparent 0.01rem;
+  padding: 0 1vw; /* Adjust padding using viewport width unit */
+  border-radius: 0.5rem;
+  background-color: var(--primary);
+  color: var(--dark-text);
+  transition: background-color 0.3s ease;
 }
-
-#join-channel-button:hover {
+.join-channel-button:hover {
   background-color: transparent;
+  border: solid var(--primary-opacity) 0.01rem;
 }
 
-#join-channel-button:hover .join-channel-button-text {
+.join-channel-button:hover .join-channel-button-text {
   color: white;
 }
 
-#join-channel-button .join-channel-button-text {
-  color: white;
-  font-weight: 700;
-  font-size: 2.5rem;
-  transition: 400ms;
+.join-channel-button .join-channel-button-text {
+  color: var(--dark-text);
+  font-weight: 600;
+  font-size: 2.5vw;
+  transition: color 0.5s ease;
 }
 
 /** END OF BUTTON STYLING */
@@ -63,11 +53,6 @@
 }
 
 /** VIDEO CONTAINERS */
-/* #paired-chat-container,
-#ide-container {
-  display: flex;
-  flex-direction: column;
-} */
 
 .spinner {
   border: 4px solid rgba(255, 255, 255, 0.6);
@@ -89,12 +74,17 @@
 
 #screen-share-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   position: relative;
   max-width: 100%;
-  border: red solid 2px;
   flex: 4;
+}
+
+#share-screen-placeholder {
+  flex: 1;
+  text-align: center;
+  font-size: 2vw;
 }
 
 #screen-share-container > div > div > video {
@@ -102,79 +92,35 @@
   background-color: transparent !important;
   width: 100%;
   object-fit: contain !important;
-  border: red solid 2px;
-
-
 }
 #screen-share-container > div > div {
   background-color: transparent !important;
-
 }
 
-#share-screen-button {
-  width: 3rem;
-  height: 3rem;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2b2d31;
-  border-radius: 100%;
-  color: var(--text); /* Set text color */
+.share-screen-cats {
+  object-fit: contain;
+  max-width: 90%;
+  filter: brightness(70%);
+  border-radius: 1rem;
 }
+
+.screen-share > div {
+  height: unset !important;
+}
+
+.screen-share {
+  border-radius: .5rem;
+  overflow: hidden;
+  padding: .2rem;
+}
+
+
+
 
 .agora_video_player {
   position: unset !important;
-
 }
 
-#messages-container {
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column-reverse;
-  color: var(--text); /* Set text color */
-  background-color: var(--background); /* Set background color */
-  gap: 0.8rem;
-
-}
-
-#paired-chat-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid white;
-  flex-direction: column;
-  flex: 1;
-}
-
-.chat-message {
-  background-color: var(
-    --primary-opacity
-  ); /* Replace with your background color */
-  border-radius: 10px;
-  padding: 8px 12px; /* Adjust padding as needed */
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  justify-content: flex-end;
-}
-
-.message-user-info {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
-
-
-.message-time-updated {
-  font-size: 10px;
-}
-
-.message-text {
-  word-break: break-all;
-}
 
 .vid > div > div > video,
 .vid > div > div > div > video {
@@ -189,28 +135,7 @@
   display: flex;
   flex-wrap: wrap;
   width: fit-content;
-  max-width: 100%; 
+  max-width: 100%;
   flex: 4;
   position: relative;
-  /* border: 1px solid rgb(75, 93, 172); */
-  border: 1px solid #20cc09;
-  
-
-}
-
-.vid {
-  /* flex: 1; */
-  border: 1px solid #20cc09;
-  display: flex;
-  flex-direction: column;
-  max-width: fit-content;
-  max-height: 50%;
-}
-
-#video-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
-  flex: 1;
-  padding: 0.5rem;
 }

@@ -7,7 +7,6 @@ import {
 } from "../../store/pairedChatLog";
 import { PairedChatMessage } from "../../interfaces/socket";
 import "./index.css";
-import user from "../../assets/icons/user.png"
 
 // Define the props interface for the PairedChat component
 interface PairedChatProps {
@@ -39,7 +38,7 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
   const sendChat = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬I am here!", socket);
+      // console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬I am here!", socket);
 
       socket?.emit("temp_chat_message", {
         message: chatInput,
@@ -76,36 +75,48 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
   return (
     <>
       <h1 className="chat-logs-header">Chat</h1>
-      <div id="messages-container">
+      <div id="messages-container" tabIndex={0}>
         {messages &&
           messages.map((message, index) => {
             return (
               <div key={index} className="chat-message">
                 <div className="message-user-img">
-                  <img
-                    alt=""
-                    className="dm-profile-img"
-                    src={user}
-                  ></img>
+                  <img alt="" className="message-profile-pic" src={message.from.picUrl}></img>
                 </div>
+                <div className="message-details">
                 <div className="message-user-info">
                   {message.from.username}
-                  <p className="message-time-updated">{message.created_at}</p>
+                  <p className="message-time-updated">{new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
                 <p className="message-text">{message.message}</p>
+                </div>
               </div>
             );
           })}
       </div>
 
-      <form className="channel-message-input-form" onSubmit={sendChat}>
+      <form className="message-input-form" onSubmit={sendChat}>
         <textarea
           className="message-input"
           placeholder={`send message`}
           value={chatInput}
           onChange={(e) => setChatInput(e.target.value)}
-        ></textarea>
-        <button type="submit">send chat</button>
+        >
+
+        </textarea>
+        <button type="submit" id="send-message" aria-label="Send Message">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M21.88 4.73 16.2 20.65A2 2 0 0 1 14.3 22a2 2 0 0 1-1.9-1.31l-2.12-5.52 1.54-1.54 2.49-2.49a1 1 0 1 0-1.42-1.42l-2.49 2.49-1.58 1.55-5.51-2.13a2 2 0 0 1 0-3.83l15.96-5.68a2 2 0 0 1 2.61 2.61Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
       </form>
     </>
   );

@@ -50,10 +50,10 @@ export function AgoraRTCScreenShareProvider({ client, children }: AgoraRTCScreen
             }
 
             await client.publish(videoTrack);
-            console.log('ScreenVideoTrackResult', screenVideoTrackResult);
+            // console.log('ScreenVideoTrackResult', screenVideoTrackResult);
             // console.log('Screen Track Before Setting State:', videoTrack);
             setScreenTrack(videoTrack);
-            console.log('Screen Track After Setting State:', screenTrack);
+            // console.log('Screen Track After Setting State:', screenTrack);
             setAudioTrack(audioTrack); // Set this only if audio track is available
         } catch (error) {
             console.error('Failed to start screen sharing:', error);

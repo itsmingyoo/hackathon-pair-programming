@@ -1,0 +1,127 @@
+.edit-user-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 2rem;
+}
+.edit-user-page-title {
+font-size: 2.5vw;
+font-weight: 500;
+border-bottom: var(--primary-opacity) solid .01rem;
+}
+
+#edit-user-profile-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 2rem;
+}
+
+#edit-user-profile-form > * {
+    font-size: 1.3vw;
+    
+
+}
+
+#edit-form-content-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+
+
+.edit-form {
+    --width-of-input: 200px;
+    --border-height: 1px;
+    --border-before-color: rgba(221, 221, 221, 0.39);
+    --border-after-color: #20cc09;
+    --input-hovered-color: #4985e01f;
+    position: relative;
+    width: var(--width-of-input);
+   }
+   /* styling of Input */
+   .edit-input {
+    color: #fff;
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+    border-bottom: var(--border-height) solid var(--border-before-color);
+   }
+   /* styling of animated border */
+   .input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+   }
+   /* Hover on Input */
+   /* .edit-form > label > input:hover {
+    background: var(--input-hovered-color);
+   } */
+
+   .edit-form > label > input:focus {
+    outline: none;
+   }
+   /* here is code of animated border */
+   .edit-form > label > input:focus ~ .input-border {
+    width: 100%;
+   }
+
+
+   .image-upload {
+    border: var(--text).01rem dashed;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    align-self: center;
+    background-color: var(--modal-background);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text);
+    font-size: 1rem;
+    position: relative;
+  }
+  
+  .image-upload-input {
+    display: none;
+  }
+  
+  .upload-name {
+    text-align: center;
+    color: var(--text);
+    padding: 0.7rem;
+    font-size: .6vw;
+    word-break: break-all;
+  }
+  
+  .image-label {
+    align-self: center;
+    padding: 0 0.7rem;
+  }
+
+  .image-dot {
+    background-color: var(--primary);
+    width: 1rem;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    color: white;
+  }

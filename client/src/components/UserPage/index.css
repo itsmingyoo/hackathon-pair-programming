@@ -4,54 +4,221 @@
     background-color: var(--primary);
     height: 2rem;
     width: 10rem;
+    border: none;
 }
 
 #db-button {
-    color: black;
+    color: var(--text);
+    opacity: 0.7;
+    text-decoration: none;
+    font-size: 2.2rem;
+    border: none;
+    background: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  #db-button::before {
+    margin-left: auto;
+  }
+
+  #db-button::after, #db-button::before {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #20cc09;
+    display: block;
+    transition: 0.5s;
+  }
+
+  #db-button:hover::after, #db-button:hover::before {
+    width: 100%;
+  }
+
+  .profile-buttons {
+    border: solid transparent 0.01rem;
+    padding: 0 1vw; /* Adjust padding using viewport width unit */
+    border-radius: 0.5rem;
     background-color: var(--primary);
-    height: 4.5rem;
-    width: 20rem;
-    font-size: 1.3rem;
-}
+    color: var(--dark-text);
+    transition: background-color 0.3s ease;
+  }
+  .profile-buttons:hover {
+    background-color: transparent;
+    border: solid var(--primary-opacity) 0.01rem;
+    color: var(--text)
+  }
+
+/** TERMINAL BUTTON */
+.container2 {
+    width: 100%;
+    height: 100%;
+  }
+
+  .terminal_toolbar {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    padding: 0 8px;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: linear-gradient(#504b45 0%, #3c3b37 100%);
+  }
+
+  .butt2 {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-right: 5px;
+    font-size: 8px;
+    height: 12px;
+    width: 12px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 100%;
+    background: linear-gradient(#7d7871 0%, #595953 100%);
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.2);
+    box-shadow: 0px 0px 1px 0px #41403A, 0px 1px 1px 0px #474642;
+  }
+
+  .btn-color {
+    background: #ee411a;
+  }
+
+  .btn2:hover {
+    cursor: pointer;
+  }
+
+  .btn2:focus {
+    outline: none;
+  }
+
+  .butt2--exit {
+    background: linear-gradient(#f37458 0%, #de4c12 100%);
+  }
+
+  .user {
+    color: #d5d0ce;
+    margin-left: 6px;
+    font-size: 14px;
+    line-height: 15px;
+  }
+
+  .terminal_body {
+    background: rgba(56, 4, 40, 0.9);
+    height: calc(100% - 30px);
+    padding-top: 2px;
+    margin-top: -1px;
+    font-size: 12px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .terminal_promt {
+    display: flex;
+  }
+
+  .terminal_promt span {
+    margin-left: 4px;
+  }
+
+  .terminal_user {
+    color: #7eda28;
+    font-size: 3rem;
+  }
+
+  .terminal_location {
+    color: #4878c0;
+    font-size: 3rem;
+  }
+
+  .terminal_bling {
+    color: #dddddd;
+    font-size: 3rem;
+  }
+
+  .terminal_cursor {
+    display: block;
+    height: 3.4rem;
+    width: 5px;
+    margin-left: 10px;
+    animation: curbl 1200ms linear infinite;
+  }
+
+  @keyframes curbl {
+
+    0% {
+      background: #ffffff;
+    }
+
+    49% {
+      background: #ffffff;
+    }
+
+    60% {
+      background: transparent;
+    }
+
+    99% {
+      background: transparent;
+    }
+
+    100% {
+      background: #ffffff;
+    }
+  }
 
 /** SESSION USER CSS */
 #user-profile-main {
     display: flex;
     flex-direction: column;
     flex: 1;
+    border-bottom: var(--primary) solid .1rem;
+    margin-bottom: 1rem;
 }
 
 #user-profile-container {
     display: flex;
     width: 100vw;
+    flex: 1;
 }
 
 #user-profile-header {
-    font-size: 3.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    font-size: 3vw;
+    border-bottom: var(--primary) solid .1rem;
 }
 
 #user-profile-header > span {
-    padding-left: 1.8rem;
+    color: var(--primary);
 }
 
 #user-profile-sidebar {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+    gap: .8rem;
     width: 20vw;
-    height: 100vh;
-    border-right: 1px solid white;
+    border-right: var(--primary) solid .1rem;
+
     padding: 1.3rem;
 }
 
 #user-profile-content-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 80vw;
-    height: 100vh;
     font-size: 5rem;
+    padding: 1.5rem;
 }
 
 .vr-line {
@@ -59,6 +226,26 @@
     height: 100vh;
     background-color: white;
     margin-left: 12rem;
+}
+
+#user-friends {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+}
+
+#user-friends div {
+    font-size: 2.2rem;
+}
+
+#each-friend {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    border-bottom: 1px solid var(--primary);
 }
 
 /** TARGET USER CSS */
@@ -84,7 +271,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
+    gap: 2rem;
+    width: 50%;
+    /** VERTICAL LINE SPLIT */
+    padding-right: 5rem;
+    padding-left: 5rem;
+    border-right: 1px solid var(--primary);
 }
 
 #targetuser-username {
@@ -104,7 +296,8 @@
 }
 
 #targetuser-info > span:first-child {
-    font-size: 2rem;
+    font-size: 2.2rem;
+
 }
 
 #targetuser-info-container {
@@ -129,6 +322,12 @@
     width: 100%;
 }
 
+.hr-line-primary {
+    height: 2px;
+    background-color: var(--primary);
+    width: 100%;
+}
+
 
 #target-user-socials > div > * {
     color: var(--text);
@@ -136,6 +335,7 @@
 
 #target-user-about > h3, #target-user-socials > h3 {
     color: var(--primary);
+    font-size: 1.5em;
 }
 
 #targetuser-friends-container {
@@ -143,17 +343,47 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 40vw;
+    width: 50%;
+    padding: 0 5rem;
 }
 
 #targetuser-following {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 40vw;
+    width: 100%;
 }
 
 #follower-image-container > img {
-    width: 50px;
-    height: 50px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+#following-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    margin-top: 1rem;
+    width: 20vw;
+}
+
+#targetuser-following-container > h2, #targetuser-followers-container > h2 {
+    text-align: center;
+    color: var(--text);
+}
+
+#friends-username {
+    font-size: 1rem;
+}
+#targetuser-following-container, #targetuser-followers-container {
+    width: 45%;
+}
+
+
+#dash-pfp > img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
 }

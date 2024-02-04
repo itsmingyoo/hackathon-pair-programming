@@ -22,7 +22,7 @@ export const fetchTestResults = async (value: string, problemId: keyof FetchRout
         const data = await response.json();
         return data;
     } else {
-        console.log('Error fetching to the backend');
+        // console.log('Error fetching to the backend');
         return { error: 'Fetch failed probably from fetching too fast, too many times.', statusCode: response.status };
     }
 };

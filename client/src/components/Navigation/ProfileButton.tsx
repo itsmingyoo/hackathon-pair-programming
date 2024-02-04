@@ -50,7 +50,7 @@ function ProfileButton() {
                 <ul className="dropdown-list dropdown-container" ref={ulRef}>
                     <li className="user-profile-dropdown-info">
                         <button className="profile-setings-button" onClick={handleProfileButton}>
-                            Profile
+                            DashBoard
                         </button>
                     </li>
                     <li>

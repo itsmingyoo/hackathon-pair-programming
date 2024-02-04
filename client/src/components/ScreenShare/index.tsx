@@ -5,22 +5,26 @@ import { fetchRTCToken } from "../../utility/fetchRTCToken";
 import { useEffect } from "react";
 import {
   RemoteVideoTrack,
+  useClientEvent,
+  useRTCClient,
   useRemoteUsers,
   useRemoteVideoTracks,
 } from "agora-rtc-react";
 import { useAppSelector } from "../../hooks";
 import RemoteAndLocalVolumeComponent from "../../AgoraManager/volumeControl";
-// import IDE from '../CodeMirror';
+import shareScreenPlaceholder from "../../assets/images/share-screen-holder.webp"
 
-function ScreenShare(props: {
-  channelName: string;
-}) {
+
+function ScreenShare(props: { channelName: string }) {
   const { channelName } = props;
   const [screenSharing, setScreenSharing] = useState<boolean>(false);
+  const [isRemoteScreen, setIsRemoteScreen] = useState<boolean>(false);
   const remoteUsers = useRemoteUsers();
+  const agoraEngine = useRTCClient();
+
   useRemoteVideoTracks(remoteUsers);
   const pairInfo = useAppSelector((state) => state.pairedUser.user);
-  console.log(remoteUsers);
+  // console.log(remoteUsers);
 
   useEffect(() => {
     const fetchTokenFunction = async () => {
@@ -41,52 +45,75 @@ function ScreenShare(props: {
 
     fetchTokenFunction();
 
-    console.log(
-      "😎screenSharing😎: ",
-      screenSharing ? screenSharing : screenSharing
-    );
+    // console.log(
+    //   "😎screenSharing😎: ",
+    //   screenSharing ? screenSharing : screenSharing
+    // );
   }, [channelName, screenSharing]);
+
+  useClientEvent(agoraEngine, "user-left", (user) => {
+    if (user.uid === pairInfo?.screenUid) {
+        setIsRemoteScreen(false);
+    }
+    // console.log(
+    //   "🦄🦄🦄🦄🦄🦄🦄🦄🦄 The user",
+    //   user.uid,
+    //   " has left the channel"
+    // );
+  });
+
+  useClientEvent(agoraEngine, "user-published", (user, _) => {
+    if (user.uid === pairInfo?.screenUid) {
+        setIsRemoteScreen(true);
+    }
+  });
 
   // If User starts screen share with the button, it will trigger an event asking them what screen they will share and render it
   const renderContent = () => {
     if (screenSharing === true) {
       return (
         <>
-          {/* <h1>Screen Sharing</h1> */}
-
-          <ShareScreenComponent setScreenSharing={setScreenSharing} />
+          <ShareScreenComponent
+            setScreenSharing={setScreenSharing}
+            isRemoteScreen={isRemoteScreen}
+          />
         </>
       );
+    } else if (!screenSharing && !isRemoteScreen) {
+        return (
+            <div id="share-screen-placeholder">
+                <p>Share your screen and start coding!</p>
+                <img src={shareScreenPlaceholder} alt="Cats waiting for a user to share their screen"  className="share-screen-cats"/>
+            </div>
+        )
+    } else {
+      return null;
     }
   };
 
-  useEffect(() => {
-    console.log("😁😁😁 state", screenSharing);
-  });
-
   return (
     <>
-      {renderContent()}
       {remoteUsers.map((remoteUser) => {
         if (remoteUser.uid === pairInfo?.screenUid) {
           return (
-            <div
-              className="vid"
-              style={{ height: 300, width: 350 }}
+            <RemoteVideoTrack
+              track={remoteUser.videoTrack}
+              className="screen-share"
+              style={{
+                width: "100%",
+                height: "108",
+                objectFit: "contain",
+              }}
               key={remoteUser.uid}
-            >
-              <RemoteVideoTrack
-                track={remoteUser.videoTrack}
-                key={remoteUser.uid}
-                play
-                // style={{ width: "192", height: "108" }}
-              />
-            </div>
+              play
+            />
           );
         } else {
           return null;
         }
       })}
+      {renderContent()}
+
       <RemoteAndLocalVolumeComponent
         screenSharing={screenSharing}
         setScreenSharing={setScreenSharing}

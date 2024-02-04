@@ -1,6 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { User } from '../interfaces/user';
 
+export interface UserForm {
+    id: string;
+    username: string;
+    picUrl: File;
+    about: string;
+    github: string;
+    linkedin: string;
+    portfolio: string;
+    leetcode: string;
+}
+
 export const getUser = createAsyncThunk<User | null, number, { rejectValue: {} | string }>(
     'user/getUser',
     async (id, {rejectWithValue}) => {
@@ -18,6 +29,8 @@ export const getUser = createAsyncThunk<User | null, number, { rejectValue: {} |
     }
 );
 
+
+
 const initialState: {targetUser: User | null} = {targetUser: null}
 
 const userSlice = createSlice({
@@ -28,7 +41,8 @@ const userSlice = createSlice({
         builder
             .addCase(getUser.fulfilled, (state, action) => {
                 state.targetUser = action.payload;
-            });
+            })
+
     },
 });
 

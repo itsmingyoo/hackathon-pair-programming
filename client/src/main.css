@@ -53,7 +53,7 @@ body {
 main {
   flex: 1;
   width: 100%;
-  max-height: 90dvh;;
+  max-height: 90vh;;
 }
 
 button {
@@ -75,4 +75,11 @@ li {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.errors {
+  color: red;
+  text-align: center;
+  font-size: .8rem;
+  font-weight: bold;
 }

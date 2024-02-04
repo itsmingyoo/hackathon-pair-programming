@@ -1,5 +1,101 @@
-.chat-logs-header {
-  border-bottom: rgba(255, 255, 255, 0.1) 0.01rem solid;
-  width: 100%;
-  text-align: center;
+/* Styles for the messages container */
+#messages-container {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow-y: scroll; /* Vertical scroll */
+  display: flex; /* Flex container */
+  flex-direction: column-reverse; /* Reverse column direction */
+  color: var(--text); /* Text color */
+  gap: 0.8rem; /* Gap between messages */
 }
+
+/* Styles for the paired chat container */
+#paired-chat-container {
+  display: flex; /* Flex container */
+  justify-content: space-between; /* Space between items */
+  align-items: center; /* Align items vertically */
+  flex-direction: column; /* Column direction */
+  flex: 1; /* Take remaining space */
+  padding-right: .3rem; /* Right padding */
+  padding-bottom: .3rem; /* Bottom padding */
+  gap: .2rem; /* Gap between items */
+}
+
+/* Styles for the send message button */
+#send-message {
+  border: none; /* No border */
+  background-color: transparent; /* Transparent background */
+  color: var(--text); /* Text color */
+  display: flex; /* Flex container */
+  justify-content: center; /* Center align horizontally */
+  align-items: center; /* Center align vertically */
+  position: absolute; /* Absolute positioning */
+  right: 1%; /* Right position */
+  top: 50%; /* Top position */
+  transform: translateY(-50%); /* Center vertically */
+}
+
+/* Header styles for chat logs */
+.chat-logs-header {
+  border-bottom: rgba(255, 255, 255, 0.1) 0.01rem solid; /* Bottom border */
+  width: 100%; /* Full width */
+  text-align: center; /* Center align text */
+}
+
+/* Styles for the message input field */
+.message-input {
+  width: 100%; /* Full width */
+  color: var(--input-text-messages); /* Text color */
+  background-color: transparent; /* Transparent background */
+  border: none; /* No border */
+  resize: none; /* Disable resizing */
+  padding: .2rem 1.6rem .2rem .2rem; /* Padding */
+}
+
+/* Styles for the message input form container */
+.message-input-form {
+  position: relative; /* Relative positioning */
+  width: 100%; /* Full width */
+  display: flex; /* Flex container */
+  border: solid var(--primary-opacity) .01rem; /* Border */
+  background-color: #2b2d31; /* Background color */
+  border-radius: .2rem; /* Border radius */
+  height: 100px; /* Height */
+}
+
+/* Styles for chat messages */
+.chat-message {
+  background-color: var(--primary-opacity); /* Background color */
+  border-radius: 10px; /* Border radius */
+  padding: 8px 12px; /* Padding */
+  display: flex; /* Flex container */
+  gap: 0.6rem; /* Gap between elements */
+  align-items: center;
+}
+
+/* Styles for user info in messages */
+.message-user-info {
+  display: flex; /* Flex container */
+  gap: 5px; /* Gap between items */
+  align-items: center; /* Align items vertically */
+}
+
+/* Styles for message time */
+.message-time-updated {
+  font-size: 10px; /* Font size */
+}
+
+/* Styles for message text */
+.message-text {
+  word-break: break-all; /* Break long words */
+}
+
+/* Stlyes for profile image */ 
+
+.message-profile-pic {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;}
