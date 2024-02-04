@@ -4,15 +4,8 @@
     background-color: var(--primary);
     height: 2rem;
     width: 10rem;
+    border: none;
 }
-
-/* #db-button {
-    color: black;
-    background-color: var(--primary);
-    height: 4.5rem;
-    width: 20rem;
-    font-size: 1.3rem;
-} */
 
 #db-button {
     color: var(--text);
@@ -173,21 +166,22 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    border-bottom: 1px solid var(--primary);
+    border-bottom: var(--primary) solid .1rem;
     margin-bottom: 1rem;
 }
 
 #user-profile-container {
     display: flex;
     width: 100vw;
+    flex: 1;
 }
 
 #user-profile-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 0 1.5rem;
     font-size: 3.5rem;
+    border-bottom: var(--primary) solid .1rem;
 }
 
 #user-profile-header > span {
@@ -200,16 +194,16 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    gap: .8rem;
     width: 20vw;
-    height: 100vh;
-    border-right: 1px solid var(--primary);
+    border-right: var(--primary) solid .1rem;
+
     padding: 1.3rem;
 }
 
 #user-profile-content-container {
     display: flex;
     width: 80vw;
-    height: 100vh;
     font-size: 5rem;
     padding: 1.5rem;
 }
@@ -374,6 +368,9 @@
     width: 45%;
 }
 
-#targetuser-followers-container {
 
+#dash-pfp > img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
 }

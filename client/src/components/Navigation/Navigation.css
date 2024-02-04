@@ -2,7 +2,7 @@
   background-color: var(--background); /* Using custom color variable */
   padding: .6rem 1.5rem; /* Using em units for padding */
   max-width: 100%;
-  height: 10vh;
+  max-height: 10vh;
 }
 
 .nav-links-home {

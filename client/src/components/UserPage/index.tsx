@@ -15,8 +15,6 @@ import Footer from "../Footer";
 import EditUserPage from "./editProfile";
 import PreviewProfile from "./PreviewProfile";
 
-
-
 function UserPage() {
   const { userId } = useParams();
   const dispatch = useAppDispatch();
@@ -28,13 +26,12 @@ function UserPage() {
     (state: RootState) => state.user.targetUser
   );
   const following = useAppSelector((state: RootState) => state.userFollowing);
-//   console.log("User's page: ", targetUser);
-//   console.log("Session User", sessionUser);
-//   console.log("following", following);
-useEffect(() => {
-    console.log('editMode', editMode)
-
-}, [editMode])
+  //   console.log("User's page: ", targetUser);
+  //   console.log("Session User", sessionUser);
+  //   console.log("following", following);
+  useEffect(() => {
+    console.log("editMode", editMode);
+  }, [editMode]);
 
   useEffect(() => {
     async function fetchData() {
@@ -72,8 +69,8 @@ useEffect(() => {
     }
 
     if (sessionUser?.id === targetUser?.id) {
-        alert("You may not follow yourself")
-        return
+      alert("You may not follow yourself");
+      return;
     }
 
     try {
@@ -115,23 +112,22 @@ useEffect(() => {
     <>
       {isCurrentUserProfile ? (
         <>
-          <div id="user-profile-main">
+          <main id="user-profile-main">
             <div id="user-profile-header">
               <span>Dashboard</span>
-              {/* <button id="db-button">Start a Session</button> */}
             </div>
-
-            <div className="hr-line-primary"></div>
-
             <div id="user-profile-container">
               <div id="user-profile-sidebar">
                 <button id="db-button" onClick={() => setAction(0)}>
                   Start
                 </button>
-                <button id="db-button" onClick={() => {
-                    setAction(1)
-                    setEditMode(false)
-                }}>
+                <button
+                  id="db-button"
+                  onClick={() => {
+                    setAction(1);
+                    setEditMode(false);
+                  }}
+                >
                   Profile
                 </button>
                 <button id="db-button" onClick={() => setAction(2)}>
@@ -187,9 +183,10 @@ useEffect(() => {
                   </>
                 )}
                 {action === 1 && editMode ? (
-                  <EditUserPage setEditMode={setEditMode}/>
-                ) : action == 1 && !editMode && (
-                    <PreviewProfile setEditMode={setEditMode} />
+                  <EditUserPage setEditMode={setEditMode} />
+                ) : (
+                  action == 1 &&
+                  !editMode && <PreviewProfile setEditMode={setEditMode} />
                 )}
                 {action === 2 && (
                   <div id="user-friends">
@@ -243,7 +240,7 @@ useEffect(() => {
                 )}
               </div>
             </div>
-          </div>
+          </main>
           <Footer />
         </>
       ) : (

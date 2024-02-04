@@ -9,7 +9,6 @@ interface PreviewProfileProps {
 
 function PreviewProfile({ setEditMode }: PreviewProfileProps) {
     const sessionUser = useAppSelector((state) => state.session.user);
-    const { linkedin, github, portfolio, leetcode } = sessionUser;
 
     return (
         <div id="profile-main">
