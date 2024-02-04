@@ -40,12 +40,8 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--background);
-  background: linear-gradient(
-    to top left,
-    var(--corner-background) 0%,
-    var(--background) 30%
-  );
-  background-attachment: fixed;
+  background: url('./assets/back-cover.png')  top / cover no-repeat;
+  /* background-attachment: fixed; */
   margin: 0;
   width: 100dvw;
 }
