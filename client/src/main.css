@@ -76,3 +76,10 @@ li {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.errors {
+  color: red;
+  text-align: center;
+  font-size: .8rem;
+  font-weight: bold;
+}

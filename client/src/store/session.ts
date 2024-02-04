@@ -92,7 +92,7 @@ export const editUser = createAsyncThunk<User | null, FormData, { rejectValue: {
     'user/editUser',
     async (user, {rejectWithValue}) => {
         try {
-            const res = await fetch(`/api/users/edit/${user.get('id')}`, {
+            const res = await fetch(`/api/users/edit`, {
                 method: 'PUT',
                 body: user
             });
@@ -100,7 +100,10 @@ export const editUser = createAsyncThunk<User | null, FormData, { rejectValue: {
                 const data = await res.json();
                 return data;
             } else {
-                return "Edit user response not ok"
+                const errorResponse = await res.json(); // Get the error message from the response
+                console.log("😒😒😒😒" , errorResponse)
+
+                return rejectWithValue(errorResponse.errors);
             }
         } catch (error) {
             return rejectWithValue('User not found');
@@ -131,6 +134,7 @@ const sessionSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(editUser.fulfilled, (state, action) => {
+                console.log("😒😒😒😒" ,action.payload)
                 state.user = action.payload?.errors ? state.user : action.payload
             })
     },

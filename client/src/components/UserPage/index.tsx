@@ -15,6 +15,8 @@ import Footer from "../Footer";
 import EditUserPage from "./editProfile";
 import PreviewProfile from "./PreviewProfile";
 
+
+
 function UserPage() {
   const { userId } = useParams();
   const dispatch = useAppDispatch();
@@ -185,8 +187,8 @@ useEffect(() => {
                   </>
                 )}
                 {action === 1 && editMode ? (
-                  <EditUserPage />
-                ) : action == 1 && (
+                  <EditUserPage setEditMode={setEditMode}/>
+                ) : action == 1 && !editMode && (
                     <PreviewProfile setEditMode={setEditMode} />
                 )}
                 {action === 2 && (

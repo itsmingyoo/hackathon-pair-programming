@@ -1,230 +1,307 @@
-import { useEffect, useState, FormEvent } from 'react';
-import { useParams } from 'react-router-dom';
-import { editUser } from '../../store/session';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { RootState } from '../../store';
-import { useNavigate } from 'react-router-dom';
-import './editProfile.css';
+import {
+  useEffect,
+  useState,
+  FormEvent,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import { editUser } from "../../store/session";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import "./editProfile.css";
 
-function EditUserPage() {
-    const navigate = useNavigate();
-    const { userId } = useParams();
-    const dispatch = useAppDispatch();
+interface EditUserProps {
+  setEditMode: Dispatch<SetStateAction<boolean>>;
+}
 
-    const sessionUser = useAppSelector((state: RootState) => state.session.user);
+function EditUserPage({ setEditMode }: EditUserProps) {
+  const dispatch = useAppDispatch();
 
-    const [id, setId] = useState<string>(String(userId));
-    const [username, setUsername] = useState<string>('');
-    const [profilePic, setProfilePic] = useState<File| string>('');
-    const [about, setAbout] = useState<string>('');
-    const [linkGithub, setLinkGithub] = useState<string>('');
-    const [linkLinkedIn, setLinkLinkedIn] = useState<string>('');
-    const [linkPortfolio, setLinkPortfolio] = useState<string>('');
-    const [linkLeetcode, setLinkLeetcode] = useState<string>('');
+  const sessionUser = useAppSelector((state) => state.session.user);
 
-    const [errors, setErrors] = useState<string[]>([]);
+  const [username, setUsername] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<File | string>("");
+  const [about, setAbout] = useState<string>("");
+  const [linkGithub, setLinkGithub] = useState<string>("");
+  const [linkLinkedIn, setLinkLinkedIn] = useState<string>("");
+  const [linkPortfolio, setLinkPortfolio] = useState<string>("");
+  const [linkLeetcode, setLinkLeetcode] = useState<string>("");
+  const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/;
 
-    useEffect(() => {
-        if (sessionUser) {
-            setUsername(sessionUser.username);
-            setAbout(sessionUser.about);
-            setLinkGithub(sessionUser.github);
-            setLinkLinkedIn(sessionUser.linkedin);
-            setLinkPortfolio(sessionUser.portfolio);
-            setLinkLeetcode(sessionUser.leetcode);
-        }
-    }, [sessionUser]);
+  const [errors, setErrors] = useState<{ [key: string]: string | null }>({});
 
-    const handleConfirmEdit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (sessionUser?.id != userId) {
-            alert('Either must be logged in or must have matching id to edit profile');
-            return;
-        }
+  // Populate form fields when sessionUser changes
+  useEffect(() => {
+    if (sessionUser) {
+      setUsername(sessionUser.username);
+      setAbout(sessionUser.about);
+      setLinkGithub(sessionUser.github);
+      setLinkLinkedIn(sessionUser.linkedin);
+      setLinkPortfolio(sessionUser.portfolio);
+      setLinkLeetcode(sessionUser.leetcode);
+    }
+  }, [sessionUser]);
 
-        // Reset errors state at the beginning of validation
-    setErrors([]);
+  // Handler for file input change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
 
-    let validationErrors = [];
+      // ProfilePic validation for file size
+      if (file.size > 1024 * 1024) {
+        // Example file size check (1MB)
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          pic_url: "Profile picture must be smaller than 1MB",
+        }));
+      } else {
+        setErrors((prev) => {
+          const err = { ...prev };
+          delete err.pic_url;
+          return err;
+        });
+        setProfilePic(file);
+      }
+    }
+  };
 
-    // Username validation
-    if (!username.trim()) {
-        validationErrors.push('Username cannot be empty.');
+  // Handler for form submission
+  const handleConfirmEdit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (Object.values(errors).length) {
+      return;
     }
 
-    // ProfilePic validation - assuming you want to allow both File and string types
-    if (typeof profilePic === 'object' && profilePic.size > 1024 * 1024) { // Example file size check (1MB)
-        validationErrors.push('Profile picture must be smaller than 1MB.');
-    } else if (typeof profilePic === 'string' && profilePic && !profilePic.startsWith('http')) {
-        validationErrors.push('Profile picture URL must be valid.');
+    const formData = new FormData();
+
+    formData.append("username", username);
+
+    if (profilePic) {
+      formData.append("pic_url", profilePic);
     }
 
-    // About validation - example: checking length
-    if (about.length > 500) { // Assuming max 500 characters
-        validationErrors.push('About section must be less than 500 characters.');
+    formData.append("about", about);
+    formData.append("link_github", linkGithub);
+    formData.append("link_linkedin", linkLinkedIn);
+    formData.append("link_portfolio", linkPortfolio);
+    formData.append("link_leetcode", linkLeetcode);
+
+    const actionResult = await dispatch(editUser(formData));
+
+    if (editUser.fulfilled.match(actionResult)) {
+      // Handle the fulfilled case
+      setEditMode(false);
+    } else if (editUser.rejected.match(actionResult)) {
+      // Handle the rejected case
+      const errors =
+        typeof actionResult.payload === "object"
+          ? actionResult.payload
+          : { other: "An unexpected error occurred" };
+      setErrors({ ...errors });
     }
+  };
 
-    // Links validation
-    const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/;
-    if (linkGithub && !urlPattern.test(linkGithub)) {
-        validationErrors.push('GitHub link must be a valid URL.');
-    }
-    if (linkLinkedIn && !urlPattern.test(linkLinkedIn)) {
-        validationErrors.push('LinkedIn link must be a valid URL.');
-    }
-    if (linkPortfolio && !urlPattern.test(linkPortfolio)) {
-        validationErrors.push('Portfolio link must be a valid URL.');
-    }
-    if (linkLeetcode && !urlPattern.test(linkLeetcode)) {
-        validationErrors.push('LeetCode link must be a valid URL.');
-    }
+  return (
+    <>
+      <div className="edit-user-page">
+        <div className="edit-user-page-title">Edit your Profile</div>
 
-    if (validationErrors.length) {
-        setErrors(validationErrors);
-        return;
-    }
+        <form onSubmit={handleConfirmEdit} id="edit-user-profile-form">
+          <div className="edit-form">
+            <label>
+              Username
+              <input
+                className="edit-input"
+                type="text"
+                value={username}
+                onChange={(e) => {
+                  if (!username.trim()) {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      err.username = "Username cannot be empty.";
+                      return err;
+                    });
+                  } else {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      delete err.username;
+                      return err;
+                    });
+                  }
+                  setUsername(e.target.value);
+                }}
+                required
+              />
+              <span className="input-border"></span>
+            </label>
+          </div>
+          {errors.username ? (
+            <p className="errors">* {errors.username}</p>
+          ) : null}
+          <div className="edit-form">
+            <label>
+              Profile Picture
+              <input
+                className="edit-input"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+              <span className="input-border"></span>
+            </label>
+          </div>
+          {errors.pic_url ? <p className="errors">* {errors.pic_url}</p> : null}
+          <div className="edit-form">
+            <label>
+              About
+              <input
+                className="edit-input"
+                type="text"
+                value={about}
+                maxLength={500}
+                onChange={(e) => setAbout(e.target.value)}
+                required
+              />
+              <span className="input-border"></span>
+            </label>
+          </div>
+          {errors.about ? <p className="errors">* {errors.about}</p> : null}
+          <div className="edit-form">
+            <label>
+              GitHub Link
+              <input
+                className="edit-input"
+                type="url"
+                value={linkGithub}
+                onChange={(e) => {
+                  // try to validate the url
+                  if (!urlPattern.test(linkGithub)) {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      err.link_github = "Link must be a valid url!";
+                      return err;
+                    });
+                  } else {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      delete err.link_github;
+                      return err;
+                    });
+                  }
+                  setLinkGithub(e.target.value);
+                }}
+                required
+              />
+              <span className="input-border"></span>
+            </label>
+          </div>
+          {errors.link_github ? (
+            <p className="errors">* {errors.link_github}</p>
+          ) : null}
 
-        const formData = new FormData();
-
-        formData.append('id', id);
-        formData.append('username', username);
-
-        if (profilePic) {
-            formData.append('pic_url', profilePic);
-        }
-
-        formData.append('about', about);
-        formData.append('link_github', linkGithub);
-        formData.append('link_linkedin', linkLinkedIn);
-        formData.append('link_portfolio', linkPortfolio);
-        formData.append('link_leetcode', linkLeetcode);
-
-        const editedUser = await dispatch(editUser(formData));
-
-        console.log('Result from edit dispatch', editedUser);
-
-
-    };
-
-    return (
-        <>
-            <div className="edit-user-page">
-                <div className="edit-user-page-title">Edit your Profile</div>
-
-                <form onSubmit={handleConfirmEdit} id="edit-user-profile-form">
-                    <ul>
-                        {errors.map((error, idx) => (
-                            <li key={idx}>{error}</li>
-                        ))}
-                    </ul>
-
-                    <div className="edit-form">
-                        <label>
-                            Username
-                            <input
-                                className="edit-input"
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                            />
-                            <span className="input-border"></span>
-                        </label>
-                    </div>
-                    <div className="edit-form">
-                        <label>
-                            Profile Picture
-                            <input
-                                className="edit-input"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    if (e.target.files) {
-                                        setProfilePic(e.target.files[0]);
-                                    }
-                                }}
-                            />
-                            <span className="input-border"></span>
-                        </label>
-                    </div>
-
-                    <div className="edit-form">
-                        <label>
-                            About
-                            <input
-                                className="edit-input"
-                                type="text"
-                                value={about}
-                                onChange={(e) => setAbout(e.target.value)}
-                                required
-                            />
-                            <span className="input-border"></span>
-                        </label>
-                    </div>
-
-                    <div className="edit-form">
-                        <label>
-                            GitHub Link
-                            <input
-                                className="edit-input"
-                                type="url"
-                                value={linkGithub}
-                                onChange={(e) => setLinkGithub(e.target.value)}
-                                required
-                            />
-                            <span className="input-border"></span>
-                        </label>
-                    </div>
-
-                    <div className="edit-form">
-                        <label>
-                            LinkedIn Link
-                            <input
-                                className="edit-input"
-                                type="text"
-                                value={linkLinkedIn}
-                                onChange={(e) => setLinkLinkedIn(e.target.value)}
-                                required
-                            />
-                            <span className="input-border"></span>
-                        </label>
-                    </div>
-
-                    <div className="edit-form">
-                        <label>
-                            Portfolio Link
-                            <input
-                                className="edit-input"
-                                type="text"
-                                value={linkPortfolio}
-                                onChange={(e) => setLinkPortfolio(e.target.value)}
-                                required
-                            />
-                            <span className="input-border"></span>
-                        </label>
-                    </div>
-
-                    <div className="edit-form">
-                        <label>
-                            Leetcode Link
-                            <input
-                                className="edit-input"
-                                type="text"
-                                value={linkLeetcode}
-                                onChange={(e) => setLinkLeetcode(e.target.value)}
-                                required
-                            />
-                            <span className="input-border"></span>
-                        </label>
-                    </div>
-
-                    <button id="edit-button" type="submit">
-                        Submit Changes
-                    </button>
-                </form>
-            </div>
-        </>
-    );
+          <div className="edit-form">
+            <label>
+              LinkedIn Link
+              <input
+                className="edit-input"
+                type="text"
+                value={linkLinkedIn}
+                onChange={(e) => {
+                  // try to validate the url
+                  if (!urlPattern.test(linkLinkedIn)) {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      err.link_linkedin = "Link must be a valid url!";
+                      return err;
+                    });
+                  } else {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      delete err.link_linkedin;
+                      return err;
+                    });
+                  }
+                  setLinkLinkedIn(e.target.value);
+                }}
+                required
+              />
+              <span className="input-border"></span>
+            </label>
+          </div>
+          {errors.link_linkedin ? (
+            <p className="errors">* {errors.link_linkedin}</p>
+          ) : null}
+          <div className="edit-form">
+            <label>
+              Portfolio Link
+              <input
+                className="edit-input"
+                type="text"
+                value={linkPortfolio}
+                onChange={(e) => {
+                  // try to validate the url
+                  if (!urlPattern.test(linkPortfolio)) {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      err.link_portfolio = "Link must be a valid url!";
+                      return err;
+                    });
+                  } else {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      delete err.link_portfolio;
+                      return err;
+                    });
+                  }
+                  setLinkPortfolio(e.target.value);
+                }}
+                required
+              />
+              <span className="input-border"></span>
+            </label>
+          </div>
+          {errors.link_portfolio ? (
+            <p className="errors">* {errors.link_portfolio}</p>
+          ) : null}
+          <div className="edit-form">
+            <label>
+              Leetcode Link
+              <input
+                className="edit-input"
+                type="text"
+                value={linkLeetcode}
+                onChange={(e) => {
+                  // try to validate the url
+                  if (!urlPattern.test(linkLeetcode)) {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      err.link_leetcode = "Link must be a valid url!";
+                      return err;
+                    });
+                  } else {
+                    setErrors((prev) => {
+                      const err = { ...prev };
+                      delete err.link_leetcode;
+                      return err;
+                    });
+                  }
+                  setLinkLeetcode(e.target.value);
+                }}
+                required
+              />
+              <span className="input-border"></span>
+            </label>
+          </div>
+          {errors.link_leetcode ? (
+            <p className="errors">* {errors.link_leetcode}</p>
+          ) : null}
+          <button id="edit-button" type="submit">
+            Submit Changes
+          </button>
+        </form>
+      </div>
+    </>
+  );
 }
 
 export default EditUserPage;
