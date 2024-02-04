@@ -131,7 +131,7 @@ const sessionSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(editUser.fulfilled, (state, action) => {
-                state.user = action.payload
+                state.user = action.payload?.errors ? state.user : action.payload
             })
     },
 });
