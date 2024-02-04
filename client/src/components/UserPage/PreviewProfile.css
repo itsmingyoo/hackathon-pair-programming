@@ -76,3 +76,8 @@
     display: flex;
     gap: .3rem;
 }
+
+#info-container {
+    padding-bottom: 1rem;
+
+}

@@ -219,6 +219,7 @@ function UserPage() {
                         console.log("follow", follower);
                         return (
                           <>
+                          <a href={`/users/${follower.follower.id}`}>
                             <div id="each-friend">
                               <div>{follower?.follower.username}</div>
                               <img
@@ -230,6 +231,7 @@ function UserPage() {
                                 style={{ height: "150px", width: "150px" }}
                               />
                             </div>
+                            </a>
                           </>
                         );
                       })

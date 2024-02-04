@@ -1,12 +1,7 @@
-import React, {
-  JSXElementConstructor,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
+import {
   Dispatch,
   SetStateAction,
 } from "react";
-import LinkedInIcon from "../../assets/button-icons/svg/linkedin.svg";
 import { useAppSelector } from "../../hooks";
 import "./PreviewProfile.css";
 
@@ -87,10 +82,10 @@ function PreviewProfile({ setEditMode }: PreviewProfileProps) {
                   <button
                     className="card1"
                     onClick={() => {
-                      if (!linkedin) {
+                      if (!sessionUser.linkedin) {
                         alert("No link provided.");
                       } else {
-                        window.open(linkedin, "_blank", "noopener,noreferrer");
+                        window.open(sessionUser.linkedin, "_blank", "noopener,noreferrer");
                       }
                     }}
                   >
@@ -133,10 +128,10 @@ function PreviewProfile({ setEditMode }: PreviewProfileProps) {
                   <button
                     className="card2"
                     onClick={() => {
-                      if (!portfolio) {
+                      if (!sessionUser.portfolio) {
                         alert("No link provided.");
                       } else {
-                        window.open(portfolio, "_blank", "noopener,noreferrer");
+                        window.open(sessionUser.portfolio, "_blank", "noopener,noreferrer");
                       }
                     }}
                   >
@@ -203,10 +198,10 @@ function PreviewProfile({ setEditMode }: PreviewProfileProps) {
                   <button
                     className="card3"
                     onClick={() => {
-                      if (!github) {
+                      if (!sessionUser.github) {
                         alert("No link provided.");
                       } else {
-                        window.open(github, "_blank", "noopener,noreferrer");
+                        window.open(sessionUser.github, "_blank", "noopener,noreferrer");
                       }
                     }}
                   >
@@ -224,10 +219,10 @@ function PreviewProfile({ setEditMode }: PreviewProfileProps) {
                   <button
                     className="card4"
                     onClick={() => {
-                      if (!leetcode) {
+                      if (!sessionUser.leetcode) {
                         alert("No link provided.");
                       } else {
-                        window.open(leetcode, "_blank", "noopener,noreferrer");
+                        window.open(sessionUser.leetcode, "_blank", "noopener,noreferrer");
                       }
                     }}
                   >

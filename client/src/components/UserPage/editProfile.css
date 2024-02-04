@@ -79,9 +79,9 @@ border-bottom: var(--primary-opacity) solid .01rem;
 
 
    .image-upload {
-    border: white 2px dashed;
-    width: 7rem;
-    height: 7rem;
+    border: var(--text).01rem dashed;
+    width: 5rem;
+    height: 5rem;
     border-radius: 100%;
     align-self: center;
     background-color: var(--modal-background);
@@ -92,7 +92,6 @@ border-bottom: var(--primary-opacity) solid .01rem;
     flex-direction: column;
     color: var(--text);
     font-size: 1rem;
-    object-fit: contain;
     position: relative;
   }
   
@@ -104,7 +103,7 @@ border-bottom: var(--primary-opacity) solid .01rem;
     text-align: center;
     color: var(--text);
     padding: 0.7rem;
-    font-size: 0.8rem;
+    font-size: .6vw;
     word-break: break-all;
   }
   
@@ -115,8 +114,8 @@ border-bottom: var(--primary-opacity) solid .01rem;
 
   .image-dot {
     background-color: var(--primary);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
