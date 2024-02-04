@@ -88,12 +88,12 @@ function TargetUserSocials(props: TargetUserProps) {
                                     gradientTransform="matrix(1 0 0 .8044 0 1.172)"
                                     gradientUnits="userSpaceOnUse"
                                 >
-                                    <stop offset="0" stop-color="#40150b"></stop>
-                                    <stop offset=".156" stop-color="#622110"></stop>
-                                    <stop offset=".417" stop-color="#953218"></stop>
-                                    <stop offset=".645" stop-color="#ba3f1e"></stop>
-                                    <stop offset=".828" stop-color="#d14722"></stop>
-                                    <stop offset=".944" stop-color="#d94a23"></stop>
+                                    <stop offset="0" stopColor="#40150b"></stop>
+                                    <stop offset=".156" stopColor="#622110"></stop>
+                                    <stop offset=".417" stopColor="#953218"></stop>
+                                    <stop offset=".645" stopColor="#ba3f1e"></stop>
+                                    <stop offset=".828" stopColor="#d14722"></stop>
+                                    <stop offset=".944" stopColor="#d94a23"></stop>
                                 </radialGradient>
                                 <path
                                     fill="url(#g5dniRY~PPjSqIO9PSW_ib_NTa3xp2XGiRy_gr2)"
@@ -107,12 +107,12 @@ function TargetUserSocials(props: TargetUserProps) {
                                     y2="26.927"
                                     gradientUnits="userSpaceOnUse"
                                 >
-                                    <stop offset="0" stop-color="#fc7d5b"></stop>
-                                    <stop offset=".06" stop-color="#f8734f"></stop>
-                                    <stop offset=".18" stop-color="#f3653d"></stop>
-                                    <stop offset=".326" stop-color="#f05b31"></stop>
-                                    <stop offset=".523" stop-color="#ee552a"></stop>
-                                    <stop offset="1" stop-color="#ed5328"></stop>
+                                    <stop offset="0" stopColor="#fc7d5b"></stop>
+                                    <stop offset=".06" stopColor="#f8734f"></stop>
+                                    <stop offset=".18" stopColor="#f3653d"></stop>
+                                    <stop offset=".326" stopColor="#f05b31"></stop>
+                                    <stop offset=".523" stopColor="#ee552a"></stop>
+                                    <stop offset="1" stopColor="#ed5328"></stop>
                                 </linearGradient>
                                 <path
                                     fill="url(#g5dniRY~PPjSqIO9PSW_ic_NTa3xp2XGiRy_gr3)"
