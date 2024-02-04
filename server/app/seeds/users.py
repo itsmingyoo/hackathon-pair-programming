@@ -43,6 +43,12 @@ def seed_users():
         )
 
         db.session.add(user)
+
+    demo = User(
+        username='Demo', email='demo@aa.io', password='password', pic_url='https://images.unsplash.com/photo-1618641986557-1ecd230959aa?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', about='Aute commodo est reprehenderit consequat incididunt excepteur. Commodo excepteur labore culpa non amet consequat Lorem ex veniam in veniam ex laboris excepteur. Dolor et cupidatat commodo enim irure ea et cillum excepteur minim cupidatat officia. Eiusmod quis sit mollit ullamco laborum consequat pariatur. Excepteur cupidatat quis commodo minim veniam. Ut ad occaecat nisi elit cupidatat veniam commodo nisi cupidatat. Labore ea ullamco ad nostrud non excepteur.', link_github='https://i.imgur.com/1eLi7iL.jpeg', link_linkedin='https://i.imgur.com/1eLi7iL.jpeg', link_portfolio='https://i.imgur.com/1eLi7iL.jpeg', link_leetcode='https://i.imgur.com/1eLi7iL.jpeg')
+
+    db.session.add(demo)
+
     db.session.commit()
 
 
