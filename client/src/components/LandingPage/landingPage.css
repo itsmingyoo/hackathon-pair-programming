@@ -73,6 +73,7 @@
   max-width: 40%; /* Allow image to take up to 50% of parent */
   height: auto;
   display: flex;
+  padding-left: 10rem;
 }
 
 .landing-page-get-started {
@@ -130,14 +131,14 @@
 
   .landing-text-one {
     font-size: 3vw; /* Adjust font size using viewport width unit */
-  
+
   }
-  
+
   .landing-text-two {
     font-size: 2.5vw; /* Adjust font size using viewport width unit */
-  
+
   }
-  
+
   .landing-text-three {
     font-size: 2.3vw; /* Adjust font size using viewport width unit */
   }
