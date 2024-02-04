@@ -1,0 +1,63 @@
+.edit-user-page {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-user-profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-user-profile-form > * {
+    font-size: 20px;
+}
+
+#edit-button {
+    background-color: var(--primary);
+    color: black;
+}
+
+
+.edit-form {
+    --width-of-input: 200px;
+    --border-height: 1px;
+    --border-before-color: rgba(221, 221, 221, 0.39);
+    --border-after-color: #20cc09;
+    --input-hovered-color: #4985e01f;
+    position: relative;
+    width: var(--width-of-input);
+   }
+   /* styling of Input */
+   .edit-input {
+    color: #fff;
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+    border-bottom: var(--border-height) solid var(--border-before-color);
+   }
+   /* styling of animated border */
+   .input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+   }
+   /* Hover on Input */
+   .edit-form > label > input:hover {
+    background: var(--input-hovered-color);
+   }
+
+   .edit-form > label > input:focus {
+    outline: none;
+   }
+   /* here is code of animated border */
+   .edit-form > label > input:focus ~ .input-border {
+    width: 100%;
+   }

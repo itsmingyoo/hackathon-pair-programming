@@ -18,18 +18,43 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
 ### Features Coming Soon
 5. IDE DS&A Tests
 6. User Direct Messaging
+7. User Statistics
 
 # Technology
-1. Python
-2. Flask
-3. React
-4. Redux && @reduxjs/toolkit
-5. TypeScript
-6. [flask-socketio](https://flask-socketio.readthedocs.io/en/latest/)
-7. OpenCV
-8. Agora-RTC
+1. Python (Server Side Language)
+2. Flask (Framework)
+3. React (JavaScript Library)
+4. Redux & @reduxjs/toolkit (State Management)
+5. TypeScript (Client Side Language with a strict syntactical superset of JavaScript and adds static type definitions)
+6. [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/) (Extension for Flask that adds WebSocket support)
+7. Agora-RTC (Enhanced version of WebRTC to offer real-time voice and video communication capabilities)
+8. PostgreSQL (Production-DB)
+9. SQLite (Development-DB)
+10. SQLAlchemy (SQL toolkit & Object-Relational Mapping (ORM) library for Python)
+
+# Project Demo
+<!--
+![Splash-Screen](client/src/assets/readme-demo-images/splash-page.png)
+![Demo-User](client/src/assets/readme-demo-images/demo-user.png)
+![Dashboard](client/src/assets/readme-demo-images/dashboard.png)
+![Pre-Pair-Page](client/src/assets/readme-demo-images/pre-pair-page.png)
+![Video-Demo](client/src/assets/readme-demo-images/video-demo.png)
+-->
+
+<img src="client/src/assets/readme-demo-images/splash-page.png" width="500" />
+<img src="client/src/assets/readme-demo-images/demo-user.png" width="500" />
+<img src="client/src/assets/readme-demo-images/dashboard.png" width="500" />
+<img src="client/src/assets/readme-demo-images/pre-pair-page.png" width="500" />
+<img src="client/src/assets/readme-demo-images/video-demo.png" width="500" />
+<br>
+<br>
+
 
 # Getting Started
+
+## Prereq:
+1. Signup for [Agora-RTC](https://sso2.agora.io/en/v6/signup)
+2. Grab your `App ID` as you will need it in the `client` folder `.env` file for the key `VITE_APP_ID`
 
 ## Method 1: Use setup.sh script
 - Run the install script in your terminal
@@ -62,6 +87,7 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
 
 ### Client
 - `cd` into the client folder
+- Create a `.env` file and fill out your appId for the key `VITE_APP_ID=<your appId>`
 - `npm i`
 - `npm run build` in one terminal for typescript
 - `npm run dev` in another terminal

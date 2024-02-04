@@ -4,6 +4,7 @@ import { editUser } from '../../store/user';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
+import './editProfile.css';
 
 function EditUserPage() {
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ function EditUserPage() {
         if (profilePic) {
             formData.append('pic_url', profilePic);
         }
-        
+
         formData.append('about', about);
         formData.append('link_github', linkGithub);
         formData.append('link_linkedin', linkLinkedIn);
@@ -59,6 +60,8 @@ function EditUserPage() {
         formData.append('link_leetcode', linkLeetcode);
 
         const editedUser = await dispatch(editUser(formData));
+
+        console.log('Result from edit dispatch', editedUser);
 
         setId(String(userId));
         setUsername('');
@@ -71,67 +74,130 @@ function EditUserPage() {
 
         setErrors([]);
 
-        if (editedUser) {
-            navigate(`/users/${userId}`);
-        }
-    }
+        // if (editedUser) {
+        //     navigate(`/users/${userId}`);
+        // }
+    };
 
     return (
         <>
-            <div className='edit-user-page'>
-                <div className='edit-user-page-title'>Edit your Profile</div>
+            <div className="edit-user-page">
+                <div className="edit-user-page-title">Edit your Profile</div>
 
-                <form onSubmit={handleConfirmEdit}>
+                <form onSubmit={handleConfirmEdit} id="edit-user-profile-form">
                     <ul>
                         {errors.map((error, idx) => (
                             <li key={idx}>{error}</li>
                         ))}
                     </ul>
 
-                    <label>
-                        Username
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                    </label>
+                    <div className="edit-form">
+                        <label>
+                            Username
+                            <input
+                                className="edit-input"
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                            <span className="input-border"></span>
+                        </label>
+                    </div>
+                    <div className="edit-form">
+                        <label>
+                            Profile Picture
+                            <input
+                                className="edit-input"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    if (e.target.files) {
+                                        setProfilePic(e.target.files[0]);
+                                    }
+                                }}
+                            />
+                            <span className="input-border"></span>
+                        </label>
+                    </div>
 
-                    <label>
-                        Profile Picture
-                        <input type="file" accept='image/*' onChange={(e) => {
-                            if (e.target.files) {
-                                setProfilePic(e.target.files[0])
-                            }
-                        }} />
-                    </label>
+                    <div className="edit-form">
+                        <label>
+                            About
+                            <input
+                                className="edit-input"
+                                type="text"
+                                value={about}
+                                onChange={(e) => setAbout(e.target.value)}
+                                required
+                            />
+                            <span className="input-border"></span>
+                        </label>
+                    </div>
 
-                    <label>
-                        About
-                        <input type='text' value={about} onChange={(e) => setAbout(e.target.value)} required />
-                    </label>
+                    <div className="edit-form">
+                        <label>
+                            GitHub Link
+                            <input
+                                className="edit-input"
+                                type="text"
+                                value={linkGithub}
+                                onChange={(e) => setLinkGithub(e.target.value)}
+                                required
+                            />
+                            <span className="input-border"></span>
+                        </label>
+                    </div>
 
-                    <label>
-                        GitHub Link
-                        <input type="text" value={linkGithub} onChange={(e) => setLinkGithub(e.target.value)} required />
-                    </label>
+                    <div className="edit-form">
+                        <label>
+                            LinkedIn Link
+                            <input
+                                className="edit-input"
+                                type="text"
+                                value={linkLinkedIn}
+                                onChange={(e) => setLinkLinkedIn(e.target.value)}
+                                required
+                            />
+                            <span className="input-border"></span>
+                        </label>
+                    </div>
 
-                    <label>
-                        LinkedIn Link
-                        <input type="text" value={linkLinkedIn} onChange={(e) => setLinkLinkedIn(e.target.value)} required />
-                    </label>
+                    <div className="edit-form">
+                        <label>
+                            Portfolio Link
+                            <input
+                                className="edit-input"
+                                type="text"
+                                value={linkPortfolio}
+                                onChange={(e) => setLinkPortfolio(e.target.value)}
+                                required
+                            />
+                            <span className="input-border"></span>
+                        </label>
+                    </div>
 
-                    <label>
-                        Portfolio Link
-                        <input type="text" value={linkPortfolio} onChange={(e) => setLinkPortfolio(e.target.value)} required />
-                    </label>
+                    <div className="edit-form">
+                        <label>
+                            Leetcode Link
+                            <input
+                                className="edit-input"
+                                type="text"
+                                value={linkLeetcode}
+                                onChange={(e) => setLinkLeetcode(e.target.value)}
+                                required
+                            />
+                            <span className="input-border"></span>
+                        </label>
+                    </div>
 
-                    <label>
-                        Leetcode Link
-                        <input type="text" value={linkLeetcode} onChange={(e) => setLinkLeetcode(e.target.value)} required />
-                    </label>
-
-                    <button type="submit">Submit Edits</button>
+                    <button id="edit-button" type="submit">
+                        Submit Changes
+                    </button>
                 </form>
             </div>
         </>
-    )
+    );
 }
 
 export default EditUserPage;

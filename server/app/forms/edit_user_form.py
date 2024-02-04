@@ -13,10 +13,10 @@ def username_taken(form, field):
         raise ValidationError("This username is already taken.")
 
 class EditProfile(FlaskForm):
-    username = StringField("Change your username.", validators=[DataRequired()])
+    username = StringField("Change your username.")
     pic_url = FileField("Set a picture for your profile", validators=[FileAllowed(list(ALLOWED_IMAGE_EXTENSIONS))])
-    about = StringField("Tell others about yourself.", validators=[DataRequired()])
-    link_github = StringField("Link your other accounts.", validators=[DataRequired()])
-    link_linkedin = StringField("Link your other accounts.", validators=[DataRequired()])
-    link_portfolio = StringField("Link your other accounts.", validators=[DataRequired()])
-    link_leetcode = StringField("Link your other accounts.", validators=[DataRequired()])
+    about = StringField("Tell others about yourself.")
+    link_github = StringField("Link your other accounts.")
+    link_linkedin = StringField("Link your other accounts.")
+    link_portfolio = StringField("Link your other accounts.")
+    link_leetcode = StringField("Link your other accounts.")

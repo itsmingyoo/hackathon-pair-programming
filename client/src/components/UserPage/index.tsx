@@ -12,6 +12,7 @@ import TargetUserInfoBox from './targetUserInfoBox';
 import TargetUserAbout from './targetUserAbout';
 import './index.css';
 import Footer from '../Footer';
+import EditUserPage from './editProfile';
 
 function UserPage() {
     const { userId } = useParams();
@@ -161,7 +162,7 @@ function UserPage() {
                                         </div>
                                     </>
                                 )}
-                                {action === 1 && <div>Profile Content & Form</div>}
+                                {action === 1 && <EditUserPage />}
                                 {action === 2 && (
                                     <div id="user-friends">
                                         {following && following.following!.length > 0 ? (

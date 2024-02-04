@@ -41,17 +41,18 @@ def edit_user(id):
     if form.validate_on_submit():
 
         user.username = form.data['username']
-
-        profile_pic = form.data['pic_url']
-        profile_pic.filename = get_unique_filename(profile_pic.filename)
-        pic_upload = upload_file_to_s3(profile_pic)
-        user.pic_url = pic_upload['url']
-
         user.about = form.data['about']
+        user.link_github = form.data['link_github']
+        user.link_linkedin = form.data['link_linkedin']
+        user.link_portfolio = form.data['link_portfolio']
+        user.link_leetcode = form.data['link_leetcode']
 
-        user.link_1 = form.data['link_1']
-        user.link_2 = form.data['link_2']
-        user.link_3 = form.data['link_3']
+
+        if form.data['pic_url']:
+            profile_pic = form.data['pic_url']
+            profile_pic.filename = get_unique_filename(profile_pic.filename)
+            pic_upload = upload_file_to_s3(profile_pic)
+            user.pic_url = pic_upload['url']
 
         db.session.commit()
         return user.to_dict()
