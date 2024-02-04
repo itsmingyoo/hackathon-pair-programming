@@ -72,11 +72,13 @@
   color: var(--dark-text);
   font-size: 1.7vw; /* Adjust font size using viewport width unit */
   font-weight: 500;
-  transition: transform 0.3s ease;
+  transition: background-color 0.3s ease, color .3s ease;
 }
 
 .landing-page-get-started:hover {
-  transform: scale(1.05);
+  background-color: transparent;
+  border: solid var(--primary-opacity) 0.01rem;
+  color: var(--text);
 }
 
 .landing-text-one {
