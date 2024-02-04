@@ -39,14 +39,38 @@ def follow_user(id):
 
     return new_follow.to_dict()
 
+@follow_routes.route('/pair/<int:id>', methods=['POST'])
+@login_required
+def follow_pair(id):
+    target_user = User.query.get(id)
+
+    new_follow = Follow(
+        followed_id = target_user.id,
+        follower_id = current_user.id
+    )
+
+    db.session.add(new_follow)
+    db.session.commit()
+
+    return current_user.to_dict()
+
+@follow_routes.route('/pair/<int:id>', methods=['DELETE'])
+@login_required
+def unfollow_pair(id):
+    follow = Follow.query.get(id)
+    if follow and follow.follower_id == current_user.id:
+        db.session.delete(follow)
+        db.session.commit()
+        return current_user.to_dict()
+    else:
+        return "You do not follow this user"
+
 
 @follow_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required
 def unfollow_user(id):
     follow = Follow.query.get(id)
-    print('🙄🙄follow🙄🙄',follow.to_dict())
-    print('🙄🙄current🙄🙄',current_user.to_dict())
-    if follow.follower_id == current_user.id:
+    if follow and follow.follower_id == current_user.id:
         db.session.delete(follow)
         db.session.commit()
         return "Unfollow Successful"
