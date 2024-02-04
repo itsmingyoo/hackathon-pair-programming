@@ -6,12 +6,11 @@
     display: flex;
     height: 5%;
     justify-content: flex-start;
-    align-items: flex-end;
-}
-
-#username,
-#profile-text {
+    align-items: center;
     font-size: 1.5vw;
+    gap: .5rem;
+    padding-bottom: .5rem;
+    border-bottom: var(--primary-opacity) solid .1rem;
 }
 
 #edit-profile-mode {
@@ -71,4 +70,9 @@
 
 #profile-about > p {
     font-size: 0.8rem;
+}
+
+.profile-buttons-container {
+    display: flex;
+    gap: .3rem;
 }

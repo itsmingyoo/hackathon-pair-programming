@@ -20,7 +20,7 @@
   align-items: center;
 }
 
-#join-channel-button {
+.join-channel-button {
   border: solid transparent 0.01rem;
   padding: 0 1vw; /* Adjust padding using viewport width unit */
   border-radius: 0.5rem;
@@ -28,16 +28,16 @@
   color: var(--dark-text);
   transition: background-color 0.3s ease;
 }
-#join-channel-button:hover {
+.join-channel-button:hover {
   background-color: transparent;
   border: solid var(--primary-opacity) 0.01rem;
 }
 
-#join-channel-button:hover .join-channel-button-text {
+.join-channel-button:hover .join-channel-button-text {
   color: white;
 }
 
-#join-channel-button .join-channel-button-text {
+.join-channel-button .join-channel-button-text {
   color: var(--dark-text);
   font-weight: 600;
   font-size: 2.5vw;

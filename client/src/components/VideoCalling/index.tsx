@@ -121,7 +121,7 @@ const VideoCall: React.FC = () => {
                 <button
                   onClick={handleJoinClick}
                   disabled={loading}
-                  id="join-channel-button"
+                  className="join-channel-button"
                 >
                   {loading ? (
                     <div className="spinner"></div>
