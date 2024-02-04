@@ -36,9 +36,9 @@ const VideoCall: React.FC = () => {
         }
       });
 
-      socket.on("user_left", (data) => {
-        console.log(data);
-      });
+      // socket.on("user_left", (data) => {
+      //   console.log(data);
+      // });
     }
 
     return () => {
@@ -75,10 +75,10 @@ const VideoCall: React.FC = () => {
   }, [channelName]);
 
   const handleJoinClick = () => {
-    console.log("You are pressing the join button.", socket);
+    // console.log("You are pressing the join button.", socket);
     setLoading(true); // Start loading
     if (socket) {
-      console.log("You are now joining a room", socket);
+      // console.log("You are now joining a room", socket);
       socket.emit("join_room");
     }
   };
@@ -98,7 +98,7 @@ const VideoCall: React.FC = () => {
       {joined ? (
         <main id="video-main-wrapper">
           <AgoraRTCProvider client={agoraEngine}>
-            <div className="video-wrapper"> 
+            <div className="video-wrapper">
               <PairedVideos
                 channelName={config.channelName}
                 leaveRoomHandler={leaveRoomHandler}

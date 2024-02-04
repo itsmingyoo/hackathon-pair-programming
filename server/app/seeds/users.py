@@ -38,7 +38,7 @@ def seed_users():
             about=about,
             link_github='https://github.com',
             link_linkedin='https://linkedin.com',
-            link_portfolio='https://portfolio.com',
+            link_portfolio='#',
             link_leetcode='https://leetcode.com'
         )
 

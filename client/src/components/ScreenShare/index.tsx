@@ -24,7 +24,7 @@ function ScreenShare(props: { channelName: string }) {
 
   useRemoteVideoTracks(remoteUsers);
   const pairInfo = useAppSelector((state) => state.pairedUser.user);
-  console.log(remoteUsers);
+  // console.log(remoteUsers);
 
   useEffect(() => {
     const fetchTokenFunction = async () => {
@@ -45,21 +45,21 @@ function ScreenShare(props: { channelName: string }) {
 
     fetchTokenFunction();
 
-    console.log(
-      "😎screenSharing😎: ",
-      screenSharing ? screenSharing : screenSharing
-    );
+    // console.log(
+    //   "😎screenSharing😎: ",
+    //   screenSharing ? screenSharing : screenSharing
+    // );
   }, [channelName, screenSharing]);
 
   useClientEvent(agoraEngine, "user-left", (user) => {
     if (user.uid === pairInfo?.screenUid) {
         setIsRemoteScreen(false);
     }
-    console.log(
-      "🦄🦄🦄🦄🦄🦄🦄🦄🦄 The user",
-      user.uid,
-      " has left the channel"
-    );
+    // console.log(
+    //   "🦄🦄🦄🦄🦄🦄🦄🦄🦄 The user",
+    //   user.uid,
+    //   " has left the channel"
+    // );
   });
 
   useClientEvent(agoraEngine, "user-published", (user, _) => {

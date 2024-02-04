@@ -9,21 +9,21 @@ const agoraEngine = useRTCClient(AgoraRTC.createClient({ codec: 'vp8', mode: con
 */
 
 import {
-  LocalVideoTrack,
-  RemoteUser,
-  useJoin,
-  useLocalCameraTrack,
-  useLocalMicrophoneTrack,
-  usePublish,
-  useRTCClient,
-  useRemoteUsers,
-  useClientEvent,
+  // LocalVideoTrack,
+  // RemoteUser,
+  // useJoin,
+  // useLocalCameraTrack,
+  // useLocalMicrophoneTrack,
+  // usePublish,
+  // useRTCClient,
+  // useRemoteUsers,
+  // useClientEvent,
   IMicrophoneAudioTrack,
   ICameraVideoTrack,
 } from "agora-rtc-react";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { configType } from "./config";
+import React, { createContext, useContext } from "react";
+// import { configType } from "./config";
 import "./agoraManager.css";
 
 // Define the shape of the Agora context

@@ -47,7 +47,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         return () => {
             // window.removeEventListener('beforeunload', handleBeforeUnload);
             if (socket) {
-                console.log('Disconnecting new socket...');
+                // console.log('Disconnecting new socket...');
                 socket.disconnect();
                 setSocket(null);
             }
@@ -57,7 +57,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     useEffect(() => {
         // Disconnect the socket if the user logs out or their session ends
         if (!user && socket && socket.connected) {
-            console.log('User logged out, disconnecting socket...');
+            // console.log('User logged out, disconnecting socket...');
             socket.disconnect();
             setSocket(null);
         }

@@ -30,7 +30,7 @@ const SignupFormPage: React.FC = () => {
     });
     const navigate = useNavigate();
 
-    console.log("errors", errors);
+    // console.log("errors", errors);
 
     useEffect(() => {
       if (sessionUser && !sessionUser.errors) {
@@ -82,7 +82,7 @@ const SignupFormPage: React.FC = () => {
         const actionResult = await dispatch(
           signUp({ username, email, password })
         );
-        console.log("this is actionresult", actionResult);
+        // console.log("this is actionresult", actionResult);
         if ((actionResult.payload as any).errors) {
           setErrors({
             email: null,
@@ -93,11 +93,11 @@ const SignupFormPage: React.FC = () => {
         } else {
           // Now that we know payload is not null/undefined, check if it's not a string
           if (typeof actionResult.payload !== "string") {
-            console.log("this is actionresult.payload.id");
+            // console.log("this is actionresult.payload.id");
             // Since payload is not a string, null, or undefined, we can assume it's a User object
             // However, as a good practice, still perform a safety check for the property
             if ("id" in actionResult.payload!) {
-              console.log("we should be navigating");
+              // console.log("we should be navigating");
               navigate(`/users/${actionResult.payload.id}`);
             }
           }

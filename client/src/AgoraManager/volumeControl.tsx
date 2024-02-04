@@ -16,7 +16,7 @@ function RemoteAndLocalVolumeComponent(props: {
 
   const handleLocalAudioToggle = () => {
     const newVolume = checked === false ? 100 : 0;
-    console.log("newvolume", newVolume);
+    // console.log("newvolume", newVolume);
     agoraContext.localMicrophoneTrack?.setVolume(newVolume);
     setChecked(!checked);
   };
@@ -24,7 +24,7 @@ function RemoteAndLocalVolumeComponent(props: {
   const handleRemoteAudioVolumeChange = (
     evt: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬", remoteUsers);
+    // console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬", remoteUsers);
     const remoteUser = remoteUsers.find(
       (rUser) => rUser.uid === pairInfo?.videoUid
     );

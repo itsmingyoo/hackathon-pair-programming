@@ -38,7 +38,7 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
   const sendChat = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬I am here!", socket);
+      // console.log("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬I am here!", socket);
 
       socket?.emit("temp_chat_message", {
         message: chatInput,
@@ -102,7 +102,7 @@ const PairedChat: React.FC<PairedChatProps> = ({ channelName }) => {
           value={chatInput}
           onChange={(e) => setChatInput(e.target.value)}
         >
-            
+
         </textarea>
         <button type="submit" id="send-message" aria-label="Send Message">
           <svg

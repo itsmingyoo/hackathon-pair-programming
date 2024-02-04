@@ -1,4 +1,4 @@
-import { useState, useCallback, MouseEventHandler, useEffect } from 'react';
+import { useState, useCallback, MouseEventHandler } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
@@ -24,13 +24,13 @@ function IDE(props: Props) {
     const [language, setLanguage] = useState<string>('python');
 
     const onChange = useCallback((val: string) => {
-        console.log('val:', val);
+        // console.log('val:', val);
         setValue(val);
     }, []);
     const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
         const results = await fetchTestResults(value, problemId, language);
-        console.log('Finished Fetching...', results);
+        // console.log('Finished Fetching...', results);
 
         // Handles All Edge Cases if there are errors, then return the state as false for correct rendering of elements
         if (results && results.results[0].error) {
@@ -43,7 +43,7 @@ function IDE(props: Props) {
 
         // Main Test Case
         if (results && results.results && !results.results[0].error) {
-            console.log('😁😁😁 results', results.results);
+            // console.log('😁😁😁 results', results.results);
             setUserResults(results.results.map((result: TestResult) => result.passOrFail));
         }
     };
@@ -58,10 +58,10 @@ function IDE(props: Props) {
         setValue('// Your JavaScript Code Here');
     };
 
-    useEffect(() => {
-        console.log('😁😁😁 state', userResults);
-        console.log('😁😁😁 state', language);
-    });
+    // useEffect(() => {
+    //     console.log('😁😁😁 state', userResults);
+    //     console.log('😁😁😁 state', language);
+    // });
 
     return (
         <>

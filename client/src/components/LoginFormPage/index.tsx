@@ -26,7 +26,7 @@ function LoginFormPage() {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Login Pressed');
+        // console.log('Login Pressed');
         const regex =
             /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -36,19 +36,19 @@ function LoginFormPage() {
         if (password.length < 8) {
             setErrors(['Invalid']);
         }
-        console.log('errors ', errors);
+        // console.log('errors ', errors);
         if (errors.length === 0) {
             const actionResult = await dispatch(login({ email, password }));
             if (login.fulfilled.match(actionResult)) {
                 // Handle the fulfilled case
-                console.log('Login successful:', actionResult.payload);
+                // console.log('Login successful:', actionResult.payload);
                 navigate(`/users/${actionResult.payload!.id}`);
             } else if (login.rejected.match(actionResult)) {
                 // Handle the rejected case
                 const error =
                     typeof actionResult.payload === 'string' ? actionResult.payload : 'An unexpected error occurred';
                 setErrors([error]);
-                console.log('Login failed:', error);
+                // console.log('Login failed:', error);
             }
         }
     };

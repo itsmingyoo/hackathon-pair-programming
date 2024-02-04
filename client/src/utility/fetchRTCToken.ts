@@ -10,7 +10,7 @@ export async function fetchRTCToken(channelName: string) {
             );
 
             const data = (await response.json()) as { rtcToken: string };
-            console.log('RTC token fetched from server: ', data.rtcToken);
+            // console.log('RTC token fetched from server: ', data.rtcToken);
             return data.rtcToken;
         } catch (error) {
             console.error(error);

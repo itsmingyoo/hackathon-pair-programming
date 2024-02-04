@@ -31,7 +31,7 @@ export const useSocketEvents = (
         };
 
         socket.on('joined', handleJoined);
-        socket.on('user_left', (data: any) => console.log(data));
+        // socket.on('user_left', (data: any) => console.log(data));
 
         return () => {
             if (socket && joined) {

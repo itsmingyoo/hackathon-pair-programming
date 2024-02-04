@@ -101,7 +101,7 @@ export const editUser = createAsyncThunk<User | null, FormData, { rejectValue: {
                 return data;
             } else {
                 const errorResponse = await res.json(); // Get the error message from the response
-                console.log("😒😒😒😒" , errorResponse)
+                // console.log("😒😒😒😒" , errorResponse)
 
                 return rejectWithValue(errorResponse.errors);
             }
@@ -134,7 +134,7 @@ const sessionSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(editUser.fulfilled, (state, action) => {
-                console.log("😒😒😒😒" ,action.payload)
+                // console.log("😒😒😒😒" ,action.payload)
                 state.user = action.payload?.errors ? state.user : action.payload
             })
     },

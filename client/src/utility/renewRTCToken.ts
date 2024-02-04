@@ -9,7 +9,7 @@ export const useTokenWillExpire = () => {
         if (config.serverUrl !== '') {
             fetchRTCToken(config.channelName)
                 .then((token) => {
-                    console.log('RTC token fetched from server: ', token);
+                    // console.log('RTC token fetched from server: ', token);
                     if (token) return agoraEngine.renewToken(token);
                 })
                 .catch((error) => {
