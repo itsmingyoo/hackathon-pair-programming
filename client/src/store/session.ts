@@ -88,6 +88,26 @@ export const signUp = createAsyncThunk<
     }
 });
 
+export const editUser = createAsyncThunk<User | null, FormData, { rejectValue: {} | string }>(
+    'user/editUser',
+    async (user, {rejectWithValue}) => {
+        try {
+            const res = await fetch(`/api/users/edit/${user.get('id')}`, {
+                method: 'PUT',
+                body: user
+            });
+            if (res.ok) {
+                const data = await res.json();
+                return data;
+            } else {
+                return "Edit user response not ok"
+            }
+        } catch (error) {
+            return rejectWithValue('User not found');
+        }
+    }
+);
+
 // Initial State
 const initialState: { user: User | null } = { user: null };
 
@@ -109,7 +129,10 @@ const sessionSlice = createSlice({
             })
             .addCase(signUp.fulfilled, (state, action) => {
                 state.user = action.payload;
-            });
+            })
+            .addCase(editUser.fulfilled, (state, action) => {
+                state.user = action.payload
+            })
     },
 });
 

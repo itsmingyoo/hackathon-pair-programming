@@ -52,6 +52,7 @@ def edit_user(id):
             profile_pic = form.data['pic_url']
             profile_pic.filename = get_unique_filename(profile_pic.filename)
             pic_upload = upload_file_to_s3(profile_pic)
+            print("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬🍍🍓😒😒😾😾😒😒 ", pic_upload)
             user.pic_url = pic_upload['url']
 
         db.session.commit()

@@ -1,6 +1,6 @@
 import { useEffect, useState, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
-import { editUser } from '../../store/user';
+import { editUser } from '../../store/session';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ function EditUserPage() {
 
     const [id, setId] = useState<string>(String(userId));
     const [username, setUsername] = useState<string>('');
-    const [profilePic, setProfilePic] = useState<File | null>(null);
+    const [profilePic, setProfilePic] = useState<File| string>('');
     const [about, setAbout] = useState<string>('');
     const [linkGithub, setLinkGithub] = useState<string>('');
     const [linkLinkedIn, setLinkLinkedIn] = useState<string>('');
@@ -42,7 +42,47 @@ function EditUserPage() {
             return;
         }
 
-        if (errors.length) return;
+        // Reset errors state at the beginning of validation
+    setErrors([]);
+
+    let validationErrors = [];
+
+    // Username validation
+    if (!username.trim()) {
+        validationErrors.push('Username cannot be empty.');
+    }
+
+    // ProfilePic validation - assuming you want to allow both File and string types
+    if (typeof profilePic === 'object' && profilePic.size > 1024 * 1024) { // Example file size check (1MB)
+        validationErrors.push('Profile picture must be smaller than 1MB.');
+    } else if (typeof profilePic === 'string' && profilePic && !profilePic.startsWith('http')) {
+        validationErrors.push('Profile picture URL must be valid.');
+    }
+
+    // About validation - example: checking length
+    if (about.length > 500) { // Assuming max 500 characters
+        validationErrors.push('About section must be less than 500 characters.');
+    }
+
+    // Links validation
+    const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/;
+    if (linkGithub && !urlPattern.test(linkGithub)) {
+        validationErrors.push('GitHub link must be a valid URL.');
+    }
+    if (linkLinkedIn && !urlPattern.test(linkLinkedIn)) {
+        validationErrors.push('LinkedIn link must be a valid URL.');
+    }
+    if (linkPortfolio && !urlPattern.test(linkPortfolio)) {
+        validationErrors.push('Portfolio link must be a valid URL.');
+    }
+    if (linkLeetcode && !urlPattern.test(linkLeetcode)) {
+        validationErrors.push('LeetCode link must be a valid URL.');
+    }
+
+    if (validationErrors.length) {
+        setErrors(validationErrors);
+        return;
+    }
 
         const formData = new FormData();
 
@@ -63,20 +103,7 @@ function EditUserPage() {
 
         console.log('Result from edit dispatch', editedUser);
 
-        setId(String(userId));
-        setUsername('');
-        setProfilePic(null);
-        setAbout('');
-        setLinkGithub('');
-        setLinkLinkedIn('');
-        setLinkPortfolio('');
-        setLinkLeetcode('');
 
-        setErrors([]);
-
-        // if (editedUser) {
-        //     navigate(`/users/${userId}`);
-        // }
     };
 
     return (
@@ -140,7 +167,7 @@ function EditUserPage() {
                             GitHub Link
                             <input
                                 className="edit-input"
-                                type="text"
+                                type="url"
                                 value={linkGithub}
                                 onChange={(e) => setLinkGithub(e.target.value)}
                                 required

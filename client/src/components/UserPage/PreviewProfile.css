@@ -1,0 +1,25 @@
+* {
+    font-size: 1.5rem;
+}
+
+#profile-main {
+    width: 100%;
+
+}
+
+#username,
+#profile-text {
+    font-size: 1.5vw;
+}
+
+#edit-profile-mode {
+    background-color: var(--primary);
+    color: black;
+    height: 2rem;
+    width: 10rem;
+}
+
+#profile-split {
+    display: flex;
+}
+
