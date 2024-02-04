@@ -1,10 +1,12 @@
-* {
-    font-size: 1.5rem;
-}
-
 #profile-main {
     width: 100%;
+}
 
+#profile-header {
+    display: flex;
+    height: 5%;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 #username,
@@ -21,5 +23,52 @@
 
 #profile-split {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
+#profile-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#info-container{
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+#pfp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pfp > img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#info > * {
+    font-size: 0.8rem;
+}
+
+#info > span:first-child {
+    font-size: 1.3rem;
+}
+
+#profile-about > div {
+    font-size: 1.1rem;
+}
+
+#profile-about > p {
+    font-size: 0.8rem;
+}

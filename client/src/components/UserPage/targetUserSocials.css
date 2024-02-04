@@ -1,3 +1,31 @@
+/**Preview Profile  */
+#user-socials-container {
+  width: 100%;
+  padding: 2rem;
+}
+
+.user-socials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.1em;
+  }
+
+.up-preview {
+  display: flex;
+  flex-direction: row;
+  gap: 0.1em;
+}
+
+.down-preview {
+  display: flex;
+  flex-direction: row;
+  gap: 0.1em;
+}
+
+
+/** Main Content */
 #target-user-socials-container {
   width: 100%;
   padding: 2rem;

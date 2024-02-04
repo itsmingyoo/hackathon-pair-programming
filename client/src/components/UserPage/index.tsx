@@ -245,6 +245,7 @@ useEffect(() => {
           <Footer />
         </>
       ) : (
+        //!!! RENDER OTHER USER'S PROFILE !!!
         <>
           <div id="target-profile-main">
             <div id="target-profile-container">
