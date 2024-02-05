@@ -36,7 +36,7 @@ const VideoCall: React.FC = () => {
         }
       });
 
-      socket.on("user_left", (data) => {
+      socket.on("user_left", (_data) => {
         dispatch(clearUser())
       });
     }
