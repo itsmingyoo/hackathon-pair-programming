@@ -40,9 +40,21 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--background);
-  background: url('./assets/background.png') right/180% repeat;
+  background: url('./assets/background.png') right/180% repeat darkviolet;
+  background-blend-mode: multiply;
   margin: 0;
   width: 100dvw;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1); /* Adjust the alpha value to control the darkness */
+  z-index: -1;
 }
 
 main {
