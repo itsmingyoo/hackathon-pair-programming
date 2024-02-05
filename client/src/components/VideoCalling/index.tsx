@@ -47,7 +47,6 @@ const VideoCall: React.FC = () => {
         socket.removeAllListeners("joined");
         socket.removeAllListeners("user_left");
         socket.emit("leave_room", { room: channelName });
-        dispatch(clearUser())
         config.channelName = "";
         config.joined = false;
       }

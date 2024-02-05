@@ -31,7 +31,7 @@ function TargetUserInfoBox(props: TargetUserProps) {
             >
               Direct Message
             </button>
-            <button  className="profile-buttons"onClick={(e) => handleFollow!(e)}>
+            <button  className="profile-buttons"onClick={handleFollow}>
               {isFollowed ? "Unfollow" : "Follow"}
             </button>
           </div>

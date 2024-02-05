@@ -25,7 +25,8 @@ function EditUserPage({ setEditMode }: EditUserProps) {
   const [linkLinkedIn, setLinkLinkedIn] = useState<string>("");
   const [linkPortfolio, setLinkPortfolio] = useState<string>("");
   const [linkLeetcode, setLinkLeetcode] = useState<string>("");
-  const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/;
+  const urlPattern = /^https?:\/\/[^\s$?#].[^\s]*$/;
+
 
   const [errors, setErrors] = useState<{ [key: string]: string | null }>({});
 

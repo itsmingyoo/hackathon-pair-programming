@@ -63,8 +63,9 @@ function PairedVideos(props: { channelName: string; leaveRoomHandler: () => void
 
     const deviceLoading = isLoadingMic || isLoadingCam;
 
-    const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleVideoFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        e.stopPropagation();
 
         try {
             if (!isFollowed && pairInfo) {
@@ -109,7 +110,7 @@ function PairedVideos(props: { channelName: string; leaveRoomHandler: () => void
                                 <div className="videos" style={{ height: 300, width: 300 }} key={remoteUser.uid}>
                                     <p className="video-username">{pairInfo.username}</p>
                                     <RemoteUser user={remoteUser} playVideo={true} playAudio={true} />
-                                    <button id="follow-user" onClick={handleFollow}>{isFollowed ? "unfollow" : "Follow"}</button>
+                                    <button id="follow-user" onClick={handleVideoFollow}>{isFollowed ? "unfollow" : "Follow"}</button>
                                 </div>
                             );
                         }
