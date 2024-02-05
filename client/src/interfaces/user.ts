@@ -28,4 +28,5 @@ export interface TargetUserProps {
     isFollowed: boolean;
     setIsFollowed?: React.Dispatch<React.SetStateAction<boolean>>;
     userId?: string;
+    handleFollow?: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>; // Define handleFollow property
 }

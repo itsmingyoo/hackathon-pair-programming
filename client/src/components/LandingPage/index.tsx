@@ -41,12 +41,14 @@ function LandingPage() {
     <>
       <main className="landing-page">
         <div className="landing-page-cool-image">
-          <img
-            src={chat1}
-            alt="first-cat-sitting-and-coding"
-            id="cat-one"
-            className="bouncy-cats-one"
-          />
+          <div id="cat-one">
+            <img
+              src={chat1}
+              alt="first-cat-sitting-and-coding"
+              
+              className="bouncy-cats-one"
+            />
+          </div>
           <div className="comix-bubbles-container">
             <div className="comic-one">
               <img

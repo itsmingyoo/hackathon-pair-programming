@@ -111,6 +111,52 @@ export const editUser = createAsyncThunk<User | null, FormData, { rejectValue: {
     }
 );
 
+export const pairFollow = createAsyncThunk<User | null, number, { rejectValue: string }>(
+    'following/postFollow',
+    async (followId, { rejectWithValue }) => {
+        try {
+            const response = await fetch(`/api/follows/pair/${followId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                return rejectWithValue('Failed to post follow');
+            }
+        } catch (error) {
+            console.error('Error in post follow: ', error);
+            return rejectWithValue('Failed to follow user');
+        }
+    }
+);
+
+export const pairUnfollow = createAsyncThunk<User | null, number, { rejectValue: string }>(
+    'following/unfollow',
+    async (relationshipId, { rejectWithValue }) => {
+        try {
+            const response = await fetch(`/api/follows/pair/${relationshipId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                const data = await response.json()
+                return data;
+            } else {
+                // Handle non-OK responses
+                return rejectWithValue(`Failed to unfollow, server responded with status: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('Error in unfollowing', error);
+            return rejectWithValue('Failed to unfollow');
+        }
+    }
+);
+
 // Initial State
 const initialState: { user: User | null } = { user: null };
 
@@ -136,6 +182,12 @@ const sessionSlice = createSlice({
             .addCase(editUser.fulfilled, (state, action) => {
                 // console.log("😒😒😒😒" ,action.payload)
                 state.user = action.payload?.errors ? state.user : action.payload
+            })
+            .addCase(pairFollow.fulfilled, (state,action) => {
+                state.user = action.payload;
+            })
+            .addCase(pairUnfollow.fulfilled, (state, action) => {
+                state.user = action.payload;
             })
     },
 });

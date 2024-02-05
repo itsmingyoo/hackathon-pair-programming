@@ -250,12 +250,17 @@
 
 /** TARGET USER CSS */
 #target-profile-main {
-    display: flex;
-    flex: 1;
+ width: 100%;
+ display: flex;
+ border-bottom: var(--primary) solid .01rem;
+ border-top: var(--primary) solid .01rem;
+
 }
 
 #target-profile-container {
-    width: 100vw;
+  display: flex;
+  width: 100vw;
+  flex: 1;
 }
 
 #target-profile-header, #target-profile-content {
@@ -273,10 +278,12 @@
     align-items: flex-start;
     gap: 2rem;
     width: 50%;
+    height: 100%;
     /** VERTICAL LINE SPLIT */
     padding-right: 5rem;
     padding-left: 5rem;
     border-right: 1px solid var(--primary);
+    justify-content: space-evenly;
 }
 
 #targetuser-username {
@@ -307,9 +314,10 @@
 }
 
 #targetuser-profile-split {
-    display: flex;
-    justify-content: space-around;
-    margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
 }
 
 #target-profile-text {
@@ -339,12 +347,10 @@
 }
 
 #targetuser-friends-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+  flex: 1;
     width: 50%;
-    padding: 0 5rem;
+    padding: 1rem 5rem;
+    height: 100%;
 }
 
 #targetuser-following {
@@ -352,6 +358,8 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    height: 100%;
+
 }
 
 #follower-image-container > img {
@@ -364,9 +372,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 5px;
+    gap: 1rem;
     margin-top: 1rem;
-    width: 20vw;
 }
 
 #targetuser-following-container > h2, #targetuser-followers-container > h2 {
@@ -379,6 +386,10 @@
 }
 #targetuser-following-container, #targetuser-followers-container {
     width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -386,4 +397,9 @@
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
+}
+
+.follow-scroll {
+  overflow: scroll;
+
 }

@@ -56,12 +56,10 @@ def handle_join_room():
         socket_rooms[chosen_room]["user_history"].append(user.id)
 
         join_room(chosen_room)
-        print({"user_successfully_joined": '😀😁😂🤣😃😄😅',"user": user.to_dict(), 'room': chosen_room})
         emit("joined", {"users": socket_rooms[chosen_room]["current_users"], "room": chosen_room}, room=chosen_room)
 
     except Exception as e:
         # Handle exceptions (e.g., room not found, socket connection issue)
-        print("🤬🤬🤬🤬🤬🤬🤬🤬🤬🤬", e)
         socketio.emit("join_room_error", {"error": str(e)}, to=user.id)
 
 
@@ -76,7 +74,6 @@ def handle_leave_room(data):
             "room": "example_room_name"
         }
     """
-    print('🚪🚪🚪🚪🚪🚪 User Navigated Elsewhere, closing down room.')
     if len(socket_rooms[data["room"]]["current_users"]) == 1:
         del socket_rooms[data["room"]]
         close_room(data["room"])
@@ -116,7 +113,6 @@ def handle_user_leaving(data):
         "user": data['userId'],
         "reason": 'Refreshed, Reloaded, or Closed Tab'
     }
-    print('🤡🤡🤡🤡USER LEFT!!!🤡🤡🤡🤡', response)
     disconnect()
 
 @socketio.on_error()

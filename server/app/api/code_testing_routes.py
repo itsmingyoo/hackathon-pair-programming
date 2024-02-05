@@ -29,7 +29,6 @@ def add_two_sum():
     language = request.json.get('language')
 
     if code is None:
-        print('🥶🥶🥶')
         return jsonify({'error': 'No code provided'}), 400
 
     if code:

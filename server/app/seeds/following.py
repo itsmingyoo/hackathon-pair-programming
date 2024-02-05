@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 import random
 
 def seed_follows():
-    users_count = 20  # Assuming we have 20 users
+    users_count = 21  # Assuming we have 20 users
     follow_relationships = set()  # To keep track of already created relationships
 
     for follower_id in range(1, users_count + 1):
