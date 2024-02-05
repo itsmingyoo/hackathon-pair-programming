@@ -86,7 +86,7 @@ const followingSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getFollowing.fulfilled, (state, action) => {
             if (action.payload) {
-                // console.log('get following action.payload', action.payload);
+                // console.log('😒😒😒😒😒😒😒😒😒😒get following action.payload', action.payload);
                 state.following = action.payload.data.follows || [];
                 state.followers = action.payload.data.followers || [];
                 state.user = action.payload.user;

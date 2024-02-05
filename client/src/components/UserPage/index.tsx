@@ -63,6 +63,7 @@ function UserPage() {
 
   const handleFollow = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     if (sessionUser?.errors) {
       alert("You must be logged in to follow this user.");
       return;
