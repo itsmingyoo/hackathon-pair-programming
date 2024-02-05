@@ -7,7 +7,7 @@ import { fetchRTCToken } from "../../utility/fetchRTCToken";
 import PairedChat from "../PairedChat";
 import PairedVideos from "../PairedVideos";
 import { useAppDispatch } from "../../hooks";
-import { receiveUser } from "../../store/pairedUser";
+import { clearUser, receiveUser } from "../../store/pairedUser";
 import CatImage from "/src/assets/images/devpair-loading-screen.png";
 import "./index.css";
 import Footer from "../Footer";
@@ -36,9 +36,9 @@ const VideoCall: React.FC = () => {
         }
       });
 
-      // socket.on("user_left", (data) => {
-      //   console.log(data);
-      // });
+      socket.on("user_left", (data) => {
+        dispatch(clearUser())
+      });
     }
 
     return () => {
@@ -47,6 +47,7 @@ const VideoCall: React.FC = () => {
         socket.removeAllListeners("joined");
         socket.removeAllListeners("user_left");
         socket.emit("leave_room", { room: channelName });
+        dispatch(clearUser())
         config.channelName = "";
         config.joined = false;
       }
@@ -88,6 +89,7 @@ const VideoCall: React.FC = () => {
       socket.emit("leave_room", { room: channelName });
       setJoined(false);
       setChannelName("");
+      dispatch(clearUser())
       config.channelName = "";
       setLoading(false);
     }
