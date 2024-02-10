@@ -8,6 +8,7 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
 - **Interactive Platform**: Offers video camera sharing and chat functionalities for enhanced communication and problem-solving collaboration.
 - **Community-Driven Initiative**: Aims to serve users struggling to find programming partners, fostering a supportive community environment.
 - **Flexible Pairing Options**: Allows users to link up with a partner or choose to connect with a different participant.
+### This is a prototype
 
 # Features (MVPs)
 1. Video Calling
