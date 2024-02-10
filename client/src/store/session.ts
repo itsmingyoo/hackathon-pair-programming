@@ -89,7 +89,7 @@ export const signUp = createAsyncThunk<
 });
 
 export const editUser = createAsyncThunk<User | null, FormData, { rejectValue: {} | string }>(
-    'user/editUser',
+    'session/editUser',
     async (user, {rejectWithValue}) => {
         try {
             const res = await fetch(`/api/users/edit`, {
@@ -112,7 +112,7 @@ export const editUser = createAsyncThunk<User | null, FormData, { rejectValue: {
 );
 
 export const pairFollow = createAsyncThunk<User | null, number, { rejectValue: string }>(
-    'following/postFollow',
+    'session/pairFollow',
     async (followId, { rejectWithValue }) => {
         try {
             const response = await fetch(`/api/follows/pair/${followId}`, {
@@ -136,7 +136,7 @@ export const pairFollow = createAsyncThunk<User | null, number, { rejectValue: s
 );
 
 export const pairUnfollow = createAsyncThunk<User | null, number, { rejectValue: string }>(
-    'following/unfollow',
+    'session/pairUnfollow',
     async (relationshipId, { rejectWithValue }) => {
         try {
             const response = await fetch(`/api/follows/pair/${relationshipId}`, {
@@ -180,7 +180,6 @@ const sessionSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(editUser.fulfilled, (state, action) => {
-                // console.log("😒😒😒😒" ,action.payload)
                 state.user = action.payload?.errors ? state.user : action.payload
             })
             .addCase(pairFollow.fulfilled, (state,action) => {
