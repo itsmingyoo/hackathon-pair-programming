@@ -99,7 +99,7 @@ function Footer() {
             <div className="developer-name">Saad Anwer</div>
             <div className="developer-links-container">
               <div className="developer-github">
-                <a className="github" href="#" target="_blank">
+                <a className="github" href="https://github.com/anwersaad0" target="_blank">
                   <img
                     src={GitHubIcon}
                     alt="GitHub Icon"
@@ -109,7 +109,7 @@ function Footer() {
                 </a>
               </div>
               <div className="developer-linkedin">
-                <a className="linkedin" href="#" target="_blank">
+                <a className="linkedin" href="https://www.linkedin.com/in/saad-anwer-01aab317a/" target="_blank">
                   <img
                     src={LinkedInIcon}
                     alt="GitHub Icon"
