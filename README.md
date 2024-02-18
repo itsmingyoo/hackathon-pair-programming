@@ -1,6 +1,9 @@
 # $${\color{blue}Winter \space Hackathon-Dev-Pair}$$
 <!-- FORMAT FOR THIS STYLING: $${\color{red}Welcome \space \color{lightblue}To \space \color{orange}Stackoverflow}$$ -->
-$${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, \space \color{lightblue}John, \space \color{lightblue}Saad}$$
+$${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda}$$
+
+# The Official DevPair Repository
+- ### This is where we'll be constantly updating this project to its full potential.
 
 # About
 - **Accessibility-Focused**: Designed to assist users in finding pair-programming partners for practicing Data Structures & Algorithms.
@@ -8,7 +11,6 @@ $${\color{red}by \space \color{lightblue}Minh, \space \color{lightblue}Melinda, 
 - **Interactive Platform**: Offers video camera sharing and chat functionalities for enhanced communication and problem-solving collaboration.
 - **Community-Driven Initiative**: Aims to serve users struggling to find programming partners, fostering a supportive community environment.
 - **Flexible Pairing Options**: Allows users to link up with a partner or choose to connect with a different participant.
-### This is a prototype
 
 # Features (MVPs)
 1. Video Calling
