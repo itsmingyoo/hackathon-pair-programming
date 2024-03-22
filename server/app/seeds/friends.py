@@ -1,13 +1,13 @@
 # Import necessary modules
-from app.models import db, User, Friend, environment, SCHEMA
+from app.models import db, User, Friend, environment, SCHEMA, FriendshipStatus
 from sqlalchemy.sql import text
 
 # Define a function to seed the friends data
 def seed_friends():
     # Define friendships between users
     friendships = [
-        {'user_id': 1, 'friend_id': 2, 'status': 'accepted'},  # Example friendship between user 1 and user 2
-        {'user_id': 1, 'friend_id': 3, 'status': 'pending'},  # Example friendship between user 1 and user 3
+        {'user_id': 1, 'friend_id': 2, 'status': FriendshipStatus.ACCEPTED},  # Example friendship between user 1 and user 2
+        {'user_id': 1, 'friend_id': 3, 'status': FriendshipStatus.PENDING},  # Example friendship between user 1 and user 3
         # Add more friendships as needed
     ]
 

@@ -5,4 +5,4 @@ from .message import Message
 from .direct_message import DirectMessage
 from .following import Follow
 from .db import environment, SCHEMA
-from .friends import Friend
+from .friends import Friend, FriendshipStatus
