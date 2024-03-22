@@ -4,6 +4,7 @@ from flask_login import UserMixin
 import uuid
 
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -40,6 +41,16 @@ class User(db.Model, UserMixin):
         foreign_keys='Follow.followed_id',
         back_populates='follower',
         lazy='dynamic'
+    )
+
+    # Define a many-to-many relationship with the User model itself (friends)
+    friends = db.relationship(
+        'User',  # Target model (User)
+        secondary='friends_association',  # Association table
+        primaryjoin='User.id == friends_association.c.user_id',  # Join condition for user_id
+        secondaryjoin='User.id == friends_association.c.friend_id',  # Join condition for friend_id
+        backref=db.backref('friend_of', lazy='dynamic'),  # Back reference for accessing friends of a user
+        lazy='dynamic'  # Lazy loading for better performance
     )
 
     @property
