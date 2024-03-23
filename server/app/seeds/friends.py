@@ -8,6 +8,7 @@ def seed_friends():
     friendships = [
         {'user_id': 1, 'friend_id': 2, 'status': FriendshipStatus.ACCEPTED},  # Example friendship between user 1 and user 2
         {'user_id': 1, 'friend_id': 3, 'status': FriendshipStatus.PENDING},  # Example friendship between user 1 and user 3
+        {'user_id': 4, 'friend_id': 1, 'status': FriendshipStatus.PENDING},
         # Add more friendships as needed
     ]
 

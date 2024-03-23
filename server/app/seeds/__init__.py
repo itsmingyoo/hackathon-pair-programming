@@ -32,4 +32,5 @@ def seed():
 def undo():
     undo_follows()
     undo_users()
+    undo_friends()
     # Add other undo functions here
