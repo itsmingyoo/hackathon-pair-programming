@@ -2,7 +2,6 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import uuid
-from .friends import friends_association
 
 
 class User(db.Model, UserMixin):
@@ -35,7 +34,6 @@ class User(db.Model, UserMixin):
     # Define a relationship to store received friend requests (one-to-many)
     received_friend_requests = db.relationship('FriendRequest', foreign_keys='FriendRequest.receiver_id', backref='receiver')
 
-    # Define a relationship to store friends (many-to-many)
     # Define a many-to-many relationship with the User model itself (friends)
     friends = db.relationship(
         'User',  # Target model (User)
@@ -57,7 +55,7 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self, include_relationships=True, include_user=True):
+    def to_dict(self, include_relationships=True, include_friend_requests=False):
         data = {
             'id': self.id,
             'username': self.username,
@@ -74,5 +72,10 @@ class User(db.Model, UserMixin):
 
         if include_relationships:
             data['friends'] = [friend.to_dict(include_relationships=False) for friend in self.friends]
+        
+        if include_friend_requests:
+            data['sentRequests'] = {request.id: request.receiver.to_dict(include_relationships=False) for request in self.sent_friend_requests}
+            data['receivedRequests'] = {request.id: request.sender.to_dict(include_relationships=False) for request in self.received_friend_requests}
+
 
         return data

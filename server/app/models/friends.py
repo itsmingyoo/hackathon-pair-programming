@@ -18,6 +18,14 @@ class FriendRequest(db.Model):
     receiver_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
     status = db.Column(db.Enum(FriendshipStatus), nullable=False, default=FriendshipStatus.PENDING)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'sender': self.sender.to_dict(include_relationships=False),
+            'receiver': self.receiver.to_dict(include_relationships=False),
+            'status': self.status
+        }
+
 friends_association = db.Table(
     'friends_association',
     db.Column('user_id', db.Integer, ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
