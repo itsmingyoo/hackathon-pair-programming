@@ -35,7 +35,7 @@ class User(db.Model, UserMixin):
         secondary='friends_association',  # Association table
         primaryjoin='User.id == friends_association.c.user_id',  # Join condition for user_id
         secondaryjoin='User.id == friends_association.c.friend_id',  # Join condition for friend_id
-        backref=db.backref('friend_of', lazy='dynamic'),  # Back reference for accessing friends of a user
+        backref=db.backref('friend_of', lazy='dynamic'),  # Back reference for accessing friends of a user (utilize the friend_of key for accessing associations not initiated by user)
         lazy='dynamic'  # Lazy loading for better performance
     )
 

@@ -11,7 +11,7 @@ def get_user_friends(UserId):
     """
         Retrieves a user's friends accepted and pending friend requests.
 
-        Returns a dictionary with "Friends" and "Requests" keys, containing friend data.
+        Returns a dictionary containing friend data for current friends and pending requests.
 
         Parameters:
             UserId (int): The user ID.
@@ -22,7 +22,8 @@ def get_user_friends(UserId):
         Example Response:
         {
             "Friends": {...},
-            "Requests": {...}
+            "Sent": {...},
+            "Received": {...},
         }
         """
 
@@ -32,7 +33,8 @@ def get_user_friends(UserId):
         return {"error": "User not found"}, 404
     
     friends = {friend.id: friend.to_dict() for friend in user.friends.filter(Friend.status == FriendshipStatus.ACCEPTED).all()}
-    # requests = {friend.id: friend.user_id.to_dict() for friend in Friend.query.filter_by(friend_id=user.id, status=FriendshipStatus.PENDING).all()}
+    sent_requests = {friend.id: friend.to_dict() for friend in user.friends.filter(Friend.status == FriendshipStatus.PENDING).all()}
+    received_requests = {friend.id: friend.to_dict() for friend in user.friend_of.filter(Friend.status == FriendshipStatus.PENDING).all()}
 
-    return {"Friends": friends}
+    return {"Friends": friends, "Sent": sent_requests, "Received": received_requests}
 
