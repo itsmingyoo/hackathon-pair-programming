@@ -29,20 +29,6 @@ class User(db.Model, UserMixin):
 
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
 
-    following = db.relationship(
-        'Follow',
-        foreign_keys='Follow.follower_id',
-        back_populates='followed',
-        lazy='dynamic'
-    )
-
-    followers = db.relationship(
-        'Follow',
-        foreign_keys='Follow.followed_id',
-        back_populates='follower',
-        lazy='dynamic'
-    )
-
     # Define a many-to-many relationship with the User model itself (friends)
     friends = db.relationship(
         'User',  # Target model (User)
@@ -80,7 +66,6 @@ class User(db.Model, UserMixin):
         }
 
         if include_relationships:
-            data['following'] = [follow.to_dict(include_user=include_user) for follow in self.following]
-            data['followers'] = [follow.to_dict(include_user=include_user) for follow in self.followers]
+            data['friends'] = [friend.to_dict(include_relationships=False) for friend in self.friends]
 
         return data
