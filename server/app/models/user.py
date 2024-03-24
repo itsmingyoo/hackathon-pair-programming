@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import uuid
-
+from .friends import friends_association
 
 
 class User(db.Model, UserMixin):
@@ -29,6 +29,13 @@ class User(db.Model, UserMixin):
 
     messages = db.relationship('Message', back_populates='user', cascade="all, delete-orphan")
 
+    # Define a relationship to store sent friend requests (one-to-many)
+    sent_friend_requests = db.relationship('FriendRequest', foreign_keys='FriendRequest.sender_id', backref='sender')
+
+    # Define a relationship to store received friend requests (one-to-many)
+    received_friend_requests = db.relationship('FriendRequest', foreign_keys='FriendRequest.receiver_id', backref='receiver')
+
+    # Define a relationship to store friends (many-to-many)
     # Define a many-to-many relationship with the User model itself (friends)
     friends = db.relationship(
         'User',  # Target model (User)

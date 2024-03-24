@@ -4,4 +4,4 @@ from .chatroom import ChatRoom
 from .message import Message
 from .direct_message import DirectMessage
 from .db import environment, SCHEMA
-from .friends import Friend, FriendshipStatus
+from .friends import FriendRequest, FriendshipStatus, friends_association
