@@ -100,7 +100,53 @@ def send_friend_request(receiver_id):
     db.session.add(new_request)
     db.session.commit()
 
-    return {"success": "Friend request successfully sent!"}
+    return {"success": "Friend request successfully sent!"}, 201
 
+@friend_routes.route('/request/accept/<int:request_id>', methods=["PUT"])
+def accept_friend_request(request_id):
+    """
+    @route PUT /request/accept/<int:request_id>
 
+    @summary Accepts a pending friend request.
+
+    @description Accepts a pending friend request with the specified ID, updating the request status to 
+    Accepted and establishing a friendship between the sender and receiver.
+
+    @param {int:request_id} ID of the friend request to accept.
+
+    @returns {object} A dictionary containing the information of the newly added friend:
+        - Friend {object}: A dictionary containing the friend's data.
+
+    @throws:
+        400 (Bad Request): 
+            - If the user tries to accept a request they haven't received.
+            - If the request has already been responded to (not pending).
+        404 (Not Found): If the friend request with the provided ID is not found.
+        500 (Internal Server Error): If an unexpected error occurs during database operations.
+
+    Example Response:
+    {
+    "Friend": {
+        ...friend data ...
+    }
+    }
+    """
+
+    friend_request = FriendRequest.query.get(request_id)
+
+    if not friend_request:
+        return {"error": "Friend request not found."}, 404
+    if friend_request.receiver != current_user:
+        return {"error": "You can only accept requests you have received."}, 400
+    if friend_request.status != FriendshipStatus.PENDING:
+        return {"error": "You have already responded to this friend request."}, 400
+    
+    # Update friend request status
+    friend_request.status = FriendshipStatus.ACCEPTED
+    # Add users to each others friend lists
+    friend_request.sender.friends.append(friend_request.receiver)
+    friend_request.receiver.friends.append(friend_request.sender)
+
+    db.session.commit()
+    return {"Friend": friend_request.sender.to_dict()}, 200
 
