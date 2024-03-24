@@ -8,25 +8,27 @@ friend_routes = Blueprint('friends', __name__)
 
 @friend_routes.route('/<int:UserId>')
 def get_user_friends(UserId):
+
     """
-        Retrieves a user's friends accepted and pending friend requests.
+    @route GET /<int:UserId>
 
-        Returns a dictionary containing friend data for current friends and pending requests.
+    @summary Retrieves a user's friends (accepted) and pending friend requests.
 
-        Parameters:
-            UserId (int): The user ID.
+    @description Returns a dictionary containing friend data for current friends and pending requests (sent and received).
 
-        Returns:
-            User data dictionary or 404 if user not found.
+    @param {int:UserId} ID of the user to retrieve connections for.
 
-        Example Response:
-        {
-            "Friends": {...},
-            "Sent": {...},
-            "Received": {...},
-        }
-        """
+    @returns {object} Friend list, sent & received friend requests (pending).
 
+    @throws {404} User not found.
+
+    Example Response:
+    {
+    "Friends": {...},
+    "Sent": {...},
+    "Received": {...},
+    }
+    """
     user = User.query.get(UserId)
 
 
