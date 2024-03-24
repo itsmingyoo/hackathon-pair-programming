@@ -103,6 +103,7 @@ def send_friend_request(receiver_id):
     return {"success": "Friend request successfully sent!"}, 201
 
 @friend_routes.route('/request/accept/<int:request_id>', methods=["PUT"])
+@login_required
 def accept_friend_request(request_id):
     """
     @route PUT /request/accept/<int:request_id>
@@ -150,3 +151,19 @@ def accept_friend_request(request_id):
     db.session.commit()
     return {"Friend": friend_request.sender.to_dict()}, 200
 
+@friend_routes.route('/request/cancel/<int:request_id>', methods=['DELETE'])
+@login_required
+def cancel_sent_request(request_id):
+
+    friend_request = FriendRequest.query.get(request_id)
+
+    if not friend_request:
+        return {"error": "Friend request not found."}, 404
+    if friend_request.sender != current_user:
+        return {"error": "You can only cancel requests you have sent."}, 400
+    if friend_request.status != FriendshipStatus.PENDING:
+        return {"error": "This friend request has already been accepted or rejected."}, 400
+    
+    db.session.delete(friend_request)
+    db.session.commit()
+    return {"success": "Request successfully deleted."}, 200
