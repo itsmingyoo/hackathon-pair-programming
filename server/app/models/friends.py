@@ -7,12 +7,20 @@ class FriendshipStatus(Enum):
     ACCEPTED = 'accepted'
     REJECTED = 'rejected'
 
-class Friend(db.Model):
-    __tablename__ = 'friends_association'  # Explicit table name
+class FriendRequest(db.Model):
+    __tablename__ = 'friend_requests'  # Explicit table name
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}  # Optional schema for production
 
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
-    friend_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
+    receiver_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
     status = db.Column(db.Enum(FriendshipStatus), nullable=False, default=FriendshipStatus.PENDING)
+
+friends_association = db.Table(
+    'friends_association',
+    db.Column('user_id', db.Integer, ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
+    db.Column('friend_id', db.Integer, ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
+    # Additional columns if needed (e.g., date_added)
+)
